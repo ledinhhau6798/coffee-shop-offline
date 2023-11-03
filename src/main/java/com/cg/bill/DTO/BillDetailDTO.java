@@ -1,6 +1,5 @@
 package com.cg.bill.DTO;
 
-import com.cg.model.OrderDetail;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +9,7 @@ import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

@@ -9,7 +9,11 @@ import com.cg.staff.DTO.StaffCreReqDTO;
 import com.cg.staff.DTO.StaffDTO;
 import com.cg.staff.DTO.StaffUpReqDTO;
 import com.cg.locationRegion.LocationRegionRepository;
+<<<<<<< HEAD
 import com.cg.staffAvatar.StaffAvatarRepository;
+=======
+import com.cg.repository.StaffAvatarRepository;
+>>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
 import com.cg.role.IRoleService;
 import com.cg.service.upload.IUploadService;
 import com.cg.user.IUserService;
@@ -30,6 +34,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+//@Component
 @Transactional
 public class StaffServiceImpl implements IStaffService {
     @Autowired

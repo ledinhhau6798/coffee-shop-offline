@@ -16,8 +16,6 @@ import org.springframework.validation.Validator;
 @Accessors(chain = true)
 public class CategoryUpReqDTO implements Validator {
 
-
-
     private String title;
 
     @Override
@@ -28,13 +26,7 @@ public class CategoryUpReqDTO implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         CategoryUpReqDTO categoryUpReqDTO = (CategoryUpReqDTO) target;
-
-
         String title = categoryUpReqDTO.title;
-
-
-
-
         if (title.isEmpty()) {
             errors.rejectValue("title", "title.null", "Tên không được phép rỗng");
         }

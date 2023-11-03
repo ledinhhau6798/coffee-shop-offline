@@ -11,6 +11,7 @@ import com.cg.productAvatar.ProductAvatarRepository;
 import com.cg.service.upload.IUploadService;
 import com.cg.utils.UploadUtils;
 import com.cg.utils.ValidateUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,21 +26,17 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ProductServiceImpl implements IProductService {
 
-    @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
     private ProductAvatarRepository productAvatarRepository;
 
-    @Autowired
     private IUploadService uploadService;
 
-    @Autowired
     private UploadUtils uploadUtils;
 
-    @Autowired
     private ValidateUtils validateUtils;
 
     @Override

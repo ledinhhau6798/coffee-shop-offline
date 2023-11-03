@@ -1,7 +1,11 @@
 package com.cg.bill;
 
 import com.cg.model.Bill;
+<<<<<<< HEAD
 import com.cg.bill.DTO.BillCreResDTO;
+=======
+import com.cg.bill.DTO.BillCreateResDTO;
+>>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
 import com.cg.bill.DTO.BillDTO;
 import com.cg.bill.DTO.BillDetailDTO;
 import com.cg.service.IGeneralService;
@@ -16,7 +20,7 @@ public interface IBillService extends IGeneralService<Bill,Long> {
 
     List<BillDTO> findBillByCreatedAts(Date BillDate);
 
-    BillCreResDTO createBill(Long tableId);
+    BillCreateResDTO createBill(Long tableId);
 
     List<BillDTO> getBillByDate(Integer year, Integer month, Integer day);
 

@@ -11,10 +11,15 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.Optional;
+>>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
 
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Long> {
 
+<<<<<<< HEAD
 
 
     @Query("select new com.cg.bill.DTO.BillDetailDTO (" +
@@ -46,12 +51,63 @@ public interface BillRepository extends JpaRepository<Bill, Long> {
             "WHERE DATE(b.createdAt) = :eventDate"
     )
     List<BillDTO> findBillByCreatedAts(@Param("eventDate") Date eventDate);
+=======
+//    @Query("SELECT NEW com.cg.model.dto.bill.BillDTO (" +
+//            "b.id, " +
+//            "b.order.tableOrder.title, " +
+//            "b.order.totalAmount, " +
+//            "b.createdAt, " +
+//            "b.order.staff.title, " +
+//            "b.order.id " +
+//            ") " +
+//            "FROM Bill AS b "
+//    )
+//    List<BillDTO> findAllBillDTO();
+
+//    @Query("select new com.cg.model.dto.bill.BillDetailDTO (" +
+//            "b.id, " +
+//            "b.totalAmount, " +
+//            "od.amount, " +
+//            "od.note, " +
+//            "od.price, " +
+//            "od.quantity, " +
+//            "p.title, " +
+//            "od.createdAt " +
+//            ")" +
+//            "from Bill as b " +
+//            "join Order as o on b.order.id = o.id "  +
+//            "join OrderDetail as od on od.order.id = o.id " +
+//            "join Product as p on od.product.id = p.id " +
+//            "where b.id = :billId ")
+//    List<BillDetailDTO> findBillById(@Param("billId") Long billId);
+    List<Bill> findAllById(Long id);
+
+//    @Query("SELECT NEW com.cg.model.dto.bill.BillDTO (" +
+//            "b.id, " +
+//            "b.order.tableOrder.title, " +
+//            "b.order.totalAmount, " +
+//            "b.createdAt, " +
+//            "b.order.staff.title, " +
+//            "b.order.id" +
+//            ") " +
+//            "FROM Bill AS b " +
+//            "WHERE DATE(b.createdAt) = :eventDate"
+//    )
+//    List<BillDTO> findBillByCreatedAts(@Param("eventDate") Date eventDate);
+
+    List<Bill> findAllByCreatedAt(Date createdAt);
+
+//    Optional<Customer> findCustomerByEmail(String email);
+>>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
 
     @Query(value = "SELECT b FROM Bill b WHERE " +
             "DATE_FORMAT(b.createdAt, '%Y-%m-%d') >= DATE_FORMAT(:start, '%Y-%m-%d')" +
             " AND DATE_FORMAT(b.createdAt, '%Y-%m-%d') <= DATE_FORMAT(:end, '%Y-%m-%d')")
     List<BillDTO> getAllBillByDate(LocalDate start, LocalDate end);
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
 }

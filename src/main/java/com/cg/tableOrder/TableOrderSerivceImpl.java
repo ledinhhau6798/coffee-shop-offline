@@ -2,6 +2,10 @@ package com.cg.tableOrder;
 
 import com.cg.model.TableOrder;
 import com.cg.tableOrder.DTO.TableOrderCreateReqDTO;
+<<<<<<< HEAD
+=======
+import com.cg.tableOrder.DTO.TableOrderCreateResDTO;
+>>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
 import com.cg.tableOrder.DTO.TableOrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+//@Component
 @Transactional
 public class TableOrderSerivceImpl implements ITableOrderService{
 

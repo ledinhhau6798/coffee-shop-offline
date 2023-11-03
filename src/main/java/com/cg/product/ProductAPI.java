@@ -1,14 +1,21 @@
 package com.cg.product;
 
+import com.cg.category.CategoryServiceImpl;
 import com.cg.exception.DataInputException;
 import com.cg.model.Category;
 import com.cg.model.Product;
 import com.cg.category.ICategoryService;
+<<<<<<< HEAD
 import com.cg.product.DTO.ProductCreReqDTO;
 import com.cg.product.DTO.ProductDTO;
 import com.cg.product.DTO.ProductUpReqDTO;
+=======
+import com.cg.product.DTO.*;
+import com.cg.product.IProductService;
+>>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
 import com.cg.utils.AppUtils;
 import com.cg.utils.ValidateUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,17 +28,12 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/products")
 public class    ProductAPI {
-    @Autowired
     private IProductService productService;
-
-    @Autowired
-    private ICategoryService categoryService;
-    @Autowired
+    private CategoryServiceImpl categoryService;
     private ValidateUtils validateUtils;
-
-    @Autowired
     private AppUtils appUtils;
 
     @GetMapping
@@ -134,9 +136,10 @@ public class    ProductAPI {
             throw new DataInputException("Mã danh mục không hợp lệ");
         }
         Long categoryId = Long.parseLong(categoryIdStr);
-        categoryService.findById(categoryId).orElseThrow(() -> {
-           throw new DataInputException("Mã danh mục không tồn tại");
-        });
+
+        if(!categoryService.existById(categoryId)) {
+            throw new RuntimeException("Category not found!");
+        }
 
          List<ProductDTO> productDTO  = productService.findAllByCategoryLike(categoryId);
 
