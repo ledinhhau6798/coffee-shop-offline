@@ -1,6 +1,6 @@
 package com.cg.security;
 
-import com.cg.service.user.IUserService;
+import com.cg.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -74,6 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 ).permitAll()
                 .antMatchers("/dashboard","/dashboard/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/shop","/shop/**").hasAnyAuthority("STAFF")
+//                .antMatchers("/shop","/shop/**")
                 .antMatchers("/resources/**", "/assets/**").permitAll()
 //                .antMatchers(
 //

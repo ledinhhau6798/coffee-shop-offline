@@ -1,8 +1,8 @@
 package com.cg.model;
 
-import com.cg.model.dto.category.CategoryCreResDTO;
-import com.cg.model.dto.category.CategoryDTO;
-import com.cg.model.dto.category.CategoryUpResDTO;
+import com.cg.category.DTO.CategoryCreResDTO;
+import com.cg.category.DTO.CategoryDTO;
+import com.cg.category.DTO.CategoryUpResDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
