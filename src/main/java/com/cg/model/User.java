@@ -1,6 +1,5 @@
 package com.cg.model;
 
-import com.cg.model.dto.user.UserDTO;
 import lombok.*;
 import lombok.experimental.Accessors;
 

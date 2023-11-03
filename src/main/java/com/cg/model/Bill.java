@@ -1,7 +1,7 @@
 package com.cg.model;
 
-import com.cg.model.dto.bill.BillCreResDTO;
-import com.cg.model.dto.bill.BillDTO;
+import com.cg.bill.DTO.BillCreResDTO;
+import com.cg.bill.DTO.BillDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

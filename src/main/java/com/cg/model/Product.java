@@ -1,9 +1,8 @@
 package com.cg.model;
 
 
-import com.cg.model.dto.product.ProductCreResDTO;
-import com.cg.model.dto.product.ProductDTO;
-import com.cg.model.dto.product.ProductUpResDTO;
+
+import com.cg.product.DTO.ProductDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,10 +13,11 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
 @Entity
 @Table(name = "products")
 @Accessors(chain = true)
@@ -45,15 +45,6 @@ public class Product extends BaseEntity {
     @JoinColumn(name = "product_avatar_id",referencedColumnName = "id" ,  nullable = false)
     private ProductAvatar productAvatar;
 
-    public ProductCreResDTO toProductCreResDTO() {
-        return new ProductCreResDTO()
-                 .setId(id)
-                 .setTitle(title)
-                 .setPrice(price)
-                 .setUnit(unit)
-                 .setCategoryTitle(category.getTitle())
-                 .setAvatar(productAvatar.toProductAvatarResDTO());
-    }
 
     public ProductDTO toProductDTO() {
         return new ProductDTO()
@@ -66,13 +57,15 @@ public class Product extends BaseEntity {
                  ;
     }
 
-    public ProductUpResDTO toProductUpResDTO() {
-        return new ProductUpResDTO()
-                 .setId(id)
-                 .setTitle(title)
-                 .setPrice(price)
-                 .setUnit(unit)
-                 .setCategoryTitle(category.getTitle())
-                 .setAvatar(productAvatar.toProductAvatarResDTO());
+
+
+    public ProductDTO toDTO() {
+        return new ProductDTO()
+                .setId(String.valueOf(id))
+                .setTitle(title)
+                .setPrice(price)
+                .setUnit(unit)
+                .setCategory(category.toDTO(category.getId(), category.getTitle()))
+                .setAvatar(productAvatar.toProductAvatarResDTO());
     }
 }

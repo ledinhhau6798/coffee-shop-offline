@@ -1,6 +1,6 @@
 package com.cg.model;
 
-import com.cg.model.dto.staffAvatar.StaffAvatarResDTO;
+import com.cg.staffAvatar.DTO.StaffAvatarResDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
