@@ -1,8 +1,8 @@
 package com.cg.model;
 
-import com.cg.model.dto.tableOrder.TableOrderCreateResDTO;
-import com.cg.model.dto.tableOrder.TableOrderDTO;
-import com.cg.model.dto.tableOrder.TableOrderResDTO;
+import com.cg.tableOrder.DTO.TableOrderCreateResDTO;
+import com.cg.tableOrder.DTO.TableOrderDTO;
+import com.cg.tableOrder.DTO.TableOrderResDTO;
 import com.cg.model.enums.ETableStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

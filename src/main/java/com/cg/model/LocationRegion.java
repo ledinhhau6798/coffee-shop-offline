@@ -1,8 +1,8 @@
 package com.cg.model;
 
-import com.cg.model.dto.locationRegion.LocationRegionCreResDTO;
-import com.cg.model.dto.locationRegion.LocationRegionResDTO;
-import com.cg.model.dto.locationRegion.LocationRegionUpResDTO;
+import com.cg.locationRegion.DTO.LocationRegionCreResDTO;
+import com.cg.locationRegion.DTO.LocationRegionResDTO;
+import com.cg.locationRegion.DTO.LocationRegionUpResDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
