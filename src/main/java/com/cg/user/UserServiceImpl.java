@@ -1,78 +1,61 @@
 package com.cg.user;
 
 
+import com.cg.exception.ResourceNotFoundException;
 import com.cg.model.User;
-import com.cg.model.UserPrinciple;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.cg.user.dto.CreationUserParam;
+import com.cg.user.dto.UpdateUserParam;
+import com.cg.user.dto.UserResult;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class UserServiceImpl implements IUserService {
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Override
-    public List<User> findAll() {
-        return null;
+    @Transactional(readOnly = true)
+    public List<UserResult> findAll() {
+        List<User> entities = userRepository.findAll();
+        return userMapper.toDTOList(entities);
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+    public User findById(Long id) {
+        return userRepository
+                .findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("user not found"));
     }
 
     @Override
-    public Boolean existsByUsername(String username) {
-        return userRepository.existsByUsername(username);
+    @Transactional(readOnly = true)
+    public UserResult getById(Long id) {
+        return userMapper.toDTO(findById(id));
     }
 
     @Override
-    public User getByUsername(String username) {
-        return userRepository.getByUsername(username);
+    @Transactional
+    public UserResult create(CreationUserParam creationParam) {
+        User entity = userMapper.toEntity(creationParam);
+        entity = userRepository.save(entity);
+        return userMapper.toDTO(entity);
     }
 
     @Override
-    public Optional<User> findByName(String userName) {
-        return userRepository.findByUsername(userName);
+    @Transactional
+    public UserResult update(Long id, UpdateUserParam updateParam) {
+        User entity = findById(id);
+        userMapper.transferFields(entity, updateParam);
+        entity.setPassword("d");
+        //TODO:Kiem tra lai
+//        entity = userRepository.save(entity);
+        return userMapper.toDTO(entity);
     }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userOptional = userRepository.findByUsername(username);
-        if (!userOptional.isPresent()) {
-            throw new UsernameNotFoundException(username);
-        }
-        return UserPrinciple.build(userOptional.get());
-    }
-
-    @Override
-    public User save(User user) {
-//        user.setPassword((user.getPassword()));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
-    }
-
-    @Override
-    public void delete(User user) {
-        userRepository.delete(user);
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        userRepository.deleteById(id);
-    }
-
-
 }

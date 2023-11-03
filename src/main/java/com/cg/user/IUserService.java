@@ -1,18 +1,21 @@
 package com.cg.user;
 
 import com.cg.model.User;
-import com.cg.service.IGeneralService;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.cg.user.dto.CreationUserParam;
+import com.cg.user.dto.UpdateUserParam;
+import com.cg.user.dto.UserResult;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
 
-public interface IUserService extends IGeneralService<User, Long>, UserDetailsService {
+public interface IUserService {
+    List<UserResult> findAll();
 
-    Boolean existsByUsername(String username);
+    User findById(Long id);
 
-    User getByUsername(String username);
+    UserResult getById(Long id);
 
-    Optional<User> findByName(String userName);
+    UserResult create(CreationUserParam creationParam);
 
-
+    UserResult update(Long id, UpdateUserParam updateParam);
 }

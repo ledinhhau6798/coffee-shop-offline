@@ -43,6 +43,16 @@ public class OrderDetailServiceImpl implements IOrderDetailService{
         return orderDetailRepository.getOrderDetailByTableResDTO(orderId);
     }
 
+    @Override
+    public Optional<OrderDetail> findByOrderDetailByIdProductAndIdOrder(Long idProduct, Long idOrder, String note) {
+        return Optional.empty();
+    }
+
+    @Override
+    public OrderDetail findByOrderId(Long orderId) {
+        return null;
+    }
+
 
     @Override
     public OrderDetail save(OrderDetail orderDetail) {

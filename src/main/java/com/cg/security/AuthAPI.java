@@ -1,15 +1,11 @@
-<<<<<<<< HEAD:src/main/java/com/cg/security/AuthAPI.java
 package com.cg.security;
-========
-package com.cg.auth;
->>>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a:src/main/java/com/cg/auth/AuthAPI.java
 
 import com.cg.exception.DataInputException;
 import com.cg.exception.EmailExistsException;
 import com.cg.model.JwtResponse;
 import com.cg.model.Role;
 import com.cg.model.User;
-import com.cg.user.DTO.UserRegisterReqDTO;
+import com.cg.user.dto.UserRegisterReqDTO;
 import com.cg.service.jwt.JwtService;
 import com.cg.role.IRoleService;
 import com.cg.user.IUserService;

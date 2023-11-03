@@ -1,17 +1,10 @@
 package com.cg.bill;
 
-import com.cg.exception.DataInputException;
-<<<<<<< HEAD
-import com.cg.bill.DTO.BillCreResDTO;
-import com.cg.bill.DTO.BillDTO;
-import com.cg.tableOrder.ITableOrderService;
-=======
 import com.cg.bill.DTO.BillCreateResDTO;
 import com.cg.bill.DTO.BillDTO;
 import com.cg.bill.DTO.BillDetailDTO;
+import com.cg.exception.DataInputException;
 import com.cg.tableOrder.ITableOrderService;
-import com.cg.utils.AppUtils;
->>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
 import com.cg.utils.ValidateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,17 +47,12 @@ public class BillAPI {
         }
         Long billId = Long.parseLong(billIdStr);
 
-<<<<<<< HEAD
         billService.findById(billId).orElseThrow(() -> {
             throw new DataInputException("Mã lịch sử không tồn tại");
         });
 
-        return new ResponseEntity<>(billService.findBillById(billId), HttpStatus.OK);
-=======
        List<BillDetailDTO>  billDetailDTOS = billService.findBillById(billId);
-
         return new ResponseEntity<>(billDetailDTOS, HttpStatus.OK);
->>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
     }
 
     @GetMapping("/search/day")

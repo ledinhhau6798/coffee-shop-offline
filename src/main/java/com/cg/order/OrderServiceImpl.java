@@ -10,13 +10,6 @@ import com.cg.orderDetail.DTO.OrderDetailCreResDTO;
 import com.cg.orderDetail.DTO.OrderDetailProductUpResDTO;
 import com.cg.orderDetail.DTO.OrderDetailUpResDTO;
 import com.cg.model.enums.ETableStatus;
-<<<<<<< HEAD
-import com.cg.order.DTO.OrderCreReqDTO;
-import com.cg.order.DTO.OrderUpChangeToTableReqDTO;
-import com.cg.order.DTO.OrderUpChangeToTableResDTO;
-import com.cg.order.DTO.OrderUpReqDTO;
-=======
->>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
 import com.cg.orderDetail.OrderDetailRepository;
 import com.cg.product.ProductRepository;
 import com.cg.staff.StaffRepository;

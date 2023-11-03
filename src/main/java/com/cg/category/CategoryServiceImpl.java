@@ -1,16 +1,11 @@
 package com.cg.category;
 
-<<<<<<< HEAD
 import com.cg.category.DTO.CategoryCreReqDTO;
+import com.cg.category.DTO.CategoryCreResDTO;
 import com.cg.category.DTO.CategoryDTO;
 import com.cg.category.DTO.CategoryUpReqDTO;
 import com.cg.model.Category;
-=======
-import com.cg.category.DTO.*;
-import com.cg.model.Category;
 import lombok.RequiredArgsConstructor;
->>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,20 +15,62 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-<<<<<<< HEAD
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements ICategoryService {
+    private final CategoryMapper categoryMapper;
+    private final CategoryCreReqMapper categoryCreReqMapper;
+    private final CategoryCreResMapper categoryCreResMapper;
+    private final CategoryUpReqMapper categoryUpReqMapper;
+    private final CategoryUpResMapper categoryUpResMapper;
+    private final CategoryRepository categoryRepository;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+
+    @Override
+    public CategoryCreResDTO createCategory(CategoryCreReqDTO categoryCreReqDTO) {
+
+        Category category = categoryCreReqMapper.toEntity(categoryCreReqDTO);
+        categoryRepository.save(category);
+
+        return categoryCreResMapper.toDTO(category);
+    }
+
+    @Override
+    public List<CategoryDTO> findAllCategoryDTO() {
+        return categoryRepository.findAll().stream().map(category -> new Category().toDTO(category.getId(), category.getTitle())).collect(Collectors.toList());
+    }
+
+    @Override
+    public CategoryDTO updateCategory(Long categoryId, CategoryUpReqDTO categoryUpReqDTO) {
+        Category category = categoryUpReqDTO.toCategoryUpreqDTO(categoryId);
+        categoryRepository.save(category);
+        return new Category().toDTO(categoryId, categoryUpReqDTO.getTitle());
+    }
+
+
+    @Override
+    public void deleteByIdTrue(Category category) {
+        category.setDeleted(true);
+        categoryRepository.save(category);
+    }
+
+    @Override
+    public Optional<Category> findByIdAndDeletedFalse(Long id) {
+        return categoryRepository.findByIdAndDeletedFalse(id);
+    }
+
+    public boolean existById(Long id) {
+        return categoryRepository.existsById(id);
+    }
+
 
     @Override
     public List<Category> findAll() {
-        return categoryRepository.findAll();
+        return null;
     }
 
     @Override
     public Optional<Category> findById(Long id) {
-        return categoryRepository.findById(id);
+        return Optional.empty();
     }
 
     @Override
@@ -50,82 +87,4 @@ public class CategoryServiceImpl implements ICategoryService {
     public void deleteById(Long id) {
 
     }
-
-    @Override
-    public CategoryDTO createCategory(CategoryCreReqDTO dto) {
-        Category category = dto.toDTO();
-        categoryRepository.save(category);
-        return category.toDTO(category.getId(), category.getTitle());
-=======
-@RequiredArgsConstructor
-public class CategoryServiceImpl implements ICategoryService {
-    CategoryMapper categoryMapper;
-    CategoryCreReqMapper categoryCreReqMapper;
-    CategoryCreResMapper categoryCreResMapper;
-    CategoryUpReqMapper categoryUpReqMapper;
-    CategoryUpResMapper categoryUpResMapper;
-
-    private CategoryRepository categoryRepository;
-
-
-    @Override
-    public CategoryCreResDTO createCategory(CategoryCreReqDTO categoryCreReqDTO) {
-
-        Category category = categoryCreReqMapper.toEntity(categoryCreReqDTO);
-        categoryRepository.save(category);
-
-        return categoryCreResMapper.toDTO(category);
->>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
-    }
-
-    @Override
-    public List<CategoryDTO> findAllCategoryDTO() {
-<<<<<<< HEAD
-        return categoryRepository.findAll().stream().map(category -> new Category().toDTO(category.getId(),category.getTitle())).collect(Collectors.toList());
-    }
-
-    @Override
-    public CategoryDTO updateCategory(Long categoryId, CategoryUpReqDTO categoryUpReqDTO) {
-        Category category = categoryUpReqDTO.toCategoryUpreqDTO(categoryId);
-        categoryRepository.save(category);
-        return new Category().toDTO(categoryId, categoryUpReqDTO.getTitle());
-=======
-        return categoryRepository.findAll()
-                .stream()
-                .map(category -> categoryMapper.toDTO(category))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public CategoryUpResDTO updateCategory(Long categoryId, CategoryUpReqDTO categoryUpReqDTO) {
-        Category category = categoryUpReqDTO.toCategoryUpreqDTO(categoryId);
-        categoryRepository.save(categoryUpReqMapper.toEntity(categoryUpReqDTO));
-
-        return category.toCategoryUpResDTO();
-
->>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
-    }
-
-    @Override
-    public void deleteByIdTrue(Category category) {
-        category.setDeleted(true);
-        categoryRepository.save(category);
-    }
-
-    @Override
-    public Optional<Category> findByIdAndDeletedFalse(Long id) {
-        return categoryRepository.findByIdAndDeletedFalse(id);
-    }
-
-<<<<<<< HEAD
-
-=======
-    public boolean existById(Long id) {
-        return categoryRepository.existsById(id);
-    }
-
-//    public Category<Object> findById(Long categoryId) {
-//        return categoryRepository.findById(categoryId).orElseThrow()
-//    }
->>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
 }

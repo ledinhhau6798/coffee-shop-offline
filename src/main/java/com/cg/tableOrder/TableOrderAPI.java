@@ -4,15 +4,8 @@ import com.cg.exception.DataInputException;
 import com.cg.exception.ResourceNotFoundException;
 import com.cg.model.TableOrder;
 import com.cg.tableOrder.DTO.TableOrderCreateReqDTO;
-<<<<<<< HEAD
+
 import com.cg.tableOrder.DTO.TableOrderDTO;
-=======
-import com.cg.tableOrder.DTO.TableOrderCreateResDTO;
-import com.cg.tableOrder.DTO.TableOrderDTO;
-import com.cg.tableOrder.ITableOrderService;
-import com.cg.utils.AppUtils;
-import com.cg.utils.ValidateUtils;
->>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

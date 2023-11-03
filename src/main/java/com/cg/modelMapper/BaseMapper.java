@@ -1,11 +1,9 @@
 package com.cg.modelMapper;
 
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.GenericTypeResolver;
 
-//@RequiredArgsConstructor
 public abstract class BaseMapper<DTO, Entity> {
 
     @Autowired

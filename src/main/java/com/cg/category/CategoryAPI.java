@@ -1,12 +1,9 @@
 package com.cg.category;
 
-<<<<<<< HEAD
+
 import com.cg.category.DTO.CategoryCreReqDTO;
 import com.cg.category.DTO.CategoryDTO;
 import com.cg.category.DTO.CategoryUpReqDTO;
-=======
-import com.cg.category.DTO.*;
->>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
 import com.cg.exception.DataInputException;
 import com.cg.model.Category;
 import com.cg.utils.AppUtils;

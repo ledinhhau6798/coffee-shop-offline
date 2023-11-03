@@ -1,24 +1,15 @@
 package com.cg.bill;
 
+import com.cg.bill.DTO.BillCreateResDTO;
+import com.cg.bill.DTO.BillDTO;
+import com.cg.bill.DTO.BillDetailDTO;
 import com.cg.exception.DataInputException;
 import com.cg.model.Bill;
 import com.cg.model.Order;
 import com.cg.model.TableOrder;
-<<<<<<< HEAD
-import com.cg.bill.DTO.BillCreResDTO;
-=======
-import com.cg.bill.DTO.BillCreateResDTO;
->>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
-import com.cg.bill.DTO.BillDTO;
-import com.cg.bill.DTO.BillDetailDTO;
-import com.cg.model.enums.ETableStatus;
 import com.cg.order.OrderRepository;
 import com.cg.tableOrder.TableOrderRepository;
-<<<<<<< HEAD
-=======
 import lombok.RequiredArgsConstructor;
->>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -34,16 +25,16 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BillServiceImpl implements IBillService {
 
-    private BillDetailMapper billDetailMapper;
-    private BillMapper billMapper;
-    private BillCreateResMapper billCreateResMapper;
+    private final BillDetailMapper billDetailMapper;
+    private final BillMapper billMapper;
+    private final BillCreateResMapper billCreateResMapper;
 
 
-    private BillRepository billRepository;
+    private final BillRepository billRepository;
 
-    private TableOrderRepository tableOrderRepository;
+    private final TableOrderRepository tableOrderRepository;
 
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
     @Override
     public List<Bill> findAll() {
@@ -72,19 +63,7 @@ public class BillServiceImpl implements IBillService {
 
     @Override
     public List<BillDTO> findAllBillDTO() {
-<<<<<<< HEAD
         return billRepository.findAll().stream().map(Bill::toBillDTO).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<BillDetailDTO> findBillById(Long id) {
-        return billRepository.findBillById(id);
-=======
-        List<Bill> bills = billRepository.findAll();
-        return bills
-                .stream()
-                .map(bill -> billMapper.toDTO(bill))
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -93,10 +72,6 @@ public class BillServiceImpl implements IBillService {
                 .stream()
                 .map(bill -> billDetailMapper.toDTO(bill))
                 .collect(Collectors.toList());
-
-
-//        return billRepository.findBillById(billId);
->>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
     }
 
     @Override

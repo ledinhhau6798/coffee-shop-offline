@@ -3,19 +3,15 @@ package com.cg.staff;
 
 import com.cg.exception.DataInputException;
 import com.cg.exception.EmailExistsException;
-import com.cg.model.*;
 import com.cg.locationRegion.DTO.LocationRegionUpReqDTO;
+import com.cg.locationRegion.LocationRegionRepository;
+import com.cg.model.*;
+import com.cg.role.IRoleService;
+import com.cg.service.upload.IUploadService;
 import com.cg.staff.DTO.StaffCreReqDTO;
 import com.cg.staff.DTO.StaffDTO;
 import com.cg.staff.DTO.StaffUpReqDTO;
-import com.cg.locationRegion.LocationRegionRepository;
-<<<<<<< HEAD
 import com.cg.staffAvatar.StaffAvatarRepository;
-=======
-import com.cg.repository.StaffAvatarRepository;
->>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
-import com.cg.role.IRoleService;
-import com.cg.service.upload.IUploadService;
 import com.cg.user.IUserService;
 import com.cg.utils.AppUtils;
 import com.cg.utils.UploadUtils;

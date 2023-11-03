@@ -1,10 +1,6 @@
 package com.cg.model;
 
-<<<<<<< HEAD
-import com.cg.bill.DTO.BillCreResDTO;
-=======
 import com.cg.bill.DTO.BillCreateResDTO;
->>>>>>> 2b6552de4684ae2a975d0dabea22fad315181d7a
 import com.cg.bill.DTO.BillDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,8 +11,6 @@ import lombok.experimental.Accessors;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @Entity
