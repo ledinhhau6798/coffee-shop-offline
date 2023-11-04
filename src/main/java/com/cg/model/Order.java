@@ -2,11 +2,11 @@ package com.cg.model;
 
 
 
-import com.cg.order.DTO.OrderCreResDTO;
-import com.cg.order.DTO.OrderDTO;
-import com.cg.order.DTO.OrderResDTO;
-import com.cg.order.DTO.OrderUpResDTO;
-import com.cg.orderDetail.DTO.OrderDetailDTO;
+import com.cg.order.dto.OrderCreResDTO;
+import com.cg.order.dto.OrderDTO;
+import com.cg.order.dto.OrderResDTO;
+import com.cg.order.dto.OrderUpResDTO;
+import com.cg.orderDetail.dto.OrderDetailDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

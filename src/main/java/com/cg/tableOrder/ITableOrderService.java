@@ -1,9 +1,11 @@
 package com.cg.tableOrder;
 
 import com.cg.model.TableOrder;
+
+import com.cg.tableOrder.dto.TableOrderCreateReqDTO;
+import com.cg.tableOrder.dto.TableOrderDTO;
+
 import com.cg.service.IGeneralService;
-import com.cg.tableOrder.DTO.TableOrderCreateReqDTO;
-import com.cg.tableOrder.DTO.TableOrderDTO;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;

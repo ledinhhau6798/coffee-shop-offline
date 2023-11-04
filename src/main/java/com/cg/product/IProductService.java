@@ -2,9 +2,9 @@ package com.cg.product;
 
 import com.cg.model.Category;
 import com.cg.model.Product;
-import com.cg.product.DTO.ProductCreReqDTO;
-import com.cg.product.DTO.ProductDTO;
-import com.cg.product.DTO.ProductUpReqDTO;
+import com.cg.product.dto.ProductCreReqDTO;
+import com.cg.product.dto.ProductDTO;
+import com.cg.product.dto.ProductUpReqDTO;
 import com.cg.service.IGeneralService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

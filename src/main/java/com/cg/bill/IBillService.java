@@ -1,9 +1,10 @@
 package com.cg.bill;
 
-import com.cg.bill.DTO.BillCreateResDTO;
-import com.cg.bill.DTO.BillDTO;
-import com.cg.bill.DTO.BillDetailDTO;
+
 import com.cg.model.Bill;
+import com.cg.bill.dto.BillCreateResDTO;
+import com.cg.bill.dto.BillDTO;
+import com.cg.bill.dto.BillDetailDTO;
 import com.cg.service.IGeneralService;
 
 import java.util.Date;

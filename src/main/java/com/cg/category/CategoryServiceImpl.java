@@ -1,9 +1,7 @@
 package com.cg.category;
 
-import com.cg.category.DTO.CategoryCreReqDTO;
-import com.cg.category.DTO.CategoryCreResDTO;
-import com.cg.category.DTO.CategoryDTO;
-import com.cg.category.DTO.CategoryUpReqDTO;
+
+import com.cg.category.dto.*;
 import com.cg.model.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

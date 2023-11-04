@@ -1,8 +1,8 @@
 package com.cg.staff;
 import com.cg.model.Staff;
-import com.cg.staff.DTO.StaffCreReqDTO;
-import com.cg.staff.DTO.StaffDTO;
-import com.cg.staff.DTO.StaffUpReqDTO;
+import com.cg.staff.dto.StaffCreReqDTO;
+import com.cg.staff.dto.StaffDTO;
+import com.cg.staff.dto.StaffUpReqDTO;
 import com.cg.service.IGeneralService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
