@@ -7,12 +7,9 @@ import com.cg.exception.DataInputException;
 import com.cg.model.Bill;
 import com.cg.model.Order;
 import com.cg.model.TableOrder;
-<<<<<<< HEAD
-=======
 import com.cg.bill.dto.BillCreateResDTO;
 import com.cg.bill.dto.BillDTO;
 import com.cg.bill.dto.BillDetailDTO;
->>>>>>> Tuan
 import com.cg.order.OrderRepository;
 import com.cg.tableOrder.TableOrderRepository;
 import lombok.RequiredArgsConstructor;

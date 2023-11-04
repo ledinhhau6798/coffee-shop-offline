@@ -1,14 +1,8 @@
 package com.cg.model;
 
 
-<<<<<<< HEAD
 
-import com.cg.product.DTO.ProductDTO;
-=======
-import com.cg.product.dto.ProductCreResDTO;
 import com.cg.product.dto.ProductDTO;
-import com.cg.product.dto.ProductUpResDTO;
->>>>>>> Tuan
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

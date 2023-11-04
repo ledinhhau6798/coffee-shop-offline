@@ -4,13 +4,7 @@ import com.cg.category.CategoryServiceImpl;
 import com.cg.exception.DataInputException;
 import com.cg.model.Category;
 import com.cg.model.Product;
-<<<<<<< HEAD
-import com.cg.product.DTO.ProductCreReqDTO;
-import com.cg.product.DTO.ProductDTO;
-import com.cg.product.DTO.ProductUpReqDTO;
-=======
 import com.cg.product.dto.*;
->>>>>>> Tuan
 import com.cg.utils.AppUtils;
 import com.cg.utils.ValidateUtils;
 import lombok.RequiredArgsConstructor;

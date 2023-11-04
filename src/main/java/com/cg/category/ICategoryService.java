@@ -1,14 +1,9 @@
 package com.cg.category;
 
-<<<<<<< HEAD
-import com.cg.category.DTO.CategoryCreReqDTO;
-import com.cg.category.DTO.CategoryCreResDTO;
-import com.cg.category.DTO.CategoryDTO;
-import com.cg.category.DTO.CategoryUpReqDTO;
-=======
+
 import com.cg.category.dto.*;
->>>>>>> Tuan
 import com.cg.model.Category;
+import com.cg.service.IGeneralService;
 
 import java.util.List;
 import java.util.Optional;
