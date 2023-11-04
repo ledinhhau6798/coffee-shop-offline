@@ -1,9 +1,16 @@
 package com.cg.bill;
 
+<<<<<<< HEAD
 import com.cg.bill.DTO.BillCreateResDTO;
 import com.cg.bill.DTO.BillDTO;
 import com.cg.bill.DTO.BillDetailDTO;
 import com.cg.exception.DataInputException;
+=======
+import com.cg.exception.DataInputException;
+import com.cg.bill.dto.BillCreateResDTO;
+import com.cg.bill.dto.BillDTO;
+import com.cg.bill.dto.BillDetailDTO;
+>>>>>>> Tuan
 import com.cg.tableOrder.ITableOrderService;
 import com.cg.utils.ValidateUtils;
 import org.springframework.beans.factory.annotation.Autowired;

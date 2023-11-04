@@ -1,7 +1,7 @@
 package com.cg.model;
 
-import com.cg.staff.DTO.StaffDTO;
-import com.cg.staff.DTO.StaffUpResDTO;
+import com.cg.staff.dto.StaffDTO;
+import com.cg.staff.dto.StaffUpResDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

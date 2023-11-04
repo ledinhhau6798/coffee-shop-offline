@@ -1,7 +1,7 @@
 package com.cg.tableOrder;
 
 import com.cg.model.TableOrder;
-import com.cg.tableOrder.DTO.TableOrderDTO;
+import com.cg.tableOrder.dto.TableOrderDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,9 +1,16 @@
 package com.cg.bill;
 
+<<<<<<< HEAD
 import com.cg.bill.DTO.BillCreateResDTO;
 import com.cg.bill.DTO.BillDTO;
 import com.cg.bill.DTO.BillDetailDTO;
 import com.cg.model.Bill;
+=======
+import com.cg.model.Bill;
+import com.cg.bill.dto.BillCreateResDTO;
+import com.cg.bill.dto.BillDTO;
+import com.cg.bill.dto.BillDetailDTO;
+>>>>>>> Tuan
 import com.cg.service.IGeneralService;
 
 import java.util.Date;

@@ -2,7 +2,7 @@ package com.cg.staff;
 
 import com.cg.model.Staff;
 import com.cg.model.User;
-import com.cg.staff.DTO.StaffDTO;
+import com.cg.staff.dto.StaffDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

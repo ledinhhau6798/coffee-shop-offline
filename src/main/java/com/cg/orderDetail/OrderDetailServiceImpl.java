@@ -2,7 +2,7 @@ package com.cg.orderDetail;
 
 import com.cg.model.Order;
 import com.cg.model.OrderDetail;
-import com.cg.orderDetail.DTO.OrderDetailByTableResDTO;
+import com.cg.orderDetail.dto.OrderDetailByTableResDTO;
 import com.cg.order.OrderRepository;
 import com.cg.order.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
