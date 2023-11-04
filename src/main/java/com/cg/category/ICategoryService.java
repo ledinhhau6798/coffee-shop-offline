@@ -1,8 +1,7 @@
 package com.cg.category;
 
-import com.cg.category.DTO.*;
+import com.cg.category.dto.*;
 import com.cg.model.Category;
-import com.cg.service.IGeneralService;
 
 import java.util.List;
 import java.util.Optional;

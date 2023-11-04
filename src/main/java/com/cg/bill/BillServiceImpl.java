@@ -4,14 +4,12 @@ import com.cg.exception.DataInputException;
 import com.cg.model.Bill;
 import com.cg.model.Order;
 import com.cg.model.TableOrder;
-import com.cg.bill.DTO.BillCreateResDTO;
-import com.cg.bill.DTO.BillDTO;
-import com.cg.bill.DTO.BillDetailDTO;
-import com.cg.model.enums.ETableStatus;
+import com.cg.bill.dto.BillCreateResDTO;
+import com.cg.bill.dto.BillDTO;
+import com.cg.bill.dto.BillDetailDTO;
 import com.cg.order.OrderRepository;
 import com.cg.tableOrder.TableOrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

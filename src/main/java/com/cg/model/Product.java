@@ -1,9 +1,9 @@
 package com.cg.model;
 
 
-import com.cg.product.DTO.ProductCreResDTO;
-import com.cg.product.DTO.ProductDTO;
-import com.cg.product.DTO.ProductUpResDTO;
+import com.cg.product.dto.ProductCreResDTO;
+import com.cg.product.dto.ProductDTO;
+import com.cg.product.dto.ProductUpResDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

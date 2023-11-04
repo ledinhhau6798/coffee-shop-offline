@@ -1,6 +1,6 @@
 package com.cg.category;
 
-import com.cg.category.DTO.*;
+import com.cg.category.dto.*;
 import com.cg.exception.DataInputException;
 import com.cg.model.Category;
 import com.cg.utils.AppUtils;

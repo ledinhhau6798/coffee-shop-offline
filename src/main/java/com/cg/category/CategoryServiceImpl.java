@@ -1,9 +1,8 @@
 package com.cg.category;
 
-import com.cg.category.DTO.*;
+import com.cg.category.dto.*;
 import com.cg.model.Category;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

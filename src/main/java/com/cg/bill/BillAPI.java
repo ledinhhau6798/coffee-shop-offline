@@ -1,9 +1,9 @@
 package com.cg.bill;
 
 import com.cg.exception.DataInputException;
-import com.cg.bill.DTO.BillCreateResDTO;
-import com.cg.bill.DTO.BillDTO;
-import com.cg.bill.DTO.BillDetailDTO;
+import com.cg.bill.dto.BillCreateResDTO;
+import com.cg.bill.dto.BillDTO;
+import com.cg.bill.dto.BillDetailDTO;
 import com.cg.tableOrder.ITableOrderService;
 import com.cg.utils.AppUtils;
 import com.cg.utils.ValidateUtils;

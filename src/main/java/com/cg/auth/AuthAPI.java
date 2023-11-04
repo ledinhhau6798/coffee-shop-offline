@@ -5,7 +5,7 @@ import com.cg.exception.EmailExistsException;
 import com.cg.model.JwtResponse;
 import com.cg.model.Role;
 import com.cg.model.User;
-import com.cg.user.DTO.UserRegisterReqDTO;
+import com.cg.user.dto.UserRegisterReqDTO;
 import com.cg.service.jwt.JwtService;
 import com.cg.role.IRoleService;
 import com.cg.user.IUserService;

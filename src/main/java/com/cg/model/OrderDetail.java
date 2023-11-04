@@ -1,6 +1,6 @@
 package com.cg.model;
 
-import com.cg.orderDetail.DTO.OrderDetailDTO;
+import com.cg.orderDetail.dto.OrderDetailDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

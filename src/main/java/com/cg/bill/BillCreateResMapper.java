@@ -1,6 +1,6 @@
 package com.cg.bill;
 
-import com.cg.bill.DTO.BillCreateResDTO;
+import com.cg.bill.dto.BillCreateResDTO;
 import com.cg.modelMapper.BaseMapper;
 import com.cg.model.Bill;
 import lombok.AllArgsConstructor;
