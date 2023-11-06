@@ -14,6 +14,7 @@ import com.cg.orderDetail.OrderDetailRepository;
 import com.cg.product.ProductRepository;
 import com.cg.staff.StaffRepository;
 import com.cg.tableOrder.TableOrderRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,23 +24,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 @Transactional
-public class OrderServiceImpl implements IOrderService{
+public class OrderServiceImpl implements IOrderService {
 
-    @Autowired
-    private OrderRepository orderRepository;
-
-    @Autowired
-    private OrderDetailRepository orderDetailRepository;
-
-    @Autowired
-    private StaffRepository staffRepository;
-
-    @Autowired
-    private TableOrderRepository tableOrderRepository;
-
-    @Autowired
-    private ProductRepository productRepository;
+    private final OrderRepository orderRepository;
+    private final OrderDetailRepository orderDetailRepository;
+    private final StaffRepository staffRepository;
+    private final TableOrderRepository tableOrderRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public List<Order> findAll() {
@@ -58,7 +51,7 @@ public class OrderServiceImpl implements IOrderService{
 
     @Override
     public List<Order> findByTableOrderAndPaid(TableOrder tableOrder, Boolean paid) {
-        return orderRepository.findByTableOrderAndPaid(tableOrder,paid);
+        return orderRepository.findByTableOrderAndPaid(tableOrder, paid);
     }
 
     @Override
@@ -138,8 +131,7 @@ public class OrderServiceImpl implements IOrderService{
             BigDecimal newTotalAmount = getOrderTotalAmount(order.getId());
             order.setTotalAmount(newTotalAmount);
             orderRepository.save(order);
-        }
-        else {
+        } else {
             orderDetail = orderDetailOptional.get();
             long newQuantity = orderDetail.getQuantity() + orderUpReqDTO.getQuantity();
             BigDecimal price = orderDetail.getPrice();

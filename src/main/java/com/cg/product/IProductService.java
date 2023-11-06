@@ -2,9 +2,9 @@ package com.cg.product;
 
 import com.cg.model.Category;
 import com.cg.model.Product;
-import com.cg.product.dto.ProductCreReqDTO;
-import com.cg.product.dto.ProductDTO;
-import com.cg.product.dto.ProductUpReqDTO;
+import com.cg.product.dto.CreationProductParam;
+import com.cg.product.dto.ProductResult;
+import com.cg.product.dto.UpdateProductParam;
 import com.cg.service.IGeneralService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,21 +13,21 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IProductService extends IGeneralService<Product,Long> {
-    ProductDTO createProduct(ProductCreReqDTO productCreReqDTO, Category category);
+    ProductResult createProduct(CreationProductParam creationProductParam, Category category);
 
-    List<ProductDTO> findAllProductDTO();
+    List<ProductResult> findAllProductDTO();
 
-    ProductDTO update(Long productId,ProductUpReqDTO productUpReqDTO, Category category);
+    ProductResult update(Long productId, UpdateProductParam updateProductParam, Category category);
 
     void deleteByIdTrue(Product product);
 
-    List<ProductDTO> findAllByCategoryLike(Long categoryId);
+    List<ProductResult> findAllByCategoryLike(Long categoryId);
 
-    List<ProductDTO> findProductByName(String keySearch);
+    List<ProductResult> findProductByName(String keySearch);
 
-    List<ProductDTO> findAllByCategoryLikeAndAndTitleLike(Long categoryId,String keySearch);
+    List<ProductResult> findAllByCategoryLikeAndAndTitleLike(Long categoryId, String keySearch);
 
-    Page<ProductDTO> findAllProductDTOPage(Pageable pageable);
+    Page<ProductResult> findAllProductDTOPage(Pageable pageable);
 
     Optional<Product> findByIdAndDeletedFalse(Long id);
 }

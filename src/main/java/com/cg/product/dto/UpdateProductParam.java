@@ -18,27 +18,26 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ProductUpReqDTO implements Validator {
+public class UpdateProductParam implements Validator {
 
     private String title;
     private String price;
-
     private String unit;
     private String categoryId;
-
     private MultipartFile avatar;
 
     @Override
     public boolean supports(Class<?> clazz) {
-         return ProductUpReqDTO.class.isAssignableFrom(clazz);
+         return UpdateProductParam.class.isAssignableFrom(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        ProductUpReqDTO productUpReqDTO = (ProductUpReqDTO) target;
+        UpdateProductParam updateProductParam = (UpdateProductParam) target;
 
-        String title = productUpReqDTO.title;
-        String priceStr = productUpReqDTO.price;
+        String title = updateProductParam.title;
+
+        String priceStr = updateProductParam.price;
 
         if (title.isEmpty()) {
             errors.rejectValue("title","title.null","Tên không được phép rỗng");
@@ -71,8 +70,8 @@ public class ProductUpReqDTO implements Validator {
                 ;
     }
 
-    public ProductCreReqDTO toDTO() {
-         return new ProductCreReqDTO()
+    public CreationProductParam toDTO() {
+         return new CreationProductParam()
                 .setTitle(title)
                 .setPrice(price)
                 .setUnit(unit)

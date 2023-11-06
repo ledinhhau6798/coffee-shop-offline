@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class StaffAvatarResDTO {
+public class StaffAvatarResult {
     private String id;
     private String fileName;
     private String fileFolder;

@@ -1,6 +1,5 @@
 package com.cg.role.dto;
 
-import com.cg.model.Role;
 import com.cg.model.enums.ERole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,17 +12,16 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class RoleDTO {
+public class RoleResult {
     private Long id;
     private String code;
-
     private ERole name;
 
-    public Role toRoleDTO() {
-        return new Role()
-                .setId(id)
-                .setCode(code)
-                .setName(name);
-    }
+//    public Role toRoleDTO() {
+//        return new Role()
+//                .setId(id)
+//                .setCode(code)
+//                .setName(name);
+//    }
 
 }

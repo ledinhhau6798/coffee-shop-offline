@@ -2,7 +2,7 @@ package com.cg.model;
 
 
 
-import com.cg.product.dto.ProductDTO;
+import com.cg.product.dto.ProductResult;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,8 +46,8 @@ public class Product extends BaseEntity {
     private ProductAvatar productAvatar;
 
 
-    public ProductDTO toProductDTO() {
-        return new ProductDTO()
+    public ProductResult toProductDTO() {
+        return new ProductResult()
                  .setId(String.valueOf(id))
                  .setTitle(title)
                  .setPrice(price)
@@ -59,8 +59,8 @@ public class Product extends BaseEntity {
 
 
 
-    public ProductDTO toDTO() {
-        return new ProductDTO()
+    public ProductResult toDTO() {
+        return new ProductResult()
                 .setId(String.valueOf(id))
                 .setTitle(title)
                 .setPrice(price)

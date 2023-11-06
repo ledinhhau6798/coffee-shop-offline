@@ -1,6 +1,7 @@
 package com.cg.security;
 
 import com.cg.user.IUserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,12 +20,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 
 @Configuration
+@RequiredArgsConstructor
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private IUserService userService;
+    private final IUserService userService;
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -52,10 +53,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder(10);
     }
 
-    @Autowired
-    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
-    }
+//    @Autowired
+//    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+//    }
 
 
     @Override

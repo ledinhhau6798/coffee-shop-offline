@@ -1,7 +1,7 @@
 package com.cg.order.dto;
 import com.cg.orderDetail.dto.OrderDetailDTO;
-import com.cg.staff.dto.StaffDTO;
-import com.cg.tableOrder.dto.TableOrderDTO;
+import com.cg.staff.dto.StaffResult;
+import com.cg.tableOrder.dto.TableOrderResult;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,8 +17,8 @@ import java.util.List;
 @Accessors(chain = true)
 public class OrderResDTO {
     private Long id;
-    private StaffDTO staff;
-    private TableOrderDTO tableOrder;
+    private StaffResult staff;
+    private TableOrderResult tableOrder;
     private List<OrderDetailDTO> orderDetails;
     private Boolean paid;
 

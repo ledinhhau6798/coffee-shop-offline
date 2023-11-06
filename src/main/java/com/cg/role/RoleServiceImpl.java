@@ -1,7 +1,8 @@
 package com.cg.role;
 
+import com.cg.exception.ResourceNotFoundException;
 import com.cg.model.Role;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,10 +10,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 @Transactional
 public class RoleServiceImpl implements IRoleService {
-    @Autowired
-    private RoleRepository roleRepository;
+
+    private final RoleRepository roleRepository;
 
     @Override
     public List<Role> findAll() {
@@ -20,8 +22,9 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    public Optional<Role> findById(Long id) {
-        return roleRepository.findById(id);
+    public Role findById(Long id) {
+        return roleRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Not found!"));
     }
 
     @Override

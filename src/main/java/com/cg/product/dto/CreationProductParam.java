@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ProductCreReqDTO implements Validator {
+public class CreationProductParam implements Validator {
 
     private String title;
     private String price;
@@ -29,14 +29,14 @@ public class ProductCreReqDTO implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return ProductCreReqDTO.class.isAssignableFrom(clazz);
+        return CreationProductParam.class.isAssignableFrom(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        ProductCreReqDTO productCreReqDTO = (ProductCreReqDTO) target;
-        String title = productCreReqDTO.title;
-        String priceStr = productCreReqDTO.price;
+        CreationProductParam creationProductParam = (CreationProductParam) target;
+        String title = creationProductParam.title;
+        String priceStr = creationProductParam.price;
 
         if (title.isEmpty()) {
             errors.rejectValue("title","title.null","Tên không được phép rỗng");

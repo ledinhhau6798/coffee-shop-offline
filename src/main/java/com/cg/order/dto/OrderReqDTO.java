@@ -1,7 +1,7 @@
 package com.cg.order.dto;
 import com.cg.orderDetail.dto.OrderDetailDTO;
-import com.cg.staff.dto.StaffDTO;
-import com.cg.tableOrder.dto.TableOrderDTO;
+import com.cg.staff.dto.StaffResult;
+import com.cg.tableOrder.dto.TableOrderResult;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +19,8 @@ import java.math.BigDecimal;
 @Accessors(chain = true)
 public class OrderReqDTO implements Validator {
     private Long idOrder;
-    private StaffDTO staff;
-    private TableOrderDTO tableOrder;
+    private StaffResult staff;
+    private TableOrderResult tableOrder;
     private BigDecimal totalAmount;
     private OrderDetailDTO orderDetail;
     private Boolean paid;

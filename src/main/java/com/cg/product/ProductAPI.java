@@ -21,20 +21,20 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/products")
-public class    ProductAPI {
-    private IProductService productService;
-    private CategoryServiceImpl categoryService;
-    private ValidateUtils validateUtils;
-    private AppUtils appUtils;
+public class ProductAPI {
+    private final IProductService productService;
+    private final CategoryServiceImpl categoryService;
+    private final ValidateUtils validateUtils;
+    private final AppUtils appUtils;
 
     @GetMapping
-    public ResponseEntity<?> showProducts(){
+    public ResponseEntity<?> showProducts() {
 
-        return new ResponseEntity<>(productService.findAllProductDTO(),HttpStatus.OK);
+        return new ResponseEntity<>(productService.findAllProductDTO(), HttpStatus.OK);
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<?> findByIdProduct(@PathVariable("productId") String productIdStr){
+    public ResponseEntity<?> findByIdProduct(@PathVariable("productId") String productIdStr) {
 
         if (!validateUtils.isNumberValid(productIdStr)) {
             throw new DataInputException("Mã sản phẩm không hợp lệ");
@@ -49,28 +49,29 @@ public class    ProductAPI {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createProduct(@ModelAttribute ProductCreReqDTO productCreReqDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> createProduct(@ModelAttribute CreationProductParam creationProductParam, BindingResult bindingResult) {
 
-        if (!validateUtils.isNumberValid(productCreReqDTO.getCategoryId())) {
+        if (!validateUtils.isNumberValid(creationProductParam.getCategoryId())) {
             throw new DataInputException("Mã danh mục không hợp lệ");
         }
 
-        Long idCategory = Long.parseLong(productCreReqDTO.getCategoryId());
+        Long idCategory = Long.parseLong(creationProductParam.getCategoryId());
         Category category = categoryService.findByIdAndDeletedFalse(idCategory).orElseThrow(() -> {
             throw new DataInputException("Mã danh mục không tồn tại");
         });
 
-        new ProductCreReqDTO().validate(productCreReqDTO, bindingResult);
+        new CreationProductParam().validate(creationProductParam, bindingResult);
         if (bindingResult.hasFieldErrors()) {
             return appUtils.mapErrorToResponse(bindingResult);
         }
-        return new ResponseEntity<>(productService.createProduct(productCreReqDTO, category), HttpStatus.CREATED);
+        return new ResponseEntity<>(productService.createProduct(creationProductParam, category), HttpStatus.CREATED);
     }
+
     @PatchMapping("/edit/{productId}")
-    public ResponseEntity<?> updateProduct(@PathVariable("productId") String productIdStr, @ModelAttribute ProductUpReqDTO productUpReqDTO, BindingResult bindingResult){
+    public ResponseEntity<?> updateProduct(@PathVariable("productId") String productIdStr, @ModelAttribute UpdateProductParam updateProductParam, BindingResult bindingResult) {
 
         if (!validateUtils.isNumberValid(productIdStr)) {
-             throw new DataInputException("Mã sản phẩm không hợp lệ");
+            throw new DataInputException("Mã sản phẩm không hợp lệ");
         }
 
         Long productId = Long.parseLong(productIdStr);
@@ -79,28 +80,27 @@ public class    ProductAPI {
             throw new DataInputException("Mã sản phẩm không tồn tại");
         }
 
-        new ProductUpReqDTO().validate(productUpReqDTO,bindingResult);
-        if (bindingResult.hasFieldErrors()){
+        new UpdateProductParam().validate(updateProductParam, bindingResult);
+        if (bindingResult.hasFieldErrors()) {
             return appUtils.mapErrorToResponse(bindingResult);
         }
 
-        if (!validateUtils.isNumberValid(productUpReqDTO.getCategoryId())) {
+        if (!validateUtils.isNumberValid(updateProductParam.getCategoryId())) {
             throw new DataInputException("Mã danh mục không hợp lệ");
         }
 
-        Long idCategory = Long.parseLong(productUpReqDTO.getCategoryId());
+        Long idCategory = Long.parseLong(updateProductParam.getCategoryId());
         Category category = categoryService.findByIdAndDeletedFalse(idCategory).orElseThrow(() -> {
             throw new DataInputException("Mã danh mục không tồn tại");
         });
 
-        if (productUpReqDTO.getAvatar() == null) {
-            Product product = productUpReqDTO.toProductChangeImage(category);
+        if (updateProductParam.getAvatar() == null) {
+            Product product = updateProductParam.toProductChangeImage(category);
             product.setId(productOptional.get().getId());
             product.setProductAvatar(productOptional.get().getProductAvatar());
             return new ResponseEntity<>(productService.save(product), HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(productService.update(productId,productUpReqDTO,category), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(productService.update(productId, updateProductParam, category), HttpStatus.OK);
         }
     }
 
@@ -121,56 +121,56 @@ public class    ProductAPI {
     }
 
     @GetMapping("/search/{categoryId}")
-    public ResponseEntity<List<ProductDTO>> getProductBycategory(@PathVariable("categoryId") String categoryIdStr){
+    public ResponseEntity<List<ProductResult>> getProductBycategory(@PathVariable("categoryId") String categoryIdStr) {
 
         if (!validateUtils.isNumberValid(categoryIdStr)) {
             throw new DataInputException("Mã danh mục không hợp lệ");
         }
         Long categoryId = Long.parseLong(categoryIdStr);
 
-        if(!categoryService.existById(categoryId)) {
+        if (!categoryService.existById(categoryId)) {
             throw new RuntimeException("Category not found!");
         }
 
-         List<ProductDTO> productDTO  = productService.findAllByCategoryLike(categoryId);
+        List<ProductResult> productResult = productService.findAllByCategoryLike(categoryId);
 
-         return new ResponseEntity<>(productDTO,HttpStatus.OK);
+        return new ResponseEntity<>(productResult, HttpStatus.OK);
     }
 
     @GetMapping("/searchName/{keySearch}")
-    public ResponseEntity<List<ProductDTO>> getProductByName(@PathVariable("keySearch") String keySearch){
+    public ResponseEntity<List<ProductResult>> getProductByName(@PathVariable("keySearch") String keySearch) {
         keySearch = '%' + keySearch + '%';
 
-        List<ProductDTO> productDTO = productService.findProductByName(keySearch);
-        if (productDTO.isEmpty()){
+        List<ProductResult> productResult = productService.findProductByName(keySearch);
+        if (productResult.isEmpty()) {
             throw new DataInputException("Sản phẩm này không tồn tại");
         }
-        return new ResponseEntity<>(productDTO,HttpStatus.OK);
+        return new ResponseEntity<>(productResult, HttpStatus.OK);
     }
 
     @GetMapping("{/categoryId}/{keySearch}")
-    public ResponseEntity<List<ProductDTO>> searchProductCategory(@PathVariable("keySearch") String keySearch,@PathVariable("categoryId") String categoryIdStr){
+    public ResponseEntity<List<ProductResult>> searchProductCategory(@PathVariable("keySearch") String keySearch, @PathVariable("categoryId") String categoryIdStr) {
         if (!validateUtils.isNumberValid(categoryIdStr)) {
             throw new DataInputException("Mã danh mục không hợp lệ");
         }
         Long categoryId = Long.parseLong(categoryIdStr);
         categoryService.findByIdAndDeletedFalse(categoryId).orElseThrow(() -> {
-           throw new DataInputException("Mã danh mục không tồn tại");
+            throw new DataInputException("Mã danh mục không tồn tại");
         });
         keySearch = '%' + keySearch + '%';
 
-         List<ProductDTO> productDTO  = productService.findAllByCategoryLikeAndAndTitleLike(categoryId,keySearch);
-         if (productDTO.isEmpty()){
+        List<ProductResult> productResult = productService.findAllByCategoryLikeAndAndTitleLike(categoryId, keySearch);
+        if (productResult.isEmpty()) {
             throw new DataInputException("Sản phẩm này không tồn tại");
         }
 
-         return new ResponseEntity<>(productDTO,HttpStatus.OK);
+        return new ResponseEntity<>(productResult, HttpStatus.OK);
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<ProductDTO>> getAllProductDTO(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
+    public ResponseEntity<Page<ProductResult>> getAllProductDTO(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
         try {
-            Page<ProductDTO> productDTOS = productService.findAllProductDTOPage(PageRequest.of(page - 1, pageSize));
+            Page<ProductResult> productDTOS = productService.findAllProductDTOPage(PageRequest.of(page - 1, pageSize));
 
             if (productDTOS.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

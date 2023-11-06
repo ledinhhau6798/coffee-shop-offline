@@ -1,6 +1,6 @@
 package com.cg.orderDetail.dto;
-import com.cg.productAvatar.dto.ProductAvatarResDTO;
-import com.cg.tableOrder.dto.TableOrderResDTO;
+import com.cg.productAvatar.dto.ProductAvatarResult;
+import com.cg.tableOrder.dto.TableOrderResult;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 @Accessors(chain = true)
 public class OrderDetailCreResDTO {
     private Long orderDetailId;
-    private TableOrderResDTO table;
+    private TableOrderResult table;
     private Long productId;
     private String title;
     private BigDecimal price;
@@ -25,5 +25,5 @@ public class OrderDetailCreResDTO {
     private BigDecimal amount;
     private String note;
     private BigDecimal totalAmount;
-    private ProductAvatarResDTO avatar;
+    private ProductAvatarResult avatar;
 }

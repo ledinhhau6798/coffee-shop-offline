@@ -1,7 +1,7 @@
 package com.cg.model;
 
 
-import com.cg.productAvatar.dto.ProductAvatarResDTO;
+import com.cg.productAvatar.dto.ProductAvatarResult;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,8 +42,8 @@ public class ProductAvatar extends BaseEntity {
     private String cloudId;
 
 
-    public ProductAvatarResDTO toProductAvatarResDTO() {
-        return new ProductAvatarResDTO()
+    public ProductAvatarResult toProductAvatarResDTO() {
+        return new ProductAvatarResult()
                 .setId(id)
                 .setFileName(fileName)
                 .setFileFolder(fileFolder)
@@ -52,8 +52,8 @@ public class ProductAvatar extends BaseEntity {
                 ;
     }
 
-    public ProductAvatarResDTO toProductAvatarDTO() {
-        return new ProductAvatarResDTO()
+    public ProductAvatarResult toProductAvatarDTO() {
+        return new ProductAvatarResult()
                 .setId(id)
                 .setFileName(fileName)
                 .setFileFolder(fileFolder)

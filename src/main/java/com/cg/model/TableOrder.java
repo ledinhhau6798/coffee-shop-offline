@@ -1,8 +1,5 @@
 package com.cg.model;
 
-import com.cg.tableOrder.dto.TableOrderCreateResDTO;
-import com.cg.tableOrder.dto.TableOrderDTO;
-import com.cg.tableOrder.dto.TableOrderResDTO;
 import com.cg.model.enums.ETableStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,33 +28,4 @@ public class TableOrder extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private ETableStatus status;
 
-    public TableOrderDTO toTableOrderDTO() {
-        return new TableOrderDTO()
-                .setId(String.valueOf(id))
-                .setTitle(title)
-                .setStatus(status.getValue())
-                ;
-    }
-
-    public TableOrderCreateResDTO toTableOrderCreateResDTO() {
-        return new TableOrderCreateResDTO()
-                .setId(null)
-                .setTitle(title)
-                .setStatus(ETableStatus.EMPTY);
-    }
-    public TableOrderResDTO toTableOrderResDTO() {
-        return new TableOrderResDTO()
-                .setId(id)
-                .setTitle(title)
-                .setStatus(status)
-                ;
-    }
-
-    public TableOrderResDTO toUpdateTableOrderResDTO(Long tableOrderId) {
-        return new TableOrderResDTO()
-                .setId(tableOrderId)
-                .setTitle(title)
-                .setStatus(ETableStatus.EMPTY)
-                ;
-    }
 }

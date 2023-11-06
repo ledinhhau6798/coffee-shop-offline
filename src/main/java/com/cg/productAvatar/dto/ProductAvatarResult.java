@@ -12,22 +12,21 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ProductAvatarResDTO {
+public class ProductAvatarResult {
 
     private String id;
     private String fileName;
     private String fileFolder;
     private String fileUrl;
-
     private String cloudId;
 
 
-    public ProductAvatar toDTO() {
-        return new ProductAvatar()
-                .setId(id)
-                .setFileName(fileName)
-                .setFileFolder(fileFolder)
-                .setFileUrl(fileUrl)
-                .setCloudId(cloudId);
-    }
+//    public ProductAvatar toDTO() {
+//        return new ProductAvatar()
+//                .setId(id)
+//                .setFileName(fileName)
+//                .setFileFolder(fileFolder)
+//                .setFileUrl(fileUrl)
+//                .setCloudId(cloudId);
+//    }
 }

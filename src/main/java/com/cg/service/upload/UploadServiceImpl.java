@@ -1,6 +1,7 @@
 package com.cg.service.upload;
 
 import com.cloudinary.Cloudinary;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,9 +12,10 @@ import java.util.Map;
 
 
 @Service
+@RequiredArgsConstructor
 public class UploadServiceImpl implements IUploadService {
-    @Autowired
-    private Cloudinary cloudinary;
+
+    private final Cloudinary cloudinary;
 
     @Override
     public Map uploadImage(MultipartFile multipartFile, Map options) throws IOException {

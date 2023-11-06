@@ -1,7 +1,7 @@
 package com.cg.orderDetail.dto;
 
 import com.cg.model.ProductAvatar;
-import com.cg.productAvatar.dto.ProductAvatarResDTO;
+import com.cg.productAvatar.dto.ProductAvatarResult;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,7 @@ public class OrderDetailProductUpResDTO {
     private Long quantity;
     private BigDecimal amount;
     private String note;
-    private ProductAvatarResDTO avatar;
+    private ProductAvatarResult avatar;
 
     public OrderDetailProductUpResDTO(Long id, Long productId, String title, BigDecimal price, Long quantity, BigDecimal amount, String note, ProductAvatar avatar) {
         this.id = id;

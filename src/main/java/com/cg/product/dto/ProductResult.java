@@ -4,7 +4,7 @@ import com.cg.model.Category;
 import com.cg.model.Product;
 import com.cg.model.ProductAvatar;
 import com.cg.category.dto.CategoryDTO;
-import com.cg.productAvatar.dto.ProductAvatarResDTO;
+import com.cg.productAvatar.dto.ProductAvatarResult;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,16 +18,16 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ProductDTO {
+public class ProductResult {
     private String id;
     private String title;
     private BigDecimal price;
 
     private String unit;
     private CategoryDTO category;
-    private ProductAvatarResDTO avatar;
+    private ProductAvatarResult avatar;
 
-    public ProductDTO(Long id, String title, BigDecimal price,String unit, Category category, ProductAvatar avatar){
+    public ProductResult(Long id, String title, BigDecimal price, String unit, Category category, ProductAvatar avatar){
         this.id= String.valueOf(id);
         this.title=title;
         this.price=price;
@@ -37,8 +37,8 @@ public class ProductDTO {
     }
 
 
-    public ProductDTO toDTO(Product product) {
-        return new ProductDTO()
+    public ProductResult toDTO(Product product) {
+        return new ProductResult()
                 .setId(String.valueOf(product.getId()))
                 .setTitle(product.getTitle())
                 .setPrice(product.getPrice())

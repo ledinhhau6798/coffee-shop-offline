@@ -1,7 +1,7 @@
 package com.cg.product;
 
 import com.cg.model.Product;
-import com.cg.product.dto.ProductDTO;
+import com.cg.product.dto.ProductResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,7 +29,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "From Product AS pr " +
             "WHERE pr.category.id = :categoryId " +
             "AND pr.deleted = false ")
-    List<ProductDTO> findAllByCategoryLike(Long categoryId);
+    List<ProductResult> findAllByCategoryLike(Long categoryId);
 
     @Query("SELECT NEW com.cg.product.DTO.ProductDTO (" +
             "pro.id, " +
@@ -42,7 +42,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "FROM Product AS pro " +
             "WHERE pro.title like :keySearch " +
             "AND pro.deleted = false")
-    List<ProductDTO> findProductByName(String keySearch);
+    List<ProductResult> findProductByName(String keySearch);
 
 
     @Query("SELECT NEW com.cg.product.DTO.ProductDTO (" +
@@ -57,7 +57,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "WHERE pro.title like :keySearch and pro.category.id = :categoryId " +
             "ORDER BY pro.price desc"
     )
-    List<ProductDTO> findAllByCategoryLikeAndAndTitleLike(@Param("categoryId") Long categoryId,@Param("keySearch") String keySearch);
+    List<ProductResult> findAllByCategoryLikeAndAndTitleLike(@Param("categoryId") Long categoryId, @Param("keySearch") String keySearch);
 
     @Query("SELECT NEW com.cg.product.DTO.ProductDTO ( " +
             "pro.id, " +
@@ -71,5 +71,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "WHERE pro.deleted = false " +
             "ORDER BY pro.id ASC"
     )
-    Page<ProductDTO> findAllProductDTOPage(Pageable pageable);
+    Page<ProductResult> findAllProductDTOPage(Pageable pageable);
 }

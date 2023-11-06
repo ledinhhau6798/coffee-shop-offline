@@ -16,6 +16,7 @@ import com.cg.tableOrder.ITableOrderService;
 import com.cg.user.IUserService;
 import com.cg.utils.AppUtils;
 import com.cg.utils.ValidateUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,33 +26,22 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/orders")
 public class OrderAPI {
-    @Autowired
-    private IOrderService orderService;
 
-    @Autowired
-    private IOrderDetailService orderDetailService;
-
-    @Autowired
-    private ValidateUtils validateUtils;
-
-    @Autowired
-    private ITableOrderService tableOrderService;
-
-    @Autowired
-    private IUserService userService;
-
-    @Autowired
-    private IProductService productService;
-
-    @Autowired
-    private AppUtils appUtils;
+    private final IOrderService orderService;
+    private final IOrderDetailService orderDetailService;
+    private final ValidateUtils validateUtils;
+    private final ITableOrderService tableOrderService;
+    private final IUserService userService;
+    private final IProductService productService;
+    private final AppUtils appUtils;
 
 
     @GetMapping("/table/{tableId}")
-    public ResponseEntity<?> getOrderByTableId(@PathVariable("tableId") String tableIdStr){
-        if(!validateUtils.isNumberValid(tableIdStr)){
+    public ResponseEntity<?> getOrderByTableId(@PathVariable("tableId") String tableIdStr) {
+        if (!validateUtils.isNumberValid(tableIdStr)) {
             throw new DataInputException("Mã số bàn không hợp lệ vui lòng xem lại");
         }
 
@@ -59,21 +49,21 @@ public class OrderAPI {
 
         Optional<Order> orderOptional = orderService.findByTableId(tableId);
 
-        if(!orderOptional.isPresent()){
+        if (!orderOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
         List<OrderDetailByTableResDTO> orderDetails = orderDetailService.getOrderDetailByTableResDTO(orderOptional.get().getId());
 
-        if(orderDetails.size() == 0){
+        if (orderDetails.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity<>(orderDetails,HttpStatus.OK);
+        return new ResponseEntity<>(orderDetails, HttpStatus.OK);
     }
 
     @GetMapping("/list-order-details/{tableId}")
-    public ResponseEntity<?> getListOrderDetailByTableId(@PathVariable("tableId") String tableIdStr){
+    public ResponseEntity<?> getListOrderDetailByTableId(@PathVariable("tableId") String tableIdStr) {
         if (!validateUtils.isNumberValid(tableIdStr)) {
             throw new DataInputException("Mã bàn không hợp lệ");
         }
@@ -95,7 +85,7 @@ public class OrderAPI {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> creOrder(@RequestBody OrderCreReqDTO orderCreReqDTO){
+    public ResponseEntity<?> creOrder(@RequestBody OrderCreReqDTO orderCreReqDTO) {
         String username = appUtils.getPrincipalUsername();
         Optional<User> userOptional = userService.findByName(username);
 
@@ -119,7 +109,7 @@ public class OrderAPI {
     }
 
     @PatchMapping("/update")
-    public ResponseEntity<?> upOrder(@RequestBody OrderUpReqDTO orderUpReqDTO){
+    public ResponseEntity<?> upOrder(@RequestBody OrderUpReqDTO orderUpReqDTO) {
         String username = appUtils.getPrincipalUsername();
         Optional<User> userOptional = userService.findByName(username);
 
@@ -143,9 +133,9 @@ public class OrderAPI {
 
         Order order = orders.get(0);
 
-        if (tableOrder.getStatus() == ETableStatus.BUSY){
+        if (tableOrder.getStatus() == ETableStatus.BUSY) {
             OrderDetailUpResDTO orderDetailUpResDTO = orderService.upOrderDetail(orderUpReqDTO, order, product, userOptional.get());
-            return new ResponseEntity<>(orderDetailUpResDTO ,HttpStatus.OK);
+            return new ResponseEntity<>(orderDetailUpResDTO, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -161,12 +151,12 @@ public class OrderAPI {
 
         orderDetailService.delete(orderDetail);
         List<OrderDetailByTableResDTO> orderDetails = orderDetailService.getOrderDetailByTableResDTO(orderId);
-        if(orderDetails.isEmpty()){
+        if (orderDetails.isEmpty()) {
             Optional<TableOrder> tableOrderOptional = tableOrderService.findById(tableId);
-           TableOrder tableOrder = tableOrderOptional.get();
-           tableOrder.setStatus(ETableStatus.EMPTY);
-           tableOrderService.save(tableOrder);
-           return new ResponseEntity<>(tableOrder,HttpStatus.OK);
+            TableOrder tableOrder = tableOrderOptional.get();
+            tableOrder.setStatus(ETableStatus.EMPTY);
+            tableOrderService.save(tableOrder);
+            return new ResponseEntity<>(tableOrder, HttpStatus.OK);
         }
         return new ResponseEntity<>(orderDetail.getOrder().getTableOrder(), HttpStatus.OK);
     }
@@ -183,7 +173,7 @@ public class OrderAPI {
             throw new DataInputException("Bàn không tồn tại");
         });
 
-        if(tableOrderEmpty.getId().equals(tableOrderBusy.getId()) ) {
+        if (tableOrderEmpty.getId().equals(tableOrderBusy.getId())) {
             throw new DataInputException("Bàn chuyển và bàn chuyển là một xin vui lòng kiểm tra lại");
         }
 

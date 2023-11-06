@@ -1,24 +1,39 @@
 package com.cg.staff;
+
 import com.cg.model.Staff;
-import com.cg.staff.dto.StaffCreReqDTO;
-import com.cg.staff.dto.StaffDTO;
-import com.cg.staff.dto.StaffUpReqDTO;
-import com.cg.service.IGeneralService;
+import com.cg.staff.dto.CreationStaffParam;
+import com.cg.staff.dto.StaffResult;
+import com.cg.staff.dto.UpdateStaffParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface IStaffService extends IGeneralService<Staff,Long> {
+public interface IStaffService {
 
-    Optional<Staff> findByIdAndDeletedFalse(Long id);
-    Staff create(StaffCreReqDTO staffCreReqDTO);
+    Staff findById(Long id);
 
-    List<StaffDTO> findAllStaffDTO();
+    Page<StaffResult> findAllStaffDTOPage(Pageable pageable);
+
+    Staff create(CreationStaffParam creationStaffParam);
+
+    List<Staff> findAll();
+
+    Staff findByIdAndDeletedFalse(Long id);
+
+    void deleteById(Long id);
+
     void deleteByIdTrue(Staff staff);
-    List<StaffDTO> findStaffByTitle(String keySearch);
-    Page<StaffDTO> findAllStaffDTOPage(Pageable pageable);
 
-    Staff update(StaffUpReqDTO staffUpReqDTO , Long staffId);
+    List<Staff> findStaffByTitle(String title);
+
+    List<StaffResult> getStaffByTitle(String keySearch);
+
+    Page<StaffResult> findAll(Pageable pageable);
+
+    Staff update(Long staffId, UpdateStaffParam updateStaffParam);
+
+    List<StaffResult> getAll();
+
+    Staff save(Staff updateStaff);
 }
