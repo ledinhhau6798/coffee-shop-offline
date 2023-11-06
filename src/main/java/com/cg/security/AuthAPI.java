@@ -50,32 +50,32 @@ public class AuthAPI {
     private AppUtils appUtils;
 
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody UserRegisterReqDTO userRegisterReqDTO, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors())
-            return appUtils.mapErrorToResponse(bindingResult);
-
-        Boolean existsByUsername = userService.existsByUsername(userRegisterReqDTO.getUsername());
-
-        if (existsByUsername) {
-            throw new EmailExistsException("Account already exists");
-        }
-
-        Optional<Role> optRole = roleService.findById(userRegisterReqDTO.getRoleId());
-
-        if (!optRole.isPresent()) {
-            throw new DataInputException("Invalid account role");
-        }
-        try {
-            userService.save(userRegisterReqDTO.toUser(optRole.get()));
-
-            return new ResponseEntity<>(HttpStatus.CREATED);
-
-        } catch (DataIntegrityViolationException e) {
-            throw new DataInputException("Account information is not valid, please check the information again");
-        }
-    }
+//    @PostMapping("/register")
+//    public ResponseEntity<?> register(@Valid @RequestBody UserRegisterReqDTO userRegisterReqDTO, BindingResult bindingResult) {
+//
+//        if (bindingResult.hasErrors())
+//            return appUtils.mapErrorToResponse(bindingResult);
+//
+//        Boolean existsByUsername = userService.existsByUsername(userRegisterReqDTO.getUsername());
+//
+//        if (existsByUsername) {
+//            throw new EmailExistsException("Account already exists");
+//        }
+//
+//        Optional<Role> optRole = roleService.findById(userRegisterReqDTO.getRoleId());
+//
+//        if (!optRole.isPresent()) {
+//            throw new DataInputException("Invalid account role");
+//        }
+//        try {
+//            userService.save(userRegisterReqDTO.toUser(optRole.get()));
+//
+//            return new ResponseEntity<>(HttpStatus.CREATED);
+//
+//        } catch (DataIntegrityViolationException e) {
+//            throw new DataInputException("Account information is not valid, please check the information again");
+//        }
+//    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {

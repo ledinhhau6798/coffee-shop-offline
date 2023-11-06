@@ -1,6 +1,9 @@
 package com.cg.model;
 
-import com.cg.orderDetail.DTO.OrderDetailDTO;
+import com.cg.bill.DTO.DetaiDTO;
+import com.cg.category.DTO.CreationCategoryParam;
+import com.cg.order.DTO.CreationOrderParam;
+import com.cg.orderDetail.DTO.OrderDetailResult;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,14 +47,35 @@ public class OrderDetail extends BaseEntity {
     private String note;
 
 
-    public OrderDetailDTO toOrderDetailDTO() {
-        return new OrderDetailDTO()
+    public OrderDetailResult toOrderDetailDTO() {
+        return new OrderDetailResult()
                 .setOrderDetailId(id)
-                .setProduct(product.toProductDTO())
+                .setProduct(product.getTitle())
                 .setQuantity(String.valueOf(quantity))
                 .setPrice(price)
                 .setAmount(amount)
                 .setNote(note)
                 ;
+    }
+    public DetaiDTO toDetailDTO() {
+        return new DetaiDTO()
+                .setAmount(amount)
+                .setNote(note)
+                .setPrice(price)
+                .setQuantity(quantity)
+                .setTitle(product.getTitle())
+                .setCreatedAt(getCreatedAt())
+                ;
+    }
+
+
+    public OrderDetailResult toDTO() {
+        return new OrderDetailResult()
+                .setOrderDetailId(id)
+                .setProduct(product.getTitle())
+                .setQuantity(String.valueOf(quantity))
+                .setPrice(price)
+                .setAmount(amount)
+                .setNote(note);
     }
 }

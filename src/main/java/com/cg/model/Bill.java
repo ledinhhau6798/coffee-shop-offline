@@ -1,15 +1,16 @@
 package com.cg.model;
 
-import com.cg.bill.DTO.BillCreateResDTO;
-import com.cg.bill.DTO.BillDTO;
-import lombok.AllArgsConstructor;
+
+
+import com.cg.bill.DTO.BillDetailResult;
+import com.cg.bill.DTO.BillResult;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -30,18 +31,10 @@ public class Bill extends BaseEntity{
     @JoinColumn(name = "order_id",referencedColumnName = "id",nullable = false)
     private Order order;
 
-    public BillCreateResDTO toBillResDTO() {
-        return new BillCreateResDTO()
-                .setId(order.getId())
-                .setTable(order.getTableOrder().toTableOrderDTO())
-                .setTotalAmount(order.getTotalAmount())
-                .setPaid(getOrder().getPaid())
-                .setOrderId(getOrder().getId())
-                ;
-    }
 
-    public BillDTO toBillDTO() {
-        return new BillDTO()
+
+    public BillResult toBillDTO() {
+        return new BillResult()
                 .setId(order.getId())
                 .setTableTitle(order.getTableOrder().getTitle())
                 .setTotal(order.getTotalAmount())
@@ -52,4 +45,23 @@ public class Bill extends BaseEntity{
     }
 
 
+    public BillResult toDTO() {
+        return new BillResult()
+                .setId(order.getId())
+                .setTableTitle(order.getTableOrder().getTitle())
+                .setTotal(order.getTotalAmount())
+                .setCreatedAt(order.getCreatedAt())
+                .setStaffName(order.getStaff().getTitle())
+                .setOrderId(order.getId())
+                ;
+    }
+
+
+    public BillDetailResult toDetaiResultDTO() {
+        return new BillDetailResult()
+                .setId(id)
+                .setTotalAmount(totalAmount)
+                .setDetaiDTOS(order.getOrderDetails().stream().map(orderDetail -> orderDetail.toDetailDTO()).collect(Collectors.toList()));
+
+    }
 }

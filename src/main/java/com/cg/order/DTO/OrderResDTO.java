@@ -1,5 +1,5 @@
 package com.cg.order.DTO;
-import com.cg.orderDetail.DTO.OrderDetailDTO;
+import com.cg.orderDetail.DTO.OrderDetailResult;
 import com.cg.staff.DTO.StaffDTO;
 import com.cg.tableOrder.DTO.TableOrderDTO;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class OrderResDTO {
     private Long id;
     private StaffDTO staff;
     private TableOrderDTO tableOrder;
-    private List<OrderDetailDTO> orderDetails;
+    private List<OrderDetailResult> orderDetails;
     private Boolean paid;
 
 }

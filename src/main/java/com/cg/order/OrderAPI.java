@@ -2,13 +2,13 @@ package com.cg.order;
 
 import com.cg.exception.DataInputException;
 import com.cg.model.*;
-import com.cg.order.DTO.OrderCreReqDTO;
+import com.cg.order.DTO.CreationOrderParam;
 import com.cg.order.DTO.OrderUpChangeToTableReqDTO;
 import com.cg.order.DTO.OrderUpChangeToTableResDTO;
 import com.cg.order.DTO.OrderUpReqDTO;
 import com.cg.orderDetail.DTO.OrderDetailByTableResDTO;
-import com.cg.orderDetail.DTO.OrderDetailCreResDTO;
-import com.cg.orderDetail.DTO.OrderDetailUpResDTO;
+import com.cg.orderDetail.DTO.OrderDetailResult;
+import com.cg.orderDetail.DTO.UpdateOrderDetaiParam;
 import com.cg.model.enums.ETableStatus;
 import com.cg.orderDetail.IOrderDetailService;
 import com.cg.product.IProductService;
@@ -16,7 +16,7 @@ import com.cg.tableOrder.ITableOrderService;
 import com.cg.user.IUserService;
 import com.cg.utils.AppUtils;
 import com.cg.utils.ValidateUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,44 +26,35 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/orders")
+@RequiredArgsConstructor
 public class OrderAPI {
-    @Autowired
-    private IOrderService orderService;
 
-    @Autowired
-    private IOrderDetailService orderDetailService;
+    private final IOrderService orderService;
 
-    @Autowired
-    private ValidateUtils validateUtils;
 
-    @Autowired
-    private ITableOrderService tableOrderService;
+    private final IOrderDetailService orderDetailService;
 
-    @Autowired
-    private IUserService userService;
 
-    @Autowired
-    private IProductService productService;
+    private final ValidateUtils validateUtils;
 
-    @Autowired
-    private AppUtils appUtils;
+
+    private final ITableOrderService tableOrderService;
+
+
+    private final IUserService userService;
+
+
+    private final IProductService productService;
+
+
+    private final AppUtils appUtils;
 
 
     @GetMapping("/table/{tableId}")
     public ResponseEntity<?> getOrderByTableId(@PathVariable("tableId") String tableIdStr){
-        if(!validateUtils.isNumberValid(tableIdStr)){
-            throw new DataInputException("Mã số bàn không hợp lệ vui lòng xem lại");
-        }
 
-        Long tableId = Long.valueOf(tableIdStr);
 
-        Optional<Order> orderOptional = orderService.findByTableId(tableId);
-
-        if(!orderOptional.isPresent()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        List<OrderDetailByTableResDTO> orderDetails = orderDetailService.getOrderDetailByTableResDTO(orderOptional.get().getId());
+        List<OrderDetailResult> orderDetails = orderDetailService.getOrderDetailByTableResDTO(tableIdStr);
 
         if(orderDetails.size() == 0){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -72,82 +63,26 @@ public class OrderAPI {
         return new ResponseEntity<>(orderDetails,HttpStatus.OK);
     }
 
-    @GetMapping("/list-order-details/{tableId}")
-    public ResponseEntity<?> getListOrderDetailByTableId(@PathVariable("tableId") String tableIdStr){
-        if (!validateUtils.isNumberValid(tableIdStr)) {
-            throw new DataInputException("Mã bàn không hợp lệ");
-        }
-        Long tableId = Long.valueOf(tableIdStr);
 
-        Optional<Order> orderOptional = orderService.findByTableId(tableId);
+    @PostMapping()
+    public ResponseEntity<?> creOrder(@RequestBody CreationOrderParam creationOrderParam){
 
-        if (orderOptional.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+        OrderDetailResult orderDetailResult = orderService.creOrder(creationOrderParam);
 
-        List<OrderDetailByTableResDTO> orderDetails = orderDetailService.getOrderDetailByTableResDTO(orderOptional.get().getId());
+            return new ResponseEntity<>(orderDetailResult, HttpStatus.CREATED);
 
-        if (orderDetails.size() == 0) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
 
-        return new ResponseEntity<>(orderDetails, HttpStatus.OK);
+
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<?> creOrder(@RequestBody OrderCreReqDTO orderCreReqDTO){
-        String username = appUtils.getPrincipalUsername();
-        Optional<User> userOptional = userService.findByName(username);
-
-        TableOrder tableOrder = tableOrderService.findById(orderCreReqDTO.getTableId()).orElseThrow(() -> {
-            throw new DataInputException("Bàn không tồn tại");
-        });
-
-        List<Order> orders = orderService.findByTableOrderAndPaid(tableOrder, false);
-
-        if (orders.size() > 0) {
-            throw new DataInputException("Bàn này đang có hoá đơn, vui lòng kiểm tra lại thông tin");
-        }
-
-        if (tableOrder.getStatus() == ETableStatus.EMPTY) {
-            OrderDetailCreResDTO orderDetailCreResDTO = orderService.creOrder(orderCreReqDTO, tableOrder, userOptional.get());
-
-            return new ResponseEntity<>(orderDetailCreResDTO, HttpStatus.CREATED);
-        }
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @PatchMapping("/update")
+    @PatchMapping()
     public ResponseEntity<?> upOrder(@RequestBody OrderUpReqDTO orderUpReqDTO){
-        String username = appUtils.getPrincipalUsername();
-        Optional<User> userOptional = userService.findByName(username);
 
-        TableOrder tableOrder = tableOrderService.findById(orderUpReqDTO.getTableId()).orElseThrow(() -> {
-            throw new DataInputException("Bàn không tồn tại");
-        });
 
-        Product product = productService.findById(orderUpReqDTO.getProductId()).orElseThrow(() -> {
-            throw new DataInputException("Sản phẩm không tồn tại");
-        });
 
-        List<Order> orders = orderService.findByTableOrderAndPaid(tableOrder, false);
+            UpdateOrderDetaiParam updateOrderDetaiParam = orderService.upOrderDetail(orderUpReqDTO);
+            return new ResponseEntity<>(updateOrderDetaiParam,HttpStatus.OK);
 
-        if (orders.size() == 0) {
-            throw new DataInputException("Bàn này không có hoá đơn, vui lòng kiểm tra lại thông tin");
-        }
-
-        if (orders.size() > 1) {
-            throw new DataInputException("Lỗi hệ thống, vui lòng liên hệ ADMIN để kiểm tra lại dữ liệu");
-        }
-
-        Order order = orders.get(0);
-
-        if (tableOrder.getStatus() == ETableStatus.BUSY){
-            OrderDetailUpResDTO orderDetailUpResDTO = orderService.upOrderDetail(orderUpReqDTO, order, product, userOptional.get());
-            return new ResponseEntity<>(orderDetailUpResDTO ,HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/delete/{orderDetailId}")
@@ -160,7 +95,7 @@ public class OrderAPI {
         Long tableId = orderDetail.getOrder().getTableOrder().getId();
 
         orderDetailService.delete(orderDetail);
-        List<OrderDetailByTableResDTO> orderDetails = orderDetailService.getOrderDetailByTableResDTO(orderId);
+        List<OrderDetailResult> orderDetails = orderDetailService.getOrderDetailByTableResDTO(String.valueOf(orderId));
         if(orderDetails.isEmpty()){
             Optional<TableOrder> tableOrderOptional = tableOrderService.findById(tableId);
            TableOrder tableOrder = tableOrderOptional.get();

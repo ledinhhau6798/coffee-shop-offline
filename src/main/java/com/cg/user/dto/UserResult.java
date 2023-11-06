@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 
 @Getter
 @Setter
+@Accessors(chain = true)
 public class UserResult {
     private Long id;
     private String username;

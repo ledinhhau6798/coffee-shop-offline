@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,5 +58,10 @@ public class UserServiceImpl implements IUserService {
         //TODO:Kiem tra lai
 //        entity = userRepository.save(entity);
         return userMapper.toDTO(entity);
+    }
+
+    @Override
+    public Optional<User> findByName(String username) {
+        return Optional.empty();
     }
 }

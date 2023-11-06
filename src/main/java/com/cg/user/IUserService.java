@@ -7,6 +7,7 @@ import com.cg.user.dto.UserResult;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IUserService {
     List<UserResult> findAll();
@@ -18,4 +19,7 @@ public interface IUserService {
     UserResult create(CreationUserParam creationParam);
 
     UserResult update(Long id, UpdateUserParam updateParam);
+
+
+    Optional<User> findByName(String username);
 }

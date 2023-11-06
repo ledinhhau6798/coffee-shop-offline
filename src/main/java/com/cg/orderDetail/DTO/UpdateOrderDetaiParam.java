@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class OrderDetailUpResDTO {
+public class UpdateOrderDetaiParam {
     private TableOrderResDTO table;
     private BigDecimal totalAmount;
     private List<OrderDetailProductUpResDTO> products;

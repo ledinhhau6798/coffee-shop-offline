@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class UserMapper {
 
     public UserResult toDTO(User entity) {
-        return null;
+        return entity.toDTO();
     }
 
     public User toEntity(CreationUserParam creationParam) {

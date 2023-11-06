@@ -1,5 +1,5 @@
 package com.cg.order.DTO;
-import com.cg.orderDetail.DTO.OrderDetailDTO;
+import com.cg.orderDetail.DTO.OrderDetailResult;
 import com.cg.staff.DTO.StaffDTO;
 import com.cg.tableOrder.DTO.TableOrderDTO;
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ public class OrderReqDTO implements Validator {
     private StaffDTO staff;
     private TableOrderDTO tableOrder;
     private BigDecimal totalAmount;
-    private OrderDetailDTO orderDetail;
+    private OrderDetailResult orderDetail;
     private Boolean paid;
 
     @Override

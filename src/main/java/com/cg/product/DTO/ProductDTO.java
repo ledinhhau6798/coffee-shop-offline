@@ -3,7 +3,7 @@ package com.cg.product.DTO;
 import com.cg.model.Category;
 import com.cg.model.Product;
 import com.cg.model.ProductAvatar;
-import com.cg.category.DTO.CategoryDTO;
+import com.cg.category.DTO.CategoryResult;
 import com.cg.productAvatar.DTO.ProductAvatarResDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +24,7 @@ public class ProductDTO {
     private BigDecimal price;
 
     private String unit;
-    private CategoryDTO category;
+    private CategoryResult category;
     private ProductAvatarResDTO avatar;
 
     public ProductDTO(Long id, String title, BigDecimal price,String unit, Category category, ProductAvatar avatar){

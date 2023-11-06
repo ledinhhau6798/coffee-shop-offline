@@ -4,12 +4,8 @@ import com.cg.user.dto.CreationUserParam;
 import com.cg.user.dto.UpdateUserParam;
 import com.cg.user.dto.UserResult;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

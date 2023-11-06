@@ -1,6 +1,7 @@
 package com.cg.orderDetail.DTO;
 
 
+import com.cg.model.Product;
 import com.cg.model.ProductAvatar;
 import com.cg.productAvatar.DTO.ProductAvatarResDTO;
 import lombok.AllArgsConstructor;
@@ -39,5 +40,15 @@ public class OrderDetailByTableResDTO {
         this.unit = unit;
         this.note = note;
         this.avatar = avatar.toProductAvatarDTO();
+    }
+
+    public OrderDetailResult toDTO() {
+        return new OrderDetailResult()
+                .setOrderDetailId(orderDetailId)
+                .setProduct(title)
+                .setQuantity(String.valueOf(quantity))
+                .setPrice(price)
+                .setAmount(amount)
+                .setNote(note);
     }
 }
