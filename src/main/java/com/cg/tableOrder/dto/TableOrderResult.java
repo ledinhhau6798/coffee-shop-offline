@@ -1,6 +1,5 @@
 package com.cg.tableOrder.dto;
 
-import com.cg.model.enums.ETableStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,13 +7,13 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 
-@Setter
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Setter
 @Accessors(chain = true)
-public class TableOrderResDTO {
-    private Long id;
+public class TableOrderResult {
+    private String id;
     private String title;
-    private ETableStatus status;
+    private String status;
+
+
 }

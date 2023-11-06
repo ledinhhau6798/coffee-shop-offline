@@ -18,10 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class StaffCreReqDTO implements Validator {
+public class CreationStaffParam implements Validator {
     private String title;
     private String phone;
-
     private String provinceId;
     private String provinceName;
     private String districtId;
@@ -30,29 +29,14 @@ public class StaffCreReqDTO implements Validator {
     private String wardName;
     private String address;
     private MultipartFile staffAvatar;
-
     private String username;
     private String password;
     private Long roleId;
 
-    public LocationRegion toLocationRegion() {
-        return new LocationRegion()
-                .setProvinceId(provinceId)
-                .setProvinceName(provinceName)
-                .setDistrictId(districtId)
-                .setDistrictName(districtName)
-                .setWardId(wardId)
-                .setWardName(wardName)
-                .setAddress(address)
-                ;
-    }
-
     public Staff toStaff() {
         return new Staff()
                 .setTitle(title)
-                .setPhone(phone)
-
-                ;
+                .setPhone(phone);
     }
 
     public User toUser(Role role) {
@@ -65,16 +49,16 @@ public class StaffCreReqDTO implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return StaffCreReqDTO.class.isAssignableFrom(clazz);
+        return CreationStaffParam.class.isAssignableFrom(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        StaffCreReqDTO staffCreReqDTO = (StaffCreReqDTO) target;
-        String title = staffCreReqDTO.title;
-        String phone = staffCreReqDTO.phone;
-        String username = staffCreReqDTO.username;
-        String password = staffCreReqDTO.password;
+        CreationStaffParam creationStaffParam = (CreationStaffParam) target;
+        String title = creationStaffParam.title;
+        String phone = creationStaffParam.phone;
+        String username = creationStaffParam.username;
+        String password = creationStaffParam.password;
         if (title.isEmpty()) {
             errors.rejectValue("title", "title.null", "Tên không được phép rỗng");
             return;

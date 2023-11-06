@@ -1,33 +1,35 @@
 package com.cg.staff.dto;
 
+import com.cg.locationRegion.dto.LocationRegionResDTO;
 import com.cg.model.LocationRegion;
 import com.cg.model.StaffAvatar;
 import com.cg.model.User;
-import com.cg.locationRegion.dto.LocationRegionResDTO;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.cg.staffAvatar.dto.StaffAvatarResult;
+import com.cg.user.dto.UserResult;
+import lombok.*;
 import lombok.experimental.Accessors;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Getter
 @Setter
+@Data
+//@AllArgsConstructor
+@NoArgsConstructor
 @Accessors(chain = true)
-public class StaffDTO {
+
+public class StaffResult {
     private Long id;
     private String title;
     private String phone;
-    private LocationRegionResDTO locationRegion;
+    private LocationRegion locationRegion;
     private StaffAvatar staffAvatar;
     private User user;
 
-    public StaffDTO(Long id, String title, String phone, LocationRegion locationRegion, StaffAvatar staffAvatar, User user) {
+    public StaffResult(Long id, String title,String phone, LocationRegion locationRegion, StaffAvatar staffAvatar, User user){
         this.id = id;
         this.title = title;
         this.phone = phone;
-        this.locationRegion = locationRegion.toLocationRegionResDTO();
+        this.locationRegion = locationRegion;
         this.staffAvatar = staffAvatar;
         this.user = user;
     }

@@ -1,15 +1,11 @@
 package com.cg.user;
 
-import com.cg.user.dto.CreationUserParam;
-import com.cg.user.dto.UpdateUserParam;
+import com.cg.user.dto.UserParam;
 import com.cg.user.dto.UserResult;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,14 +27,14 @@ public class UserAPI {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(CreationUserParam creationParam) {
+    public ResponseEntity<?> create(UserParam creationParam) {
         UserResult dto = userService.create(creationParam);
         return ResponseEntity.ok(dto);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, UpdateUserParam updateParam) {
-        UserResult dto = userService.update(id,updateParam);
+    public ResponseEntity<?> update(@PathVariable Long id, UserParam updateParam) {
+        UserResult dto = userService.update(id, updateParam);
         return ResponseEntity.ok(dto);
     }
 }

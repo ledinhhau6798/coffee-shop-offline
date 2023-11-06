@@ -3,8 +3,8 @@ package com.cg.tableOrder;
 import com.cg.exception.DataInputException;
 import com.cg.exception.ResourceNotFoundException;
 import com.cg.model.TableOrder;
-import com.cg.tableOrder.dto.TableOrderCreateReqDTO;
-import com.cg.tableOrder.dto.TableOrderDTO;
+import com.cg.tableOrder.dto.TableOrderParam;
+import com.cg.tableOrder.dto.TableOrderResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +19,9 @@ public class TableOrderAPI {
     @Autowired
     private ITableOrderService tableOrderService;
 
-
     @GetMapping
     public ResponseEntity<?> getAllTableOrder() {
-        List<TableOrderDTO> tableOrderDTO = tableOrderService.findAllTableOrderDTO();
+        List<TableOrderResult> tableOrderDTO = tableOrderService.findAll();
         if(tableOrderDTO.isEmpty()) {
             throw new ResourceNotFoundException("Không có bàn nào vui lòng kiểm tra lại hệ thống");
         }
@@ -31,24 +30,18 @@ public class TableOrderAPI {
 
     @GetMapping("/{tableId}")
     public ResponseEntity<?> getTableOrderById(@PathVariable Long tableId){
-        Optional<TableOrder> tableOrderOptional = tableOrderService.findById(tableId);
-
-        if(!tableOrderOptional.isPresent()){
-            throw new DataInputException("Bàn này không tồn tại xin vui lòng kiểm tra lại");
-        }
-
-        return new ResponseEntity<>(tableOrderOptional,HttpStatus.OK);
+        return new ResponseEntity<>(tableOrderService.getById(tableId),HttpStatus.OK);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createTableOrder(@RequestBody TableOrderCreateReqDTO tableOrderCreateReqDTO){
-        return new ResponseEntity<>(tableOrderService.createTableOrder(tableOrderCreateReqDTO),HttpStatus.CREATED);
+    public ResponseEntity<?> createTableOrder(@RequestBody TableOrderParam tableOrderCreateReqDTO){
+        return new ResponseEntity<>(tableOrderService.create(tableOrderCreateReqDTO),HttpStatus.CREATED);
     }
 
     @GetMapping("/tables-without-tableSend/{tableId}")
     public ResponseEntity<?> getAllTablesWithoutSender(@PathVariable Long tableId) {
 
-        List<TableOrderDTO> tableSelect = tableOrderService.findAllTablesWithoutSenderId(tableId);
+        List<TableOrderResult> tableSelect = tableOrderService.findAllTablesWithoutSenderId(tableId);
 
         return new ResponseEntity<>(tableSelect, HttpStatus.OK);
     }

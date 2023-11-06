@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class StaffUpReqDTO implements Validator{
+public class UpdateStaffParam implements Validator{
     private String title;
     private String phone;
     private LocationRegionUpReqDTO locationRegion;
@@ -24,14 +24,14 @@ public class StaffUpReqDTO implements Validator{
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return StaffUpReqDTO.class.isAssignableFrom(clazz);
+        return UpdateStaffParam.class.isAssignableFrom(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        StaffUpReqDTO staffUpReqDTO = (StaffUpReqDTO) target;
-        String title = staffUpReqDTO.title;
-        String phone = staffUpReqDTO.phone;
+        UpdateStaffParam updateStaffParam = (UpdateStaffParam) target;
+        String title = updateStaffParam.title;
+        String phone = updateStaffParam.phone;
 
         if (title.isEmpty()) {
             errors.rejectValue("title", "title.null", "Tên không được phép rỗng");

@@ -1,19 +1,24 @@
 package com.cg.tableOrder;
 
 import com.cg.model.TableOrder;
+import com.cg.tableOrder.dto.TableOrderParam;
+import com.cg.tableOrder.dto.TableOrderResult;
 
-import com.cg.tableOrder.dto.TableOrderCreateReqDTO;
-import com.cg.tableOrder.dto.TableOrderDTO;
-
-import com.cg.service.IGeneralService;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface ITableOrderService extends IGeneralService<TableOrder,Long> {
-    List<TableOrderDTO> findAllTableOrderDTO();
+public interface ITableOrderService{
+    List<TableOrderResult> findAll();
+    TableOrderResult create(TableOrderParam dto);
 
-    TableOrderDTO createTableOrder(TableOrderCreateReqDTO tableOrderReqDTO);
+    List<TableOrderResult> findAllTablesWithoutSenderId(@Param("tableId") Long tableId);
 
-    List<TableOrderDTO> findAllTablesWithoutSenderId(@Param("tableId") Long tableId);
+    TableOrder findById(Long id);
+
+    TableOrderResult getById(Long id);
+
+    TableOrderResult update(Long id, TableOrderParam updateParam);
+
+    Boolean existById(Long tableId);
 }

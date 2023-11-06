@@ -22,10 +22,8 @@ public class ProductUpReqDTO implements Validator {
 
     private String title;
     private String price;
-
     private String unit;
     private String categoryId;
-
     private MultipartFile avatar;
 
     @Override

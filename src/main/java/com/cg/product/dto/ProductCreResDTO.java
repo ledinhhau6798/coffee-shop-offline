@@ -1,6 +1,6 @@
 package com.cg.product.dto;
 
-import com.cg.productAvatar.dto.ProductAvatarResDTO;
+import com.cg.productAvatar.dto.ProductAvatarResult;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,5 +21,5 @@ public class ProductCreResDTO {
     private String unit;
     private String categoryTitle;
 
-    private ProductAvatarResDTO avatar;
+    private ProductAvatarResult avatar;
 }

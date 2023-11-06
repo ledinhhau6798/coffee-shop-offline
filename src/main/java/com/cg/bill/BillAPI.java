@@ -32,7 +32,6 @@ public class BillAPI {
     private ITableOrderService tableOrderService;
 
 
-
     @GetMapping
     public ResponseEntity<?> showBill() {
 
@@ -53,7 +52,7 @@ public class BillAPI {
             throw new DataInputException("Mã lịch sử không tồn tại");
         });
 
-       List<BillDetailDTO>  billDetailDTOS = billService.findBillById(billId);
+        List<BillDetailDTO> billDetailDTOS = billService.findBillById(billId);
         return new ResponseEntity<>(billDetailDTOS, HttpStatus.OK);
     }
 
@@ -74,27 +73,33 @@ public class BillAPI {
     }
 
     @PostMapping("/{tableId}")
-    public ResponseEntity<?> createBill(@PathVariable("tableId") String tableIdStr){
+    public ResponseEntity<?> createBill(@PathVariable("tableId") String tableIdStr) {
 
-     if (!validateUtils.isNumberValid(tableIdStr)) {
+        if (!validateUtils.isNumberValid(tableIdStr)) {
             throw new DataInputException("Mã bàn không hợp lệ");
         }
 
         Long tableId = Long.parseLong(tableIdStr);
-        tableOrderService.findById(tableId).orElseThrow(() ->{
-            throw new DataInputException("Mã bàn không tồn tại");
-        });
+
+//        tableOrderService.findById(tableId).orElseThrow(() -> {
+//            throw new DataInputException("Mã bàn không tồn tại");
+//        });
+
+        Boolean isExisted = tableOrderService.existById(tableId);
+        if(!isExisted) {
+            throw  new DataInputException("Mã bàn không tồn tại");
+        }
 
         BillCreateResDTO billResDTO = billService.createBill(tableId);
 
-        return new ResponseEntity<>(billResDTO,HttpStatus.CREATED);
+        return new ResponseEntity<>(billResDTO, HttpStatus.CREATED);
 
     }
 
 
     @GetMapping("date")
-    public ResponseEntity<?> getBillByDate(@RequestParam(required = false) Integer day, @RequestParam Integer month, @RequestParam Integer year){
-        return new ResponseEntity<>(billService.getBillByDate(year,month,day),HttpStatus.OK);
+    public ResponseEntity<?> getBillByDate(@RequestParam(required = false) Integer day, @RequestParam Integer month, @RequestParam Integer year) {
+        return new ResponseEntity<>(billService.getBillByDate(year, month, day), HttpStatus.OK);
     }
 
 }

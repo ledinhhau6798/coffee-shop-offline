@@ -1,9 +1,11 @@
 package com.cg.bill;
 
+import com.cg.bill.dto.BillDetailDTO;
 import com.cg.model.Bill;
 import com.cg.bill.dto.BillDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -13,7 +15,7 @@ import java.util.List;
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Long> {
 
-    @Query("select new com.cg.bill.DTO.BillDetailDTO (" +
+    @Query("select new com.cg.bill.dto.BillDetailDTO (" +
             "b.id, " +
             "b.totalAmount, " +
             "od.amount, " +

@@ -1,27 +1,28 @@
 package com.cg.productAvatar;
 
+import com.cg.exception.ResourceNotFoundException;
 import com.cg.model.ProductAvatar;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class ProductAvatarServiceImpl implements IProductAvatarService {
 
-    @Autowired
-    private ProductAvatarRepository productAvatarRepository;
+    private final ProductAvatarRepository productAvatarRepository;
     @Override
+    @Transactional(readOnly = true)
     public List<ProductAvatar> findAll() {
-        return null;
+        return productAvatarRepository.findAll();
     }
 
     @Override
-    public Optional<ProductAvatar> findById(Long id) {
-        return productAvatarRepository.findById(id);
+    public ProductAvatar findById(Long id) {
+        return productAvatarRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Not found!"));
     }
 
     @Override
@@ -31,11 +32,11 @@ public class ProductAvatarServiceImpl implements IProductAvatarService {
 
     @Override
     public void delete(ProductAvatar productAvatar) {
-
+        productAvatarRepository.delete(productAvatar);
     }
 
     @Override
     public void deleteById(Long id) {
-
+        productAvatarRepository.deleteById(id);
     }
 }

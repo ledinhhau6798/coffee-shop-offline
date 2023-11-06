@@ -1,6 +1,6 @@
 package com.cg.model;
 
-import com.cg.staffAvatar.dto.StaffAvatarResDTO;
+import com.cg.staffAvatar.dto.StaffAvatarResult;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,8 +41,8 @@ public class StaffAvatar {
     private Integer height;
 
 
-    public StaffAvatarResDTO toStaffAvatarResDTO(){
-        return new StaffAvatarResDTO()
+    public StaffAvatarResult toStaffAvatarResDTO(){
+        return new StaffAvatarResult()
                 .setId(id)
                 .setFileName(fileName)
                 .setFileFolder(fileFolder)

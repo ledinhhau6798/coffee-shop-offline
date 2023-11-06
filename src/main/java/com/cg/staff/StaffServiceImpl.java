@@ -4,11 +4,12 @@ package com.cg.staff;
 import com.cg.exception.DataInputException;
 import com.cg.exception.EmailExistsException;
 
+import com.cg.exception.ResourceNotFoundException;
 import com.cg.model.*;
 import com.cg.locationRegion.dto.LocationRegionUpReqDTO;
-import com.cg.staff.dto.StaffCreReqDTO;
-import com.cg.staff.dto.StaffDTO;
-import com.cg.staff.dto.StaffUpReqDTO;
+import com.cg.staff.dto.CreationStaffParam;
+import com.cg.staff.dto.StaffResult;
+import com.cg.staff.dto.UpdateStaffParam;
 import com.cg.locationRegion.LocationRegionRepository;
 import com.cg.role.IRoleService;
 import com.cg.service.upload.IUploadService;
@@ -17,7 +18,7 @@ import com.cg.staffAvatar.StaffAvatarRepository;
 import com.cg.user.IUserService;
 import com.cg.utils.AppUtils;
 import com.cg.utils.UploadUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,83 +30,99 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
-//@Component
-@Transactional
+@RequiredArgsConstructor
 public class StaffServiceImpl implements IStaffService {
-    @Autowired
-    private StaffRepository staffRepository;
-    @Autowired
-    private IUploadService uploadService;
-    @Autowired
-    private UploadUtils uploadUtils;
-    @Autowired
-    private StaffAvatarRepository staffAvatarRepository;
-    @Autowired
-    private LocationRegionRepository locationRegionRepository;
-    @Autowired
-    private IStaffService staffService;
 
-    @Autowired
-    private IUserService userService;
+    private final StaffRepository staffRepository;
 
-    @Autowired
-    private IRoleService roleService;
+    private final IUploadService uploadService;
 
-    @Autowired
-    private AppUtils appUtils;
+    private final UploadUtils uploadUtils;
+
+    private final StaffAvatarRepository staffAvatarRepository;
+
+    private final LocationRegionRepository locationRegionRepository;
+
+    private final IStaffService staffService;
+
+    private final IUserService userService;
+
+    private final IRoleService roleService;
+
+    private final StaffMapper staffMapper;
+
+    private final AppUtils appUtils;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Staff> findAll() {
         return staffRepository.findAll();
     }
 
     @Override
-    public Optional<Staff> findById(Long id) {
-        return staffRepository.findById(id);
+    @Transactional(readOnly = true)
+    public Staff findById(Long id) {
+        return staffRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found"));
     }
 
     @Override
-    public Optional<Staff> findByIdAndDeletedFalse(Long id) {
-        return staffRepository.findByIdAndDeletedFalse(id);
+    @Transactional(readOnly = true)
+    public Staff findByIdAndDeletedFalse(Long id) {
+        return staffRepository.findStaffByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not Found"));
     }
-
-    @Override
-    public Staff save(Staff staff) {
-        return staffRepository.save(staff);
-    }
-
-    @Override
+    @Transactional
     public void delete(Staff staff) {
         staffRepository.delete(staff);
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         staffRepository.deleteById(id);
     }
-
-    @Override
-    public List<StaffDTO> findAllStaffDTO() {
-        return staffRepository.findAllByDeletedIsFalse().stream().map(Staff::toStaffDTO).collect(Collectors.toList());
+    @Transactional(readOnly = true)
+    public List<StaffResult> getAll() {
+        return staffMapper.toDTOList(staffRepository.findAll());
     }
 
     @Override
+    public Staff save(Staff updateStaff) {
+        return staffRepository.save(updateStaff);
+    }
+
+    @Override
+    @Transactional
     public void deleteByIdTrue(Staff staff) {
         staff.setDeleted(true);
         staffRepository.save(staff);
     }
 
     @Override
-    public List<StaffDTO> findStaffByTitle(String keySearch) {
+    @Transactional(readOnly = true)
+    public List<Staff> findStaffByTitle(String keySearch) {
         return staffRepository.findStaffByTitle(keySearch);
     }
 
     @Override
-    public Page<StaffDTO> findAllStaffDTOPage(Pageable pageable) {
-        return staffRepository.findAllStaffDTOPage(pageable);
+    @Transactional(readOnly = true)
+    public List<StaffResult> getStaffByTitle(String keySearch) {
+        return staffMapper.toDTOList(staffRepository.findStaffByTitle(keySearch));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<StaffResult> findAll(Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<StaffResult> findAllStaffDTOPage(Pageable pageable) {
+        return staffRepository.findAllStaffResultPage(pageable);
     }
 
     private void uploadAndSaveStaffImage(StaffAvatar staffAvatar, MultipartFile file) {
@@ -126,12 +143,13 @@ public class StaffServiceImpl implements IStaffService {
         }
     }
 
-
     @Override
-    public Staff create(StaffCreReqDTO staffCreReqDTO) {
-        MultipartFile file = staffCreReqDTO.getStaffAvatar();
+    @Transactional
+    public Staff create(CreationStaffParam creationStaffParam) {
+        Staff entity = staffMapper.toEntity(creationStaffParam);
+        MultipartFile file = creationStaffParam.getStaffAvatar();
 
-        LocationRegion locationRegion = staffCreReqDTO.toLocationRegion();
+        LocationRegion locationRegion = entity.getLocationRegion();
         locationRegionRepository.save(locationRegion);
 
         StaffAvatar staffAvatar = new StaffAvatar();
@@ -139,17 +157,16 @@ public class StaffServiceImpl implements IStaffService {
 
         uploadAndSaveStaffImage(staffAvatar, file);
 
-        Boolean existsByUsername = userService.existsByUsername(staffCreReqDTO.getUsername());
+        Boolean existsByUsername = userService.existsByUsername(creationStaffParam.getUsername());
+
         if (existsByUsername) {
             throw new EmailExistsException("UserName đã tồn tại");
         }
-        Optional<Role> optRole = roleService.findById(staffCreReqDTO.getRoleId());
-        if (!optRole.isPresent()) {
-            throw new DataInputException("Role không tồn tại");
-        }
+        Role role = roleService.findById(creationStaffParam.getRoleId());
+
         try {
-            User user = userService.save(staffCreReqDTO.toUser(optRole.get()));
-            Staff staff = staffCreReqDTO.toStaff();
+            User user = userService.save(creationStaffParam.toUser(role));
+            Staff staff = creationStaffParam.toStaff();
             staff.setLocationRegion(locationRegion);
             staff.setStaffAvatar(staffAvatar);
             staff.setUser(user);
@@ -162,25 +179,26 @@ public class StaffServiceImpl implements IStaffService {
     }
 
     @Override
-    public Staff update(StaffUpReqDTO staffUpReqDTO, Long staffId) {
-        MultipartFile file = staffUpReqDTO.getStaffAvatar();
-        Optional<Staff> staffOptional = staffService.findById(staffId);
-        Long locationRegionId = staffOptional.get().getLocationRegion().getId();
-        LocationRegionUpReqDTO locationRegionUpReqDTO = staffUpReqDTO.getLocationRegion();
+    public Staff update(Long staffId, UpdateStaffParam updateStaffParam) {
+        MultipartFile file = updateStaffParam.getStaffAvatar();
+        Staff staff = staffService.findById(staffId);
+        Long locationRegionId = staff.getLocationRegion().getId();
+        LocationRegionUpReqDTO locationRegionUpReqDTO = updateStaffParam.getLocationRegion();
         LocationRegion locationRegion = locationRegionUpReqDTO.toLocationRegionUp(locationRegionId);
         locationRegionRepository.save(locationRegion);
 
         StaffAvatar staffAvatar = new StaffAvatar();
         staffAvatarRepository.save(staffAvatar);
 
-        uploadAndSaveStaffImage(staffAvatar,file);
+        uploadAndSaveStaffImage(staffAvatar, file);
 
-        Staff staffUpdate = staffUpReqDTO.toStaffChangeImage();
+        Staff staffUpdate = updateStaffParam.toStaffChangeImage();
+
 
         staffUpdate.setId(staffId);
         staffUpdate.setStaffAvatar(staffAvatar);
         staffUpdate.setLocationRegion(locationRegion);
-        staffUpdate.setUser(staffOptional.get().getUser());
+        staffUpdate.setUser(staff.getUser());
 
         staffRepository.save(staffUpdate);
 

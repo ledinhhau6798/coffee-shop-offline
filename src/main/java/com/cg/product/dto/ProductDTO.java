@@ -4,7 +4,7 @@ import com.cg.model.Category;
 import com.cg.model.Product;
 import com.cg.model.ProductAvatar;
 import com.cg.category.dto.CategoryDTO;
-import com.cg.productAvatar.dto.ProductAvatarResDTO;
+import com.cg.productAvatar.dto.ProductAvatarResult;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +25,7 @@ public class ProductDTO {
 
     private String unit;
     private CategoryDTO category;
-    private ProductAvatarResDTO avatar;
+    private ProductAvatarResult avatar;
 
     public ProductDTO(Long id, String title, BigDecimal price,String unit, Category category, ProductAvatar avatar){
         this.id= String.valueOf(id);

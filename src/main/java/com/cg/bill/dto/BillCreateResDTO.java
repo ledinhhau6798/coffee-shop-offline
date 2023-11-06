@@ -1,6 +1,6 @@
 package com.cg.bill.dto;
 
-import com.cg.tableOrder.dto.TableOrderDTO;
+import com.cg.tableOrder.dto.TableOrderResult;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 public class BillCreateResDTO {
 
     private Long id;
-    private TableOrderDTO table;
+    private TableOrderResult table;
     private BigDecimal totalAmount;
     private Long orderId;
     private Boolean paid;

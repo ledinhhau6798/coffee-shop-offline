@@ -1,7 +1,6 @@
 package com.cg.model;
 
-import com.cg.staff.dto.StaffDTO;
-import com.cg.staff.dto.StaffUpResDTO;
+import com.cg.staff.dto.StaffResult;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -52,25 +51,25 @@ public class Staff extends BaseEntity {
     @JsonIgnore
     private List<Order> orders;
 
-    public StaffDTO toStaffDTO() {
-        return new StaffDTO()
-                .setId(id)
-                .setTitle(title)
-                .setPhone(phone)
-                .setLocationRegion(locationRegion.toLocationRegionResDTO())
-                .setUser(user)
-                ;
-    }
+//    public StaffResult toStaffDTO() {
+//        return new StaffResult()
+//                .setId(id)
+//                .setTitle(title)
+//                .setPhone(phone)
+//                .setLocationRegion(locationRegion.toLocationRegionResDTO())
+//                .setUser(user)
+//                ;
+//    }
 
-    public StaffUpResDTO toStaffUpResDTO() {
-        return new StaffUpResDTO()
-                .setId(id)
-                .setTitle(title)
-                .setPhone(phone)
-                .setLocationRegion(locationRegion.toLocationRegionUpResDTO())
-                .setStaffAvatar(staffAvatar)
-                ;
-    }
+//    public StaffUpResDTO toStaffUpResDTO() {
+//        return new StaffUpResDTO()
+//                .setId(id)
+//                .setTitle(title)
+//                .setPhone(phone)
+//                .setLocationRegion(locationRegion.toLocationRegionUpResDTO())
+//                .setStaffAvatar(staffAvatar)
+//                ;
+//    }
 
 
 }
