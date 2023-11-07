@@ -1,4 +1,4 @@
-package com.cg.product.DTO;
+package com.cg.product.dto;
 
 import com.cg.model.Category;
 import com.cg.model.Product;

@@ -1,10 +1,16 @@
 package com.cg.model;
 
+<<<<<<< HEAD
 
 
 import com.cg.bill.DTO.BillDetailResult;
 import com.cg.bill.DTO.BillResult;
 
+=======
+import com.cg.bill.dto.BillCreateResDTO;
+import com.cg.bill.dto.BillDTO;
+import lombok.AllArgsConstructor;
+>>>>>>> c48b11bf393032cd0a7c6729fb0ae25916e28ef4
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;

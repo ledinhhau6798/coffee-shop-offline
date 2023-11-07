@@ -1,4 +1,4 @@
-package com.cg.staff.DTO;
+package com.cg.staff.dto;
 
 import com.cg.model.LocationRegion;
 import com.cg.model.Role;

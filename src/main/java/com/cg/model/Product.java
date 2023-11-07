@@ -2,7 +2,7 @@ package com.cg.model;
 
 
 
-import com.cg.product.DTO.ProductDTO;
+import com.cg.product.dto.ProductDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

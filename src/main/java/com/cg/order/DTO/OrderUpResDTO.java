@@ -1,5 +1,5 @@
-package com.cg.order.DTO;
-import com.cg.orderDetail.DTO.OrderDetailCreResDTO;
+package com.cg.order.dto;
+import com.cg.orderDetail.dto.OrderDetailCreResDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

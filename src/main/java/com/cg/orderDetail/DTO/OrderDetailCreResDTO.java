@@ -1,6 +1,6 @@
-package com.cg.orderDetail.DTO;
-import com.cg.productAvatar.DTO.ProductAvatarResDTO;
-import com.cg.tableOrder.DTO.TableOrderResDTO;
+package com.cg.orderDetail.dto;
+import com.cg.productAvatar.dto.ProductAvatarResDTO;
+import com.cg.tableOrder.dto.TableOrderResDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

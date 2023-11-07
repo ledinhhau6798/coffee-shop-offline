@@ -1,4 +1,4 @@
-package com.cg.productAvatar.DTO;
+package com.cg.productAvatar.dto;
 
 import com.cg.model.ProductAvatar;
 import lombok.AllArgsConstructor;

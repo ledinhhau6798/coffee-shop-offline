@@ -1,4 +1,4 @@
-package com.cg.order.DTO;
+package com.cg.order.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,8 +1,8 @@
-package com.cg.staff.DTO;
+package com.cg.staff.dto;
 
 import com.cg.model.StaffAvatar;
 import com.cg.model.User;
-import com.cg.locationRegion.DTO.LocationRegionUpResDTO;
+import com.cg.locationRegion.dto.LocationRegionUpResDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

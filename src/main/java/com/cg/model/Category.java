@@ -1,7 +1,11 @@
 package com.cg.model;
 
 
+<<<<<<< HEAD
 import com.cg.category.DTO.CategoryResult;
+=======
+import com.cg.category.dto.CategoryDTO;
+>>>>>>> c48b11bf393032cd0a7c6729fb0ae25916e28ef4
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,6 @@
 package com.cg.order.dto;
 
-import com.cg.orderDetail.dto.OrderDetailProductUpResDTO;
-import com.cg.tableOrder.dto.TableOrderResDTO;
+import com.cg.orderDetail.dto.OrderDetailCreResDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,9 +15,9 @@ import java.util.List;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class OrderUpChangeToTableResDTO {
-    private TableOrderResDTO tableOrder;
+public class OrderCreResDTO {
+    private Long tableId;
     private BigDecimal totalAmount;
-    private List<OrderDetailProductUpResDTO> products;
 
+    private List<OrderDetailCreResDTO> orderDetails;
 }

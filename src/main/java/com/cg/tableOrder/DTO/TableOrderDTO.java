@@ -1,4 +1,4 @@
-package com.cg.tableOrder.DTO;
+package com.cg.tableOrder.dto;
 
 import com.cg.model.enums.ETableStatus;
 import lombok.AllArgsConstructor;

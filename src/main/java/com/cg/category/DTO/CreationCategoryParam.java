@@ -1,4 +1,4 @@
-package com.cg.category.DTO;
+package com.cg.category.dto;
 
 import com.cg.model.Category;
 import lombok.AllArgsConstructor;

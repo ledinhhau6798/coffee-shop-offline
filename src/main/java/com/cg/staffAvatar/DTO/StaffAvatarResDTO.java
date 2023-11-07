@@ -1,4 +1,4 @@
-package com.cg.staffAvatar.DTO;
+package com.cg.staffAvatar.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

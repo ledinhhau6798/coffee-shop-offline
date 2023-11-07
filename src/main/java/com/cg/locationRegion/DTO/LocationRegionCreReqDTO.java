@@ -1,4 +1,4 @@
-package com.cg.locationRegion.DTO;
+package com.cg.locationRegion.dto;
 
 import com.cg.model.LocationRegion;
 import lombok.AllArgsConstructor;

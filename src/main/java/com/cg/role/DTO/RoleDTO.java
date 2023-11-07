@@ -1,4 +1,4 @@
-package com.cg.role.DTO;
+package com.cg.role.dto;
 
 import com.cg.model.Role;
 import com.cg.model.enums.ERole;

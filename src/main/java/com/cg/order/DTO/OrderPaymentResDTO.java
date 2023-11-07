@@ -1,4 +1,4 @@
-package com.cg.order.DTO;
+package com.cg.order.dto;
 
 public class OrderPaymentResDTO {
 }
