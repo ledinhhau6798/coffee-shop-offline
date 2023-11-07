@@ -1,14 +1,11 @@
 package com.cg.category;
 
-<<<<<<< HEAD
-import com.cg.category.DTO.CreationCategoryParam;
-import com.cg.category.DTO.CategoryResult;
-import com.cg.category.DTO.UpdateCategoryParam;
+
 import com.cg.exception.DataInputException;
-=======
+
 
 import com.cg.category.dto.*;
->>>>>>> c48b11bf393032cd0a7c6729fb0ae25916e28ef4
+
 import com.cg.model.Category;
 import com.cg.utils.AppUtils;
 import com.cg.utils.ValidateUtils;

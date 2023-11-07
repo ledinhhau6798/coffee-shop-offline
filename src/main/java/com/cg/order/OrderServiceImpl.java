@@ -1,29 +1,16 @@
 package com.cg.order;
 
-<<<<<<< HEAD
-import com.cg.order.DTO.CreationOrderParam;
-import com.cg.order.DTO.OrderUpChangeToTableReqDTO;
-import com.cg.order.DTO.OrderUpChangeToTableResDTO;
-import com.cg.order.DTO.OrderUpReqDTO;
+import com.cg.order.dto.*;
 import com.cg.exception.DataInputException;
 import com.cg.model.*;
-import com.cg.orderDetail.DTO.OrderDetailProductUpResDTO;
-import com.cg.orderDetail.DTO.OrderDetailResult;
-import com.cg.orderDetail.DTO.UpdateOrderDetaiParam;
-=======
-import com.cg.order.dto.OrderCreReqDTO;
-import com.cg.order.dto.OrderUpChangeToTableReqDTO;
-import com.cg.order.dto.OrderUpChangeToTableResDTO;
-import com.cg.order.dto.OrderUpReqDTO;
-import com.cg.exception.DataInputException;
-import com.cg.model.*;
-import com.cg.orderDetail.dto.OrderDetailCreResDTO;
+
 import com.cg.orderDetail.dto.OrderDetailProductUpResDTO;
-import com.cg.orderDetail.dto.OrderDetailUpResDTO;
->>>>>>> c48b11bf393032cd0a7c6729fb0ae25916e28ef4
+
 import com.cg.model.enums.ETableStatus;
 import com.cg.orderDetail.OrderDetailMapper;
 import com.cg.orderDetail.OrderDetailRepository;
+import com.cg.orderDetail.dto.OrderDetailResult;
+import com.cg.orderDetail.dto.UpdateOrderDetaiParam;
 import com.cg.product.IProductService;
 import com.cg.product.ProductRepository;
 import com.cg.staff.StaffRepository;

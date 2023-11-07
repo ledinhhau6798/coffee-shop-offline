@@ -1,25 +1,26 @@
 package com.cg.bill;
 
 
-import com.cg.model.Bill;
-import com.cg.bill.dto.BillCreateResDTO;
-import com.cg.bill.dto.BillDTO;
-import com.cg.bill.dto.BillDetailDTO;
-import com.cg.service.IGeneralService;
+import com.cg.bill.dto.BillDetailResult;
+import com.cg.bill.dto.BillResult;
 
-import java.util.Date;
 import java.util.List;
 
-public interface IBillService extends IGeneralService<Bill,Long> {
-    List<BillDTO> findAllBillDTO();
+public interface IBillService  {
 
-    List<BillDetailDTO> findBillById(Long billId);
+    List<BillResult> findAll();
 
-    List<BillDTO> findBillByCreatedAts(Date BillDate);
 
-    BillCreateResDTO createBill(Long tableId);
 
-    List<BillDTO> getBillByDate(Integer year, Integer month, Integer day);
+
+    BillDetailResult findBillById(String billIdStr);
+
+    List<BillResult> findBillByCreatedAts(String eventDate);
+
+
+    BillResult createBill(String tableIdStr);
+
+    List<BillResult> getBillByDate(Integer year, Integer month, Integer day);
 
 
 }

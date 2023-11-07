@@ -2,17 +2,15 @@ package com.cg.order;
 
 import com.cg.exception.DataInputException;
 import com.cg.model.*;
-
-import com.cg.orderDetail.DTO.OrderDetailResult;
-import com.cg.orderDetail.DTO.UpdateOrderDetaiParam;
-
-
+import com.cg.order.dto.CreationOrderParam;
 import com.cg.order.dto.OrderUpChangeToTableReqDTO;
 import com.cg.order.dto.OrderUpChangeToTableResDTO;
 import com.cg.order.dto.OrderUpReqDTO;
 
 import com.cg.model.enums.ETableStatus;
 import com.cg.orderDetail.IOrderDetailService;
+import com.cg.orderDetail.dto.OrderDetailResult;
+import com.cg.orderDetail.dto.UpdateOrderDetaiParam;
 import com.cg.product.IProductService;
 import com.cg.tableOrder.ITableOrderService;
 import com.cg.user.IUserService;
@@ -87,7 +85,7 @@ public class OrderAPI {
 
     }
 
-    @DeleteMapping("/delete/{orderDetailId}")
+    @DeleteMapping("/{orderDetailId}")
     public ResponseEntity<?> deleteOrder(@PathVariable Long orderDetailId) {
         OrderDetail orderDetail = orderDetailService.findById(orderDetailId).orElseThrow(() -> {
             throw new DataInputException("Vui lòng kiểm tra lại thông tin");

@@ -1,12 +1,9 @@
 package com.cg.category;
 
-<<<<<<< HEAD
-import com.cg.category.DTO.CategoryResult;
-import com.cg.category.DTO.CreationCategoryParam;
-import com.cg.category.DTO.UpdateCategoryParam;
-=======
-import com.cg.category.dto.CategoryDTO;
->>>>>>> c48b11bf393032cd0a7c6729fb0ae25916e28ef4
+
+import com.cg.category.dto.CategoryResult;
+import com.cg.category.dto.CreationCategoryParam;
+import com.cg.category.dto.UpdateCategoryParam;
 import com.cg.model.Category;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +17,7 @@ public class CategoryMapper{
         return new Category().setTitle(dto.getTitle());
     }
 
-    public  Category toEntity(UpdateCategoryParam dto,Long id) {
+    public  Category toEntity(UpdateCategoryParam dto, Long id) {
         return new Category().setId(id).setTitle(dto.getTitle());
     }
 
@@ -30,6 +27,8 @@ public class CategoryMapper{
     }
 
     public CategoryResult toDTO(Category entity) {
-        return entity.toDTO();
+        return new CategoryResult()
+                .setId(entity.getId())
+                .setTitle(entity.getTitle());
     }
 }

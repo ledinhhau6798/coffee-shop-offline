@@ -1,15 +1,12 @@
 package com.cg.product.dto;
 
+import com.cg.category.dto.CategoryResult;
 import com.cg.model.Category;
 import com.cg.model.Product;
 import com.cg.model.ProductAvatar;
-<<<<<<< HEAD:src/main/java/com/cg/product/DTO/ProductDTO.java
-import com.cg.category.DTO.CategoryResult;
-import com.cg.productAvatar.DTO.ProductAvatarResDTO;
-=======
-import com.cg.category.dto.CategoryDTO;
+
 import com.cg.productAvatar.dto.ProductAvatarResDTO;
->>>>>>> c48b11bf393032cd0a7c6729fb0ae25916e28ef4:src/main/java/com/cg/product/dto/ProductDTO.java
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

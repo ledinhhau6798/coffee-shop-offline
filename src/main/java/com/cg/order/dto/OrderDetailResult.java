@@ -1,2 +1,4 @@
-package com.cg.order.dto;public class OrderDetailResult {
+package com.cg.order.dto;
+
+public class OrderDetailResult {
 }
