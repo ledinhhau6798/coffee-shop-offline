@@ -1,6 +1,7 @@
 package com.cg.order;
 
 import com.cg.exception.DataInputException;
+import com.cg.exception.ResourceNotFoundException;
 import com.cg.model.*;
 import com.cg.order.dto.OrderCreReqDTO;
 import com.cg.order.dto.OrderUpChangeToTableReqDTO;
@@ -47,13 +48,10 @@ public class OrderAPI {
 
         Long tableId = Long.valueOf(tableIdStr);
 
-        Optional<Order> orderOptional = orderService.findByTableId(tableId);
+        Order order = orderService.findByTableId(tableId);
 
-        if (!orderOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        List<OrderDetailByTableResDTO> orderDetails = orderDetailService.getOrderDetailByTableResDTO(orderOptional.get().getId());
+        List<OrderDetailByTableResDTO> orderDetails = orderDetailService
+                .getOrderDetailByTableResDTO(order.getId());
 
         if (orderDetails.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -69,13 +67,10 @@ public class OrderAPI {
         }
         Long tableId = Long.valueOf(tableIdStr);
 
-        Optional<Order> orderOptional = orderService.findByTableId(tableId);
+        Order order = orderService.findByTableId(tableId);
 
-        if (orderOptional.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        List<OrderDetailByTableResDTO> orderDetails = orderDetailService.getOrderDetailByTableResDTO(orderOptional.get().getId());
+        List<OrderDetailByTableResDTO> orderDetails = orderDetailService
+                .getOrderDetailByTableResDTO(order.getId());
 
         if (orderDetails.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -87,20 +82,16 @@ public class OrderAPI {
     @PostMapping("/create")
     public ResponseEntity<?> creOrder(@RequestBody OrderCreReqDTO orderCreReqDTO) {
         String username = appUtils.getPrincipalUsername();
-        Optional<User> userOptional = userService.findByName(username);
-
-        TableOrder tableOrder = tableOrderService.findById(orderCreReqDTO.getTableId()).orElseThrow(() -> {
-            throw new DataInputException("Bàn không tồn tại");
-        });
-
+        User user = userService.findByUsername(username);
+        TableOrder tableOrder = tableOrderService.findById(orderCreReqDTO.getTableId());
         List<Order> orders = orderService.findByTableOrderAndPaid(tableOrder, false);
-
         if (orders.size() > 0) {
             throw new DataInputException("Bàn này đang có hoá đơn, vui lòng kiểm tra lại thông tin");
         }
 
         if (tableOrder.getStatus() == ETableStatus.EMPTY) {
-            OrderDetailCreResDTO orderDetailCreResDTO = orderService.creOrder(orderCreReqDTO, tableOrder, userOptional.get());
+            OrderDetailCreResDTO orderDetailCreResDTO = orderService
+                    .creOrder(orderCreReqDTO, tableOrder, user);
 
             return new ResponseEntity<>(orderDetailCreResDTO, HttpStatus.CREATED);
         }
@@ -111,15 +102,11 @@ public class OrderAPI {
     @PatchMapping("/update")
     public ResponseEntity<?> upOrder(@RequestBody OrderUpReqDTO orderUpReqDTO) {
         String username = appUtils.getPrincipalUsername();
-        Optional<User> userOptional = userService.findByName(username);
+        User user = userService.findByUsername(username);
 
-        TableOrder tableOrder = tableOrderService.findById(orderUpReqDTO.getTableId()).orElseThrow(() -> {
-            throw new DataInputException("Bàn không tồn tại");
-        });
+        TableOrder tableOrder = tableOrderService.findById(orderUpReqDTO.getTableId());
 
-        Product product = productService.findById(orderUpReqDTO.getProductId()).orElseThrow(() -> {
-            throw new DataInputException("Sản phẩm không tồn tại");
-        });
+        Product product = productService.findById(orderUpReqDTO.getProductId());
 
         List<Order> orders = orderService.findByTableOrderAndPaid(tableOrder, false);
 
@@ -134,7 +121,8 @@ public class OrderAPI {
         Order order = orders.get(0);
 
         if (tableOrder.getStatus() == ETableStatus.BUSY) {
-            OrderDetailUpResDTO orderDetailUpResDTO = orderService.upOrderDetail(orderUpReqDTO, order, product, userOptional.get());
+            OrderDetailUpResDTO orderDetailUpResDTO = orderService
+                    .upOrderDetail(orderUpReqDTO, order, product, user);
             return new ResponseEntity<>(orderDetailUpResDTO, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -142,18 +130,17 @@ public class OrderAPI {
 
     @DeleteMapping("/delete/{orderDetailId}")
     public ResponseEntity<?> deleteOrder(@PathVariable Long orderDetailId) {
-        OrderDetail orderDetail = orderDetailService.findById(orderDetailId).orElseThrow(() -> {
-            throw new DataInputException("Vui lòng kiểm tra lại thông tin");
-        });
+        OrderDetail orderDetail = orderDetailService.findById(orderDetailId)
+                .orElseThrow(() -> new DataInputException("Vui lòng kiểm tra lại thông tin"));
 
         Long orderId = orderDetail.getOrder().getId();
         Long tableId = orderDetail.getOrder().getTableOrder().getId();
 
         orderDetailService.delete(orderDetail);
-        List<OrderDetailByTableResDTO> orderDetails = orderDetailService.getOrderDetailByTableResDTO(orderId);
+        List<OrderDetailByTableResDTO> orderDetails = orderDetailService
+                .getOrderDetailByTableResDTO(orderId);
         if (orderDetails.isEmpty()) {
-            Optional<TableOrder> tableOrderOptional = tableOrderService.findById(tableId);
-            TableOrder tableOrder = tableOrderOptional.get();
+            TableOrder tableOrder = tableOrderService.findById(tableId);
             tableOrder.setStatus(ETableStatus.EMPTY);
             tableOrderService.save(tableOrder);
             return new ResponseEntity<>(tableOrder, HttpStatus.OK);
@@ -164,14 +151,12 @@ public class OrderAPI {
     @PatchMapping("/update/change-to-table")
     public ResponseEntity<?> changeToTable(@RequestBody OrderUpChangeToTableReqDTO orderUpChangeToTableReqDTO) {
         String username = appUtils.getPrincipalUsername();
-        Optional<User> userOptional = userService.findByName(username);
+        User user = userService.findByUsername(username);
 
-        TableOrder tableOrderBusy = tableOrderService.findById(orderUpChangeToTableReqDTO.getTableIdBusy()).orElseThrow(() -> {
-            throw new DataInputException("Bàn không tồn tại");
-        });
-        TableOrder tableOrderEmpty = tableOrderService.findById(orderUpChangeToTableReqDTO.getTableIdEmpty()).orElseThrow(() -> {
-            throw new DataInputException("Bàn không tồn tại");
-        });
+        TableOrder tableOrderBusy = tableOrderService.findById(orderUpChangeToTableReqDTO
+                .getTableIdBusy());
+        TableOrder tableOrderEmpty = tableOrderService.findById(orderUpChangeToTableReqDTO
+                .getTableIdEmpty());
 
         if (tableOrderEmpty.getId().equals(tableOrderBusy.getId())) {
             throw new DataInputException("Bàn chuyển và bàn chuyển là một xin vui lòng kiểm tra lại");
@@ -193,7 +178,8 @@ public class OrderAPI {
         }
 
 
-        OrderUpChangeToTableResDTO orderUpChangeToTableResDTO = orderService.changeToTable(orderUpChangeToTableReqDTO, userOptional.get());
+        OrderUpChangeToTableResDTO orderUpChangeToTableResDTO = orderService
+                .changeToTable(orderUpChangeToTableReqDTO, user);
 
         return new ResponseEntity<>(orderUpChangeToTableResDTO, HttpStatus.OK);
 

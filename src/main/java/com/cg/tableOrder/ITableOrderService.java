@@ -21,4 +21,6 @@ public interface ITableOrderService{
     TableOrderResult update(Long id, TableOrderParam updateParam);
 
     Boolean existById(Long tableId);
+
+    void save(TableOrder tableOrder);
 }

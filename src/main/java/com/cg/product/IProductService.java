@@ -12,10 +12,12 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 
-public interface IProductService extends IGeneralService<Product,Long> {
+public interface IProductService {
     ProductResult createProduct(CreationProductParam creationProductParam, Category category);
 
     List<ProductResult> findAllProductDTO();
+
+    Product findById(Long id);
 
     ProductResult update(Long productId, UpdateProductParam updateProductParam, Category category);
 
@@ -29,5 +31,7 @@ public interface IProductService extends IGeneralService<Product,Long> {
 
     Page<ProductResult> findAllProductDTOPage(Pageable pageable);
 
-    Optional<Product> findByIdAndDeletedFalse(Long id);
+    Product findByIdAndDeletedFalse(Long id);
+
+    Product save(Product product);
 }

@@ -16,20 +16,16 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements ICategoryService {
     private final CategoryMapper categoryMapper;
-    private final CategoryCreReqMapper categoryCreReqMapper;
-    private final CategoryCreResMapper categoryCreResMapper;
-    private final CategoryUpReqMapper categoryUpReqMapper;
-    private final CategoryUpResMapper categoryUpResMapper;
     private final CategoryRepository categoryRepository;
 
 
     @Override
     public CategoryCreResDTO createCategory(CategoryCreReqDTO categoryCreReqDTO) {
 
-        Category category = categoryCreReqMapper.toEntity(categoryCreReqDTO);
+        Category category = categoryMapper.toEntity(categoryCreReqDTO);
         categoryRepository.save(category);
-
-        return categoryCreResMapper.toDTO(category);
+01
+        return categoryMapper.toDTO(category);
     }
 
     @Override

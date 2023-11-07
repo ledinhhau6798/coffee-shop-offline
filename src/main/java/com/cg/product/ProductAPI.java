@@ -2,6 +2,7 @@ package com.cg.product;
 
 import com.cg.category.CategoryServiceImpl;
 import com.cg.exception.DataInputException;
+import com.cg.exception.ResourceNotFoundException;
 import com.cg.model.Category;
 import com.cg.model.Product;
 import com.cg.product.dto.*;
@@ -41,9 +42,7 @@ public class ProductAPI {
         }
         Long productId = Long.valueOf(productIdStr);
 
-        Product product = productService.findByIdAndDeletedFalse(productId).orElseThrow(() -> {
-            throw new DataInputException("Mã sản phẩm không tồn tại");
-        });
+        Product product = productService.findByIdAndDeletedFalse(productId);
 
         return new ResponseEntity<>(product.toProductDTO(), HttpStatus.OK);
     }
@@ -56,7 +55,8 @@ public class ProductAPI {
         }
 
         Long idCategory = Long.parseLong(creationProductParam.getCategoryId());
-        Category category = categoryService.findByIdAndDeletedFalse(idCategory).orElseThrow(() -> {
+        Category category = categoryService.findByIdAndDeletedFalse(idCategory)
+                .orElseThrow(() -> {
             throw new DataInputException("Mã danh mục không tồn tại");
         });
 
@@ -75,10 +75,8 @@ public class ProductAPI {
         }
 
         Long productId = Long.parseLong(productIdStr);
-        Optional<Product> productOptional = productService.findByIdAndDeletedFalse(productId);
-        if (!productOptional.isPresent()) {
-            throw new DataInputException("Mã sản phẩm không tồn tại");
-        }
+        Product productDB = productService.findByIdAndDeletedFalse(productId);
+
 
         new UpdateProductParam().validate(updateProductParam, bindingResult);
         if (bindingResult.hasFieldErrors()) {
@@ -90,14 +88,13 @@ public class ProductAPI {
         }
 
         Long idCategory = Long.parseLong(updateProductParam.getCategoryId());
-        Category category = categoryService.findByIdAndDeletedFalse(idCategory).orElseThrow(() -> {
-            throw new DataInputException("Mã danh mục không tồn tại");
-        });
+        Category category = categoryService.findByIdAndDeletedFalse(idCategory)
+                .orElseThrow(()-> new ResourceNotFoundException("Not found"));
 
         if (updateProductParam.getAvatar() == null) {
             Product product = updateProductParam.toProductChangeImage(category);
-            product.setId(productOptional.get().getId());
-            product.setProductAvatar(productOptional.get().getProductAvatar());
+            product.setId(productDB.getId());
+            product.setProductAvatar(productDB.getProductAvatar());
             return new ResponseEntity<>(productService.save(product), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(productService.update(productId, updateProductParam, category), HttpStatus.OK);
@@ -111,9 +108,7 @@ public class ProductAPI {
         }
         Long productId = Long.parseLong(productIdStr);
 
-        Product product = productService.findByIdAndDeletedFalse(productId).orElseThrow(() -> {
-            throw new DataInputException("Mã sản phẩm không tồn tại");
-        });
+        Product product = productService.findByIdAndDeletedFalse(productId);
 
         productService.deleteByIdTrue(product);
 
@@ -154,9 +149,8 @@ public class ProductAPI {
             throw new DataInputException("Mã danh mục không hợp lệ");
         }
         Long categoryId = Long.parseLong(categoryIdStr);
-        categoryService.findByIdAndDeletedFalse(categoryId).orElseThrow(() -> {
-            throw new DataInputException("Mã danh mục không tồn tại");
-        });
+        categoryService.findByIdAndDeletedFalse(categoryId)
+                .orElseThrow(() -> new DataInputException("Mã danh mục không tồn tại"));
         keySearch = '%' + keySearch + '%';
 
         List<ProductResult> productResult = productService.findAllByCategoryLikeAndAndTitleLike(categoryId, keySearch);

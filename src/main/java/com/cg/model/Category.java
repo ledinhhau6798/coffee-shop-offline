@@ -36,9 +36,6 @@ public class Category extends BaseEntity {
                 .setTitle(title);
     }
 
-
-
-
     public CategoryDTO toCategoryDTO() {
         return new CategoryDTO()
                 .setId(id)

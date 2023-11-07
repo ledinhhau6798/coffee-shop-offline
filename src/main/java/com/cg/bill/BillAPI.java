@@ -3,9 +3,9 @@ package com.cg.bill;
 
 import com.cg.exception.DataInputException;
 
-import com.cg.bill.dto.BillCreateResDTO;
-import com.cg.bill.dto.BillDTO;
-import com.cg.bill.dto.BillDetailDTO;
+import com.cg.bill.dto.CreationBillParam;
+import com.cg.bill.dto.BillResult;
+import com.cg.bill.dto.BillDetailResult;
 import com.cg.tableOrder.ITableOrderService;
 import com.cg.utils.ValidateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +35,9 @@ public class BillAPI {
     @GetMapping
     public ResponseEntity<?> showBill() {
 
-        List<BillDTO> billDTOS = billService.findAllBillDTO();
+        List<BillResult> billResults = billService.findAllBillDTO();
 
-        return new ResponseEntity<>(billDTOS, HttpStatus.OK);
+        return new ResponseEntity<>(billResults, HttpStatus.OK);
     }
 
     @GetMapping("/{billId}")
@@ -52,8 +52,8 @@ public class BillAPI {
             throw new DataInputException("Mã lịch sử không tồn tại");
         });
 
-        List<BillDetailDTO> billDetailDTOS = billService.findBillById(billId);
-        return new ResponseEntity<>(billDetailDTOS, HttpStatus.OK);
+        List<BillDetailResult> billDetailResults = billService.findBillById(billId);
+        return new ResponseEntity<>(billDetailResults, HttpStatus.OK);
     }
 
     @GetMapping("/search/day")
@@ -67,9 +67,9 @@ public class BillAPI {
             throw new DataInputException("vui lòng nhập đúng kiểu năm/tháng/ngày");
         }
 
-        List<BillDTO> billDTOS = billService.findBillByCreatedAts(dateBill);
+        List<BillResult> billResults = billService.findBillByCreatedAts(dateBill);
 
-        return new ResponseEntity<>(billDTOS, HttpStatus.OK);
+        return new ResponseEntity<>(billResults, HttpStatus.OK);
     }
 
     @PostMapping("/{tableId}")
@@ -90,7 +90,7 @@ public class BillAPI {
             throw  new DataInputException("Mã bàn không tồn tại");
         }
 
-        BillCreateResDTO billResDTO = billService.createBill(tableId);
+        CreationBillParam billResDTO = billService.createBill(tableId);
 
         return new ResponseEntity<>(billResDTO, HttpStatus.CREATED);
 

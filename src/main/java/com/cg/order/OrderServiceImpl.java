@@ -1,5 +1,6 @@
 package com.cg.order;
 
+import com.cg.exception.ResourceNotFoundException;
 import com.cg.order.dto.OrderCreReqDTO;
 import com.cg.order.dto.OrderUpChangeToTableReqDTO;
 import com.cg.order.dto.OrderUpChangeToTableResDTO;
@@ -13,9 +14,9 @@ import com.cg.model.enums.ETableStatus;
 import com.cg.orderDetail.OrderDetailRepository;
 import com.cg.product.ProductRepository;
 import com.cg.staff.StaffRepository;
+import com.cg.tableOrder.TableOrderMapper;
 import com.cg.tableOrder.TableOrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -33,20 +34,20 @@ public class OrderServiceImpl implements IOrderService {
     private final StaffRepository staffRepository;
     private final TableOrderRepository tableOrderRepository;
     private final ProductRepository productRepository;
+    private final TableOrderMapper tableOrderMapper;
 
-    @Override
     public List<Order> findAll() {
         return orderRepository.findAll();
     }
 
-    @Override
-    public Optional<Order> findById(Long id) {
-        return orderRepository.findById(id);
+    public Order findById(Long id) {
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found"));
     }
 
     @Override
-    public Optional<Order> findByTableId(Long tableId) {
-        return orderRepository.findByTableId(tableId);
+    public Order findByTableId(Long tableId) {
+        return orderRepository.findByTableId(tableId).orElseThrow(() -> new ResourceNotFoundException("Not found"));
     }
 
     @Override
@@ -57,8 +58,8 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public OrderDetailCreResDTO creOrder(OrderCreReqDTO orderCreReqDTO, TableOrder tableOrder, User user) {
         Order order = new Order();
-        Optional<Staff> optionalStaff = staffRepository.findByUserAndDeletedIsFalse(user);
-        order.setStaff(optionalStaff.get());
+        Staff staff = staffRepository.findStaffByUserAndDeletedIsFalse(user);
+        order.setStaff(staff);
         order.setTableOrder(tableOrder);
         order.setTotalAmount(BigDecimal.ZERO);
         order.setPaid(false);
@@ -67,9 +68,8 @@ public class OrderServiceImpl implements IOrderService {
         tableOrder.setStatus(ETableStatus.BUSY);
         tableOrderRepository.save(tableOrder);
 
-        Product product = productRepository.findById(orderCreReqDTO.getProductId()).orElseThrow(() -> {
-            throw new DataInputException("Sản phẩm này không tồn tại vui lòng xem lại");
-        });
+        Product product = productRepository.findById(orderCreReqDTO.getProductId())
+                .orElseThrow(() -> new ResourceNotFoundException("Not found!"));
 
         OrderDetail orderDetail = new OrderDetail();
 
@@ -91,7 +91,7 @@ public class OrderServiceImpl implements IOrderService {
 
         OrderDetailCreResDTO orderDetailCreResDTO = new OrderDetailCreResDTO();
         orderDetailCreResDTO.setOrderDetailId(orderDetail.getId());
-        orderDetailCreResDTO.setTable(tableOrder.toTableOrderResDTO());
+        orderDetailCreResDTO.setTable(tableOrderMapper.toDTO(tableOrder));
         orderDetailCreResDTO.setProductId(product.getId());
         orderDetailCreResDTO.setTitle(product.getTitle());
         orderDetailCreResDTO.setPrice(price);
@@ -148,7 +148,7 @@ public class OrderServiceImpl implements IOrderService {
         List<OrderDetailProductUpResDTO> newOrderDetails = orderDetailRepository.findAllOrderDetailProductUpResDTO(order.getId());
 
         OrderDetailUpResDTO orderDetailUpResDTO = new OrderDetailUpResDTO();
-        orderDetailUpResDTO.setTable(order.getTableOrder().toTableOrderResDTO());
+        orderDetailUpResDTO.setTable(tableOrderMapper.toDTO(order.getTableOrder()));
         orderDetailUpResDTO.setProducts(newOrderDetails);
         orderDetailUpResDTO.setTotalAmount(order.getTotalAmount());
 
@@ -174,7 +174,8 @@ public class OrderServiceImpl implements IOrderService {
         List<OrderDetailProductUpResDTO> newOrderDetails = orderDetailRepository.findAllOrderDetailProductUpResDTO(orderBusy.getId());
 
         OrderUpChangeToTableResDTO orderUpChangeToTableResDTO = new OrderUpChangeToTableResDTO();
-        orderUpChangeToTableResDTO.setTableOrder(orderBusy.getTableOrder().toTableOrderResDTO());
+        orderUpChangeToTableResDTO.setTableOrder(
+                tableOrderMapper.toDTO(orderBusy.getTableOrder()));
         orderUpChangeToTableResDTO.setTotalAmount(orderBusy.getTotalAmount());
         orderUpChangeToTableResDTO.setProducts(newOrderDetails);
 

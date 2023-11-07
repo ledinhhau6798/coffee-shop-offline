@@ -1,6 +1,7 @@
 package com.cg.product;
 
 import com.cg.exception.DataInputException;
+import com.cg.exception.ResourceNotFoundException;
 import com.cg.model.Category;
 import com.cg.model.Product;
 import com.cg.model.ProductAvatar;
@@ -38,29 +39,24 @@ public class ProductServiceImpl implements IProductService {
 
     private ValidateUtils validateUtils;
 
-    @Override
     public List<Product> findAll() {
         return productRepository.findAll();
     }
 
-    @Override
-    public Optional<Product> findById(Long id) {
-        return productRepository.findById(id);
+    public Product findById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found"));
     }
 
 
-
-    @Override
     public Product save(Product product) {
         return productRepository.save(product);
     }
 
-    @Override
     public void delete(Product product) {
 
     }
 
-    @Override
     public void deleteById(Long id) {
 
     }
@@ -117,17 +113,17 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public List<ProductResult> findAllByCategoryLikeAndAndTitleLike(Long categoryId, String keySearch) {
-        return productRepository.findAllByCategoryLikeAndAndTitleLike(categoryId,keySearch);
+        return productRepository.findAllByCategoryLikeAndAndTitleLike(categoryId, keySearch);
     }
 
     @Override
     public Page<ProductResult> findAllProductDTOPage(Pageable pageable) {
-         return productRepository.findAllProductDTOPage(pageable);
+        return productRepository.findAllProductDTOPage(pageable);
     }
 
     @Override
-    public Optional<Product> findByIdAndDeletedFalse(Long id) {
-        return productRepository.findByIdAndDeletedFalse(id);
+    public Product findByIdAndDeletedFalse(Long id) {
+        return productRepository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ResourceNotFoundException("Not found!"));
     }
 
     private void uploadAndSaveProductImage(CreationProductParam creationProductParam, ProductAvatar productAvatar) {

@@ -43,6 +43,9 @@ public interface StaffRepository extends JpaRepository<Staff,Long> {
 )
 Page<StaffResult> findAllStaffResultPage(Pageable pageable);
 
+//    Staff findByUserAndDeletedIsFalse(User user);
+    Staff findStaffByUserAndDeletedIsFalse(User user);
+
 
 //
 //    Optional<Staff> findByUserId(Long userId);

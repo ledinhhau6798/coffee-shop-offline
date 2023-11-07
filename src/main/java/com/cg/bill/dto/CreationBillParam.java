@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class BillCreateResDTO {
+public class CreationBillParam {
 
     private Long id;
     private TableOrderResult table;

@@ -1,10 +1,8 @@
 package com.cg.model;
 
-import com.cg.bill.dto.BillCreateResDTO;
-import com.cg.bill.dto.BillDTO;
-import lombok.AllArgsConstructor;
+import com.cg.bill.dto.CreationBillParam;
+import com.cg.bill.dto.BillResult;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -29,27 +27,6 @@ public class Bill extends BaseEntity{
     @OneToOne
     @JoinColumn(name = "order_id",referencedColumnName = "id",nullable = false)
     private Order order;
-
-    public BillCreateResDTO toBillResDTO() {
-        return new BillCreateResDTO()
-                .setId(order.getId())
-                .setTable(order.getTableOrder().toTableOrderDTO())
-                .setTotalAmount(order.getTotalAmount())
-                .setPaid(getOrder().getPaid())
-                .setOrderId(getOrder().getId())
-                ;
-    }
-
-    public BillDTO toBillDTO() {
-        return new BillDTO()
-                .setId(order.getId())
-                .setTableTitle(order.getTableOrder().getTitle())
-                .setTotal(order.getTotalAmount())
-                .setCreatedAt(order.getCreatedAt())
-                .setStaffName(order.getStaff().getTitle())
-                .setOrderId(order.getId())
-                ;
-    }
 
 
 }

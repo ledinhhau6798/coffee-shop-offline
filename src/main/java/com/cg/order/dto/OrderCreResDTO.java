@@ -18,6 +18,5 @@ import java.util.List;
 public class OrderCreResDTO {
     private Long tableId;
     private BigDecimal totalAmount;
-
     private List<OrderDetailCreResDTO> orderDetails;
 }

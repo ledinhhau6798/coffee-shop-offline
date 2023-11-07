@@ -49,6 +49,11 @@ public class TableOrderServiceImpl implements ITableOrderService {
     }
 
     @Override
+    public void save(TableOrder tableOrder) {
+        tableOrderRepository.save(tableOrder);
+    }
+
+    @Override
     @Transactional
     public TableOrderResult create(TableOrderParam param) {
         TableOrder entity = tableOrderMapper.toEntity(param);

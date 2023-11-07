@@ -4,9 +4,9 @@ import com.cg.exception.DataInputException;
 import com.cg.model.Bill;
 import com.cg.model.Order;
 import com.cg.model.TableOrder;
-import com.cg.bill.dto.BillCreateResDTO;
-import com.cg.bill.dto.BillDTO;
-import com.cg.bill.dto.BillDetailDTO;
+import com.cg.bill.dto.CreationBillParam;
+import com.cg.bill.dto.BillResult;
+import com.cg.bill.dto.BillDetailResult;
 import com.cg.order.OrderRepository;
 import com.cg.tableOrder.TableOrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +21,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
+
 @RequiredArgsConstructor
 public class BillServiceImpl implements IBillService {
 
-    private final BillDetailMapper billDetailMapper;
     private final BillMapper billMapper;
-    private final BillCreateResMapper billCreateResMapper;
 
 
     private final BillRepository billRepository;
@@ -37,53 +35,62 @@ public class BillServiceImpl implements IBillService {
     private final OrderRepository orderRepository;
 
     @Override
+    @Transactional
     public List<Bill> findAll() {
         return billRepository.findAll();
     }
 
     @Override
+    @Transactional
     public Optional<Bill> findById(Long id) {
         return billRepository.findById(id);
     }
 
     @Override
+    @Transactional
     public Bill save(Bill bill) {
         return billRepository.save(bill);
     }
 
     @Override
+    @Transactional
     public void delete(Bill bill) {
 
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
 
     }
-
-    @Override
-    public List<BillDTO> findAllBillDTO() {
-        return billRepository.findAll().stream().map(Bill::toBillDTO).collect(Collectors.toList());
+    @Transactional
+    public List<BillResult> getAll() {
+        return billMapper.toListBillResult(this.findAll());
     }
-
+    @Transactional
     @Override
-    public List<BillDetailDTO> findBillById(Long billId) {
+    public List<BillResult> findAllBillDTO() {
+        return null;
+    }
+    @Transactional
+    @Override
+    public List<BillDetailResult> findBillById(Long billId) {
         return billRepository.findAllById(billId)
                 .stream()
-                .map(bill -> billDetailMapper.toDTO(bill))
+                .map(billMapper::toBillDetailResult)
                 .collect(Collectors.toList());
     }
-
+    @Transactional
     @Override
-    public List<BillDTO> findBillByCreatedAts(Date billDate) {
+    public List<BillResult> findBillByCreatedAts(Date billDate) {
         return billRepository.findAllByCreatedAt(billDate)
                 .stream()
-                .map(bill -> billMapper.toDTO(bill))
+                .map(billMapper::toBillResult)
                 .collect(Collectors.toList());
     }
-
+    @Transactional
     @Override
-    public BillCreateResDTO createBill(Long tableId) {
+    public CreationBillParam createBill(Long tableId) {
         Order order = orderRepository.findByTableId(tableId).get();
         if (order.getPaid() == true) {
             throw new DataInputException("Bàn này đã thanh toán");
@@ -94,26 +101,17 @@ public class BillServiceImpl implements IBillService {
                 .orElseThrow(() -> new DataInputException("Bàn không đặt không thể thanh toán"));
         tableOrderRepository.save(tableOrder);
 
-
-//        if (tableOrder.getStatus() == ETableStatus.EMPTY) {
-//            throw new DataInputException("Bàn không đặt không thể thanh toán");
-//        }
-//        tableOrder.setStatus(ETableStatus.EMPTY);
-//
-//        tableOrderRepository.save(tableOrder);
-
         Bill bill = new Bill();
         bill.setTotalAmount(order.getTotalAmount());
         bill.setOrder(order);
         bill = billRepository.save(bill);
 
 
-        BillCreateResDTO billResDTO = bill.toBillResDTO();
-        return billResDTO;
+        return billMapper.toCreationBillParam(bill);
     }
-
+    @Transactional
     @Override
-    public List<BillDTO> getBillByDate(Integer year, Integer month, Integer day) {
+    public List<BillResult> getBillByDate(Integer year, Integer month, Integer day) {
         LocalDate start = getDate(year, month, day);
         if (day == null) {
             return billRepository.getAllBillByDate(start, getLastDayOfMonth(start));

@@ -19,7 +19,6 @@ public class OrderDTO {
     private StaffResult staff;
     private TableOrderResult tableOrder;
     private BigDecimal totalAmount;
-
     private OrderDetailDTO orderDetailDTO;
     private Boolean paid;
 

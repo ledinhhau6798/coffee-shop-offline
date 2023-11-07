@@ -1,7 +1,6 @@
 package com.cg.bill.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class BillDetailDTO {
+public class BillDetailResult {
 
     private Long id;
     private BigDecimal totalAmount;
@@ -23,11 +22,11 @@ public class BillDetailDTO {
     private BigDecimal price;
     private Long quantity;
     private String title;
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Ho_Chi_Minh")
     private Date createdAt;
 
-    public BillDetailDTO(Long id, BigDecimal totalAmount, BigDecimal amount, String note, BigDecimal price, Long quantity, String title, Date createdAt) {
+
+    public BillDetailResult(Long id, BigDecimal totalAmount, BigDecimal amount, String note, BigDecimal price, Long quantity, String title, Date createdAt) {
         this.id = id;
         this.totalAmount = totalAmount;
         this.amount = amount;

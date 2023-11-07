@@ -14,8 +14,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-public interface IOrderService extends IGeneralService<Order,Long> {
-    Optional<Order> findByTableId(Long tableId);
+public interface IOrderService  {
+    Order findByTableId(Long tableId);
 
     List<Order> findByTableOrderAndPaid(TableOrder tableOrder, Boolean paid);
 
@@ -25,6 +25,12 @@ public interface IOrderService extends IGeneralService<Order,Long> {
     OrderDetailUpResDTO upOrderDetail(OrderUpReqDTO orderUpReqDTO, Order order, Product product, User user);
 
     OrderUpChangeToTableResDTO changeToTable(OrderUpChangeToTableReqDTO orderUpChangeToTableReqDTO, User user);
+
+    Order save(Order order);
+
+    void delete(Order order);
+
+    void deleteById(Long id);
 
     BigDecimal getOrderTotalAmount(Long orderId);
 

@@ -7,10 +7,8 @@ import com.cg.order.dto.OrderDTO;
 import com.cg.order.dto.OrderResDTO;
 import com.cg.order.dto.OrderUpResDTO;
 import com.cg.orderDetail.dto.OrderDetailDTO;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.cg.staff.StaffMapper;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
@@ -19,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @Getter
 @Setter
 @Entity
@@ -47,37 +45,7 @@ public class Order extends BaseEntity {
 
     private Boolean paid;
 
-    public OrderResDTO toOrderResDTO() {
-        List<OrderDetailDTO> orderDetailDTOS = new ArrayList<>();
-        for(int i=0;i<this.getOrderDetails().size();i++){
-            OrderDetailDTO orderDetailDTO = this.getOrderDetails().get(i).toOrderDetailDTO();
-            orderDetailDTOS.add(orderDetailDTO);
-        }
-        return new OrderResDTO()
-                .setId(id)
-                .setStaff(staff.toStaffDTO())
-                .setTableOrder(tableOrder.toTableOrderDTO())
-                .setOrderDetails(orderDetailDTOS)
-                .setPaid(paid)
-                ;
-    }
 
-    public OrderDTO toOrderDTO() {
-        return new OrderDTO()
-                .setId(id)
-                .setTotalAmount(totalAmount)
-                ;
-    }
 
-    public OrderCreResDTO toOrderCreResDTO() {
-        return new OrderCreResDTO()
-                .setTableId(tableOrder.getId())
-                ;
-    }
 
-    public OrderUpResDTO toOrderUpResDTO() {
-        return new OrderUpResDTO()
-                .setTableId(tableOrder.getId())
-                ;
-    }
 }
