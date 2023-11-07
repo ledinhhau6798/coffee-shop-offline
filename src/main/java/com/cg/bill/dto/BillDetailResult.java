@@ -1,28 +1,20 @@
 package com.cg.bill.dto;
 
-<<<<<<< HEAD
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
-=======
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+
 import lombok.NoArgsConstructor;
->>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
+
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
-<<<<<<< HEAD
+
 import java.util.Date;
 
-<<<<<<<< HEAD:src/main/java/com/cg/bill/dto/BillDetailResult.java
+
 @NoArgsConstructor
-=======
-
-import java.util.List;
-
-
->>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 @Getter
 @Setter
 @Accessors(chain = true)
@@ -30,13 +22,6 @@ public class BillDetailResult {
 
     private Long id;
     private BigDecimal totalAmount;
-<<<<<<< HEAD
-========
-@Getter
-@Setter
-@Accessors(chain = true)
-public class DetaiResult {
->>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272:src/main/java/com/cg/bill/dto/DetaiResult.java
     private BigDecimal amount;
     private String note;
     private BigDecimal price;
@@ -45,16 +30,6 @@ public class DetaiResult {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Ho_Chi_Minh")
     private Date createdAt;
 
-    public DetaiResult(BigDecimal amount, String note, BigDecimal price, Long quantity, String title, Date createdAt) {
-        this.amount = amount;
-        this.note = note;
-        this.price = price;
-        this.quantity = quantity;
-        this.title = title;
-        this.createdAt = createdAt;
-    }
-
-<<<<<<<< HEAD:src/main/java/com/cg/bill/dto/BillDetailResult.java
     public BillDetailResult(Long id, BigDecimal totalAmount, BigDecimal amount, String note, BigDecimal price, Long quantity, String title, Date createdAt) {
         this.id = id;
         this.totalAmount = totalAmount;
@@ -64,19 +39,6 @@ public class DetaiResult {
         this.quantity = quantity;
         this.title = title;
         this.createdAt = createdAt;
-========
-    public DetaiResult() {
->>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272:src/main/java/com/cg/bill/dto/DetaiResult.java
-=======
-    private List<DetaiResult> detaiDTOS;
 
-    public BillDetailResult() {
-    }
-
-    public BillDetailResult(Long id, BigDecimal totalAmount, List<DetaiResult> detaiDTOS) {
-        this.id = id;
-        this.totalAmount = totalAmount;
-        this.detaiDTOS = detaiDTOS;
->>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
     }
 }

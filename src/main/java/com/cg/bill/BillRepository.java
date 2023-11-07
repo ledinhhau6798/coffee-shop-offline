@@ -1,14 +1,9 @@
 package com.cg.bill;
 
 import com.cg.bill.dto.BillDetailResult;
-<<<<<<< HEAD
 import com.cg.model.Bill;
 import com.cg.bill.dto.BillResult;
-=======
-import com.cg.bill.dto.BillResult;
-import com.cg.model.Bill;
 
->>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,24 +16,6 @@ import java.util.List;
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Long> {
 
-<<<<<<< HEAD
-    @Query("select new com.cg.bill.dto.BillDetailResult (" +
-            "b.id, " +
-            "b.totalAmount, " +
-            "od.amount, " +
-            "od.note, " +
-            "od.price, " +
-            "od.quantity, " +
-            "p.title, " +
-            "od.createdAt " +
-            ")" +
-            "from Bill as b " +
-            "join Order as o on b.order.id = o.id "  +
-            "join OrderDetail as od on od.order.id = o.id " +
-            "join Product as p on od.product.id = p.id " +
-            "where b.id = :billId ")
-    List<BillDetailResult> findBillById(@Param("billId") Long billId);
-=======
 //    @Query("select new com.cg.bill.dto.BillDetailResult (" +
 //            "b.id, " +
 //            "b.totalAmount, " +
@@ -55,7 +32,7 @@ public interface BillRepository extends JpaRepository<Bill, Long> {
 //            "join Product as p on od.product.id = p.id " +
 //            "where b.id = :billId ")
 //    List<BillDetailResult> findBillById(@Param("billId") Long billId);
->>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
+
 
     @Query("SELECT NEW com.cg.bill.dto.BillResult (" +
             "b.id, " +

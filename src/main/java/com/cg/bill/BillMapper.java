@@ -3,25 +3,18 @@ package com.cg.bill;
 
 import com.cg.bill.dto.BillDetailResult;
 import com.cg.bill.dto.BillResult;
-<<<<<<< HEAD
 import com.cg.bill.dto.CreationBillParam;
 import com.cg.model.Bill;
 import com.cg.tableOrder.TableOrderMapper;
-=======
-import com.cg.model.Bill;
->>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-<<<<<<< HEAD
 @RequiredArgsConstructor
 
 public class BillMapper {
@@ -54,43 +47,5 @@ public class BillMapper {
 
     public BillDetailResult toBillDetailResult(Bill entity) {
         return new BillDetailResult().setId(entity.getId());
-//        private Long id;
-//        private BigDecimal totalAmount;
-//        private BigDecimal amount;
-//        private String note;
-//        private BigDecimal price;
-//        private Long quantity;
-//        private String title;
-//        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Ho_Chi_Minh")
-//        private Date createdAt;
     }
-
-
-=======
-@AllArgsConstructor
-
-
-public class BillMapper {
-    public BillResult toDTO(Bill entity){
-        return new BillResult()
-                .setId(entity.getId())
-                .setTableTitle(entity.getOrder().getTableOrder().getTitle())
-                .setTotal(entity.getOrder().getTotalAmount())
-                .setCreatedAt(entity.getOrder().getCreatedAt())
-                .setStaffName(entity.getOrder().getStaff().getTitle())
-                .setOrderId(entity.getOrder().getId())
-                ;
-    }
-
-
-    public List<BillResult> toDTOList(List<Bill> entities) {
-        return entities.stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    public BillDetailResult toDTOBillDetai(Bill entity) {
-        return null;
-    }
->>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 }

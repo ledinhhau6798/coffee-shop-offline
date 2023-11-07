@@ -19,10 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements ICategoryService {
     private final CategoryMapper categoryMapper;
-<<<<<<< HEAD
-=======
-
->>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
     private final CategoryRepository categoryRepository;
     private final ValidateUtils validateUtils;
 

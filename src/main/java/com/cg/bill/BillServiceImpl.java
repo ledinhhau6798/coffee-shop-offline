@@ -1,24 +1,15 @@
 package com.cg.bill;
 
-<<<<<<< HEAD
-=======
 
 
 import com.cg.bill.dto.BillDetailResult;
 import com.cg.bill.dto.BillResult;
 import com.cg.bill.dto.CreationBillParam;
->>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 import com.cg.exception.DataInputException;
+import com.cg.exception.ResourceNotFoundException;
 import com.cg.model.Bill;
 import com.cg.model.Order;
 import com.cg.model.TableOrder;
-<<<<<<< HEAD
-import com.cg.bill.dto.CreationBillParam;
-import com.cg.bill.dto.BillResult;
-import com.cg.bill.dto.BillDetailResult;
-=======
-
->>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 import com.cg.order.OrderRepository;
 import com.cg.tableOrder.ITableOrderService;
 import com.cg.tableOrder.TableOrderRepository;
@@ -27,8 +18,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
@@ -36,22 +25,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-<<<<<<< HEAD
 
 @RequiredArgsConstructor
 public class BillServiceImpl implements IBillService {
 
     private final BillMapper billMapper;
-=======
-@RequiredArgsConstructor
-public class BillServiceImpl implements IBillService {
-
-
-    private final BillMapper billMapper;
-
->>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
-
-
     private final BillRepository billRepository;
 
     private final TableOrderRepository tableOrderRepository;
@@ -60,37 +38,30 @@ public class BillServiceImpl implements IBillService {
     private final ValidateUtils validateUtils;
     private final ITableOrderService tableOrderService;
 
-    @Override
     @Transactional
-<<<<<<< HEAD
     public List<Bill> findAll() {
         return billRepository.findAll();
     }
 
-    @Override
     @Transactional
-    public Optional<Bill> findById(Long id) {
-        return billRepository.findById(id);
+    public Bill findById(Long id) {
+        return billRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Not found"));
     }
 
-    @Override
+
     @Transactional
     public Bill save(Bill bill) {
         return billRepository.save(bill);
     }
 
-    @Override
+
     @Transactional
     public void delete(Bill bill) {
-=======
     public List<BillResult> findAll() {
         List<Bill> entities = billRepository.findAll();
         return billMapper.toDTOList(entities);
     }
 
-
-
-    @Override
     @Transactional
     public BillDetailResult findBillById(String billIdStr) {
         if (!validateUtils.isNumberValid(billIdStr)) {
@@ -103,16 +74,11 @@ public class BillServiceImpl implements IBillService {
         });
 
         return billMapper.toDTOBillDetai(entity);
->>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
+
 
     }
 
-    @Override
-    @Transactional
-<<<<<<< HEAD
-    public void deleteById(Long id) {
 
-    }
     @Transactional
     public List<BillResult> getAll() {
         return billMapper.toListBillResult(this.findAll());
@@ -134,40 +100,13 @@ public class BillServiceImpl implements IBillService {
     @Override
     public List<BillResult> findBillByCreatedAts(Date billDate) {
         return billRepository.findAllByCreatedAt(billDate)
-=======
-    public List<BillResult> findBillByCreatedAts(String eventDate) {
-        String pattern = "yyyy-MM-dd";
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        Date dateBill;
-        try {
-            dateBill = sdf.parse(eventDate);
-        } catch (ParseException e) {
-            throw new DataInputException("vui lòng nhập đúng kiểu năm/tháng/ngày");
-        }
-        return billRepository.findAllByCreatedAt(dateBill)
->>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
                 .stream()
                 .map(billMapper::toBillResult)
                 .collect(Collectors.toList());
     }
     @Transactional
     @Override
-<<<<<<< HEAD
     public CreationBillParam createBill(Long tableId) {
-=======
-    @Transactional
-    public BillResult createBill(String tableIdStr) {
-
-        if (!validateUtils.isNumberValid(tableIdStr)) {
-            throw new DataInputException("Mã bàn không hợp lệ");
-        }
-
-        Long tableId = Long.parseLong(tableIdStr);
-        tableOrderService.findById(tableId).orElseThrow(() ->{
-            throw new DataInputException("Mã bàn không tồn tại");
-        });
-
->>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
         Order order = orderRepository.findByTableId(tableId).get();
         if (order.getPaid() == true) {
             throw new DataInputException("Bàn này đã thanh toán");
@@ -177,7 +116,6 @@ public class BillServiceImpl implements IBillService {
                 .orElseThrow(() -> new DataInputException("Bàn không đặt không thể thanh toán"));
         tableOrderRepository.save(tableOrder);
 
-<<<<<<< HEAD
         Bill bill = new Bill();
         bill.setTotalAmount(order.getTotalAmount());
         bill.setOrder(order);
@@ -185,31 +123,15 @@ public class BillServiceImpl implements IBillService {
 
 
         return billMapper.toCreationBillParam(bill);
-=======
-        Bill entity = new Bill();
-        entity.setTotalAmount(order.getTotalAmount());
-        entity.setOrder(order);
-        entity = billRepository.save(entity);
-        return billMapper.toDTO(entity);
->>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
     }
     @Transactional
     @Override
-<<<<<<< HEAD
-=======
-    @Transactional
->>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
     public List<BillResult> getBillByDate(Integer year, Integer month, Integer day) {
         LocalDate start = getDate(year, month, day);
         if (day == null) {
-//            return billRepository.getAllBillByDate(start, getLastDayOfMonth(start))
-//                    .stream().map(billMapper::toDTOList).collect(Collectors.toList());
             return billRepository.getAllBillByDate(start, getLastDayOfMonth(start));
         }
-
-
-        return billRepository.getAllBillByDate(start, start)
-                ;
+        return billRepository.getAllBillByDate(start, start);
 
     }
 
@@ -227,6 +149,5 @@ public class BillServiceImpl implements IBillService {
     public LocalDate getLastDayOfMonth(LocalDate date) {
         return date.with(TemporalAdjusters.lastDayOfMonth());
     }
-
 
 }
