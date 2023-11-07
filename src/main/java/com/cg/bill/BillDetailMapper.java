@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class BillDetailMapper extends BaseMapper<BillDetailDTO, Bill> {
+public class illDetailMapper extends BaseMapper<BillDetailDTO, Bill> {
 
 }
