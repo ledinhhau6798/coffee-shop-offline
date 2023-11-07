@@ -1,7 +1,7 @@
 package com.cg.product;
 
 import com.cg.model.Product;
-import com.cg.product.DTO.ProductDTO;
+import com.cg.product.dto.ProductDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,7 +18,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findByIdAndDeletedFalse(Long id);
     List<Product> findAllByDeletedIsFalse();
 
-    @Query("SELECT NEW com.cg.product.DTO.ProductDTO (" +
+    @Query("SELECT NEW com.cg.product.dto.ProductDTO (" +
             "pr.id, " +
             "pr.title, " +
             "pr.price, " +
@@ -31,7 +31,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "AND pr.deleted = false ")
     List<ProductDTO> findAllByCategoryLike(Long categoryId);
 
-    @Query("SELECT NEW com.cg.product.DTO.ProductDTO (" +
+    @Query("SELECT NEW com.cg.product.dto.ProductDTO (" +
             "pro.id, " +
             "pro.title, " +
             "pro.price, " +
@@ -45,7 +45,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<ProductDTO> findProductByName(String keySearch);
 
 
-    @Query("SELECT NEW com.cg.product.DTO.ProductDTO (" +
+    @Query("SELECT NEW com.cg.product.dto.ProductDTO (" +
             "pro.id, " +
             "pro.title, " +
             "pro.price, " +
@@ -59,7 +59,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     )
     List<ProductDTO> findAllByCategoryLikeAndAndTitleLike(@Param("categoryId") Long categoryId,@Param("keySearch") String keySearch);
 
-    @Query("SELECT NEW com.cg.product.DTO.ProductDTO ( " +
+    @Query("SELECT NEW com.cg.product.dto.ProductDTO ( " +
             "pro.id, " +
             "pro.title, " +
             "pro.price, " +

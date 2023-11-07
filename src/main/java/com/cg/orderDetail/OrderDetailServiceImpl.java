@@ -3,15 +3,14 @@ package com.cg.orderDetail;
 import com.cg.exception.DataInputException;
 import com.cg.model.Order;
 import com.cg.model.OrderDetail;
-import com.cg.orderDetail.DTO.OrderDetailByTableResDTO;
+
 import com.cg.order.OrderRepository;
 import com.cg.order.IOrderService;
-import com.cg.orderDetail.DTO.OrderDetailResult;
+
+import com.cg.orderDetail.dto.OrderDetailResult;
 import com.cg.utils.ValidateUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -48,6 +47,7 @@ public class OrderDetailServiceImpl implements IOrderDetailService{
 
 
     @Override
+    @Transactional
     public List<OrderDetailResult> getOrderDetailByTableResDTO(String tableIdStr) {
         if(!validateUtils.isNumberValid(tableIdStr)){
             throw new DataInputException("Mã số bàn không hợp lệ vui lòng xem lại");

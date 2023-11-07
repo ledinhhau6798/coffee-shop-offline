@@ -4,15 +4,14 @@ import com.cg.exception.DataInputException;
 import com.cg.model.Category;
 import com.cg.model.Product;
 import com.cg.model.ProductAvatar;
-import com.cg.product.DTO.ProductCreReqDTO;
-import com.cg.product.DTO.ProductDTO;
-import com.cg.product.DTO.ProductUpReqDTO;
+import com.cg.product.dto.ProductCreReqDTO;
+import com.cg.product.dto.ProductDTO;
+import com.cg.product.dto.ProductUpReqDTO;
 import com.cg.productAvatar.ProductAvatarRepository;
 import com.cg.service.upload.IUploadService;
 import com.cg.utils.UploadUtils;
 import com.cg.utils.ValidateUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,15 +28,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements IProductService {
 
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    private ProductAvatarRepository productAvatarRepository;
+    private final ProductAvatarRepository productAvatarRepository;
 
-    private IUploadService uploadService;
+    private final IUploadService uploadService;
 
-    private UploadUtils uploadUtils;
+    private final UploadUtils uploadUtils;
 
-    private ValidateUtils validateUtils;
+    private final ValidateUtils validateUtils;
 
     @Override
     public List<Product> findAll() {

@@ -1,10 +1,6 @@
 package com.cg.model;
-
-
-
 import com.cg.bill.DTO.BillDetailResult;
-import com.cg.bill.DTO.BillResult;
-
+import com.cg.bill.dto.BillResult;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -45,16 +41,7 @@ public class Bill extends BaseEntity{
     }
 
 
-    public BillResult toDTO() {
-        return new BillResult()
-                .setId(order.getId())
-                .setTableTitle(order.getTableOrder().getTitle())
-                .setTotal(order.getTotalAmount())
-                .setCreatedAt(order.getCreatedAt())
-                .setStaffName(order.getStaff().getTitle())
-                .setOrderId(order.getId())
-                ;
-    }
+
 
 
     public BillDetailResult toDetaiResultDTO() {

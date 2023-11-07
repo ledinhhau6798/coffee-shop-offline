@@ -1,8 +1,8 @@
 package com.cg.tableOrder;
 
 import com.cg.model.TableOrder;
-import com.cg.tableOrder.DTO.TableOrderCreateReqDTO;
-import com.cg.tableOrder.DTO.TableOrderDTO;
+import com.cg.tableOrder.dto.TableOrderCreateReqDTO;
+import com.cg.tableOrder.dto.TableOrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,18 +2,16 @@ package com.cg.bill;
 
 
 import com.cg.bill.DTO.BillDetailResult;
-import com.cg.bill.DTO.BillResult;
-import com.cg.exception.DataInputException;
+
+import com.cg.bill.dto.BillResult;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/bills")

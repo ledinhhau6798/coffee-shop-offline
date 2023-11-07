@@ -1,9 +1,10 @@
 package com.cg.category;
 
-import com.cg.category.DTO.CreationCategoryParam;
-import com.cg.category.DTO.CategoryResult;
-import com.cg.category.DTO.UpdateCategoryParam;
+
 import com.cg.exception.DataInputException;
+
+import com.cg.category.dto.*;
+
 import com.cg.model.Category;
 import com.cg.utils.AppUtils;
 import com.cg.utils.ValidateUtils;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -92,6 +94,7 @@ public class CategoryServiceImpl implements ICategoryService {
       List<Category> categoryList = categoryRepository.findAll();
       return categoryMapper.toDTOList(categoryList);
     }
+
 
 
 }

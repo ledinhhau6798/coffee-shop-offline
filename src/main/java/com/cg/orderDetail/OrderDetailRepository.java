@@ -2,8 +2,8 @@ package com.cg.orderDetail;
 
 import com.cg.model.Order;
 import com.cg.model.OrderDetail;
-import com.cg.orderDetail.DTO.OrderDetailByTableResDTO;
-import com.cg.orderDetail.DTO.OrderDetailProductUpResDTO;
+import com.cg.orderDetail.dto.OrderDetailByTableResDTO;
+import com.cg.orderDetail.dto.OrderDetailProductUpResDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @Repository
 public interface OrderDetailRepository extends JpaRepository<OrderDetail,Long> {
 
-    @Query("SELECT NEW com.cg.orderDetail.DTO.OrderDetailByTableResDTO (" +
+    @Query("SELECT NEW com.cg.orderDetail.dto.OrderDetailByTableResDTO (" +
             "od.id, " +
             "od.product.id, " +
             "od.product.title, " +
@@ -38,7 +38,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail,Long> {
     List<OrderDetail> findAllByOrder(Order order);
 
 
-    @Query("SELECT NEW com.cg.orderDetail.DTO.OrderDetailProductUpResDTO (" +
+    @Query("SELECT NEW com.cg.orderDetail.dto.OrderDetailProductUpResDTO (" +
             "od.id, " +
             "od.product.id, " +
             "od.product.title, " +

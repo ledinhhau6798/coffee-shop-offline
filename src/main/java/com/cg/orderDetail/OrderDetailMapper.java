@@ -1,12 +1,13 @@
 package com.cg.orderDetail;
 
-import com.cg.category.DTO.CreationCategoryParam;
+
 import com.cg.model.Order;
 import com.cg.model.OrderDetail;
-import com.cg.orderDetail.DTO.OrderDetailByTableResDTO;
-import com.cg.orderDetail.DTO.OrderDetailProductUpResDTO;
-import com.cg.orderDetail.DTO.OrderDetailResult;
-import com.cg.orderDetail.DTO.UpdateOrderDetaiParam;
+
+import com.cg.orderDetail.dto.OrderDetailByTableResDTO;
+import com.cg.orderDetail.dto.OrderDetailProductUpResDTO;
+import com.cg.orderDetail.dto.OrderDetailResult;
+import com.cg.orderDetail.dto.UpdateOrderDetaiParam;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

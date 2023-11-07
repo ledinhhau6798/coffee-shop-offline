@@ -1,11 +1,9 @@
 package com.cg.category;
 
 
-import com.cg.category.DTO.CreationCategoryParam;
-import com.cg.category.DTO.CategoryResult;
-import com.cg.category.DTO.UpdateCategoryParam;
-import com.cg.exception.DataInputException;
-import com.cg.model.Category;
+
+import com.cg.category.dto.*;
+
 import com.cg.utils.AppUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

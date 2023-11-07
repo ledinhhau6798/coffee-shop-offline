@@ -3,11 +3,13 @@ package com.cg.bill;
 
 
 import com.cg.bill.DTO.BillDetailResult;
-import com.cg.bill.DTO.BillResult;
+
+import com.cg.bill.dto.BillResult;
 import com.cg.exception.DataInputException;
 import com.cg.model.Bill;
 import com.cg.model.Order;
 import com.cg.model.TableOrder;
+
 import com.cg.order.OrderRepository;
 import com.cg.tableOrder.ITableOrderService;
 import com.cg.tableOrder.TableOrderRepository;
@@ -25,11 +27,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-
 @RequiredArgsConstructor
 public class BillServiceImpl implements IBillService {
 
-//    private final BillDetailMapper billDetailMapper;
+
     private final BillMapper billMapper;
 
 
@@ -52,11 +53,13 @@ public class BillServiceImpl implements IBillService {
 
 
     @Override
+    @Transactional
     public List<BillResult> findAllBillDTO() {
         return billRepository.findAll().stream().map(Bill::toBillDTO).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional
     public BillDetailResult findBillById(String billIdStr) {
         if (!validateUtils.isNumberValid(billIdStr)) {
             throw new DataInputException("Mã lịch sử không hợp lệ");
@@ -72,6 +75,7 @@ public class BillServiceImpl implements IBillService {
     }
 
     @Override
+    @Transactional
     public List<BillResult> findBillByCreatedAts(String eventDate) {
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);

@@ -1,7 +1,9 @@
 package com.cg.bill;
 
-import com.cg.bill.DTO.BillResult;
+
+import com.cg.bill.dto.BillResult;
 import com.cg.model.Bill;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,7 +18,7 @@ public interface BillRepository extends JpaRepository<Bill, Long> {
 
 
 
-    @Query("SELECT NEW com.cg.bill.DTO.BillResult (" +
+    @Query("SELECT NEW com.cg.bill.dto.BillResult (" +
             "b.id, " +
             "b.order.tableOrder.title, " +
             "b.order.totalAmount, " +

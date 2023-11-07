@@ -1,11 +1,12 @@
 package com.cg.bill;
 
 
-import com.cg.bill.DTO.BillDetailResult;
-import com.cg.bill.DTO.BillResult;
 
-import java.util.Date;
+import com.cg.bill.DTO.BillDetailResult;
+import com.cg.bill.dto.BillResult;
+
 import java.util.List;
+
 
 public interface IBillService {
     List<BillResult> findAllBillDTO();

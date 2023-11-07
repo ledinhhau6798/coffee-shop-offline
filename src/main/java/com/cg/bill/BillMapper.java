@@ -1,9 +1,11 @@
 package com.cg.bill;
 
 
-import com.cg.bill.DTO.BillDetailResult;
-import com.cg.bill.DTO.BillResult;
 
+import com.cg.bill.DTO.BillDetailResult;
+
+
+import com.cg.bill.dto.BillResult;
 import com.cg.model.Bill;
 
 import org.springframework.stereotype.Component;
@@ -16,7 +18,14 @@ import java.util.stream.Collectors;
 public class BillMapper {
 
     public BillResult toDTO(Bill entity) {
-        return entity.toDTO();
+        return new BillResult()
+                .setId(entity.getOrder().getId())
+                .setTableTitle(entity.getOrder().getTableOrder().getTitle())
+                .setTotal(entity.getOrder().getTotalAmount())
+                .setCreatedAt(entity.getOrder().getCreatedAt())
+                .setStaffName(entity.getOrder().getStaff().getTitle())
+                .setOrderId(entity.getOrder().getId())
+                ;
     }
 
     public BillDetailResult toDTOBillDetai(Bill entity) {

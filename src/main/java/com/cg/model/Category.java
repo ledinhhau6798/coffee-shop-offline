@@ -1,7 +1,8 @@
 package com.cg.model;
 
 
-import com.cg.category.DTO.CategoryResult;
+
+import com.cg.category.dto.CategoryResult;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

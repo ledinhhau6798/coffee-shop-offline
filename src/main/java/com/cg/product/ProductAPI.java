@@ -1,12 +1,11 @@
 package com.cg.product;
 
+import com.cg.category.CategoryRepository;
 import com.cg.category.CategoryServiceImpl;
 import com.cg.exception.DataInputException;
 import com.cg.model.Category;
 import com.cg.model.Product;
-import com.cg.product.DTO.ProductCreReqDTO;
-import com.cg.product.DTO.ProductDTO;
-import com.cg.product.DTO.ProductUpReqDTO;
+import com.cg.product.dto.*;
 import com.cg.utils.AppUtils;
 import com.cg.utils.ValidateUtils;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +23,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/api/products")
 public class    ProductAPI {
-    private IProductService productService;
-    private CategoryServiceImpl categoryService;
-    private ValidateUtils validateUtils;
-    private AppUtils appUtils;
+    private final IProductService productService;
+    private final CategoryServiceImpl categoryService;
+    private final CategoryRepository categoryRepository;
+    private final ValidateUtils validateUtils;
+    private final AppUtils appUtils;
 
     @GetMapping
     public ResponseEntity<?> showProducts(){
@@ -58,7 +58,7 @@ public class    ProductAPI {
         }
 
         Long idCategory = Long.parseLong(productCreReqDTO.getCategoryId());
-        Category category = categoryService.findByIdAndDeletedFalse(idCategory).orElseThrow(() -> {
+        Category category = categoryRepository.findByIdAndDeletedFalse(idCategory).orElseThrow(() -> {
             throw new DataInputException("Mã danh mục không tồn tại");
         });
 
@@ -91,7 +91,7 @@ public class    ProductAPI {
         }
 
         Long idCategory = Long.parseLong(productUpReqDTO.getCategoryId());
-        Category category = categoryService.findByIdAndDeletedFalse(idCategory).orElseThrow(() -> {
+        Category category = categoryRepository.findByIdAndDeletedFalse(idCategory).orElseThrow(() -> {
             throw new DataInputException("Mã danh mục không tồn tại");
         });
 
@@ -156,7 +156,7 @@ public class    ProductAPI {
             throw new DataInputException("Mã danh mục không hợp lệ");
         }
         Long categoryId = Long.parseLong(categoryIdStr);
-        categoryService.findByIdAndDeletedFalse(categoryId).orElseThrow(() -> {
+        categoryRepository.findByIdAndDeletedFalse(categoryId).orElseThrow(() -> {
            throw new DataInputException("Mã danh mục không tồn tại");
         });
         keySearch = '%' + keySearch + '%';

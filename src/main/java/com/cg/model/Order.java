@@ -2,11 +2,12 @@ package com.cg.model;
 
 
 
-import com.cg.order.DTO.OrderCreResDTO;
-import com.cg.order.DTO.OrderResult;
-import com.cg.order.DTO.OrderResDTO;
-import com.cg.order.DTO.OrderUpResDTO;
-import com.cg.orderDetail.DTO.OrderDetailResult;
+
+import com.cg.order.dto.OrderCreResDTO;
+
+import com.cg.order.dto.OrderResult;
+import com.cg.order.dto.OrderUpResDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,20 +48,7 @@ public class Order extends BaseEntity {
 
     private Boolean paid;
 
-    public OrderResDTO toOrderResDTO() {
-        List<OrderDetailResult> orderDetailResults = new ArrayList<>();
-        for(int i=0;i<this.getOrderDetails().size();i++){
-            OrderDetailResult orderDetailResult = this.getOrderDetails().get(i).toOrderDetailDTO();
-            orderDetailResults.add(orderDetailResult);
-        }
-        return new OrderResDTO()
-                .setId(id)
-                .setStaff(staff.toStaffDTO())
-                .setTableOrder(tableOrder.toTableOrderDTO())
-                .setOrderDetails(orderDetailResults)
-                .setPaid(paid)
-                ;
-    }
+
 
     public OrderResult toOrderDTO() {
         return new OrderResult()

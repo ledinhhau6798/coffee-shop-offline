@@ -1,8 +1,9 @@
 package com.cg.category;
 
-import com.cg.category.DTO.CreationCategoryParam;
-import com.cg.category.DTO.CategoryResult;
-import com.cg.category.DTO.UpdateCategoryParam;
+
+
+import com.cg.category.dto.*;
+
 
 import java.util.List;
 
