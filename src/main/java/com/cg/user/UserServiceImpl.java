@@ -7,6 +7,7 @@ import com.cg.user.dto.CreationUserParam;
 import com.cg.user.dto.UpdateUserParam;
 import com.cg.user.dto.UserResult;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,5 +64,20 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Optional<User> findByName(String username) {
         return Optional.empty();
+    }
+
+    @Override
+    public User getByUsername(String username) {
+        return null;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        return null;
+    }
+
+    @Override
+    public Boolean existsByUsername(String username) {
+        return null;
     }
 }

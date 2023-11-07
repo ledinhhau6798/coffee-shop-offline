@@ -8,15 +8,16 @@ import lombok.experimental.Accessors;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Setter
 @Getter
+@Setter
 @Accessors(chain = true)
-public class DetaiDTO {
+public class DetaiResult {
     private BigDecimal amount;
     private String note;
     private BigDecimal price;
     private Long quantity;
     private String title;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Ho_Chi_Minh")
     private Date createdAt;
 }

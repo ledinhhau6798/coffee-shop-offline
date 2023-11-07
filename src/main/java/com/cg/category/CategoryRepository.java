@@ -1,6 +1,6 @@
 package com.cg.category;
 
-import com.cg.category.DTO.CategoryResult;
+
 import com.cg.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

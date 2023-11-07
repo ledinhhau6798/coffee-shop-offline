@@ -10,6 +10,7 @@ import com.cg.service.jwt.JwtService;
 import com.cg.role.IRoleService;
 import com.cg.user.IUserService;
 import com.cg.utils.AppUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
@@ -32,22 +33,22 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthAPI {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private IUserService userService;
+    private final JwtService jwtService;
 
-    @Autowired
-    private IRoleService roleService;
 
-    @Autowired
-    private AppUtils appUtils;
+    private final IUserService userService;
+
+
+    private final IRoleService roleService;
+
+
+    private final AppUtils appUtils;
 
 
 //    @PostMapping("/register")

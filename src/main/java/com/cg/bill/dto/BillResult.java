@@ -31,4 +31,7 @@ public class BillResult {
         this.staffName = staffName;
         this.orderId = orderId;
     }
+
+    public BillResult() {
+    }
 }

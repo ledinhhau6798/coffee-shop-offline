@@ -1,5 +1,6 @@
 package com.cg.bill.DTO;
 
+import com.cg.bill.dto.DetaiResult;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,15 +21,8 @@ public class BillDetailResult {
 
     private Long id;
     private BigDecimal totalAmount;
-    private List<DetaiDTO> detaiDTOS;
-//    private BigDecimal amount;
-//    private String note;
-//    private BigDecimal price;
-//    private Long quantity;
-//    private String title;
+    private List<DetaiResult> detaiDTOS;
 
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Ho_Chi_Minh")
-//    private Date createdAt;
 
 
 }
