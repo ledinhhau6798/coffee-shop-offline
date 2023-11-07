@@ -3,9 +3,13 @@ package com.cg.bill;
 
 import com.cg.bill.dto.BillDetailResult;
 import com.cg.bill.dto.BillResult;
+<<<<<<< HEAD
 import com.cg.bill.dto.CreationBillParam;
 import com.cg.model.Bill;
 import com.cg.tableOrder.TableOrderMapper;
+=======
+import com.cg.model.Bill;
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+<<<<<<< HEAD
 @RequiredArgsConstructor
 
 public class BillMapper {
@@ -61,4 +66,31 @@ public class BillMapper {
     }
 
 
+=======
+@AllArgsConstructor
+
+
+public class BillMapper {
+    public BillResult toDTO(Bill entity){
+        return new BillResult()
+                .setId(entity.getId())
+                .setTableTitle(entity.getOrder().getTableOrder().getTitle())
+                .setTotal(entity.getOrder().getTotalAmount())
+                .setCreatedAt(entity.getOrder().getCreatedAt())
+                .setStaffName(entity.getOrder().getStaff().getTitle())
+                .setOrderId(entity.getOrder().getId())
+                ;
+    }
+
+
+    public List<BillResult> toDTOList(List<Bill> entities) {
+        return entities.stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public BillDetailResult toDTOBillDetai(Bill entity) {
+        return null;
+    }
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 }

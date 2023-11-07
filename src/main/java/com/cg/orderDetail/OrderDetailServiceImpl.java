@@ -1,14 +1,15 @@
 package com.cg.orderDetail;
 
+import com.cg.exception.DataInputException;
 import com.cg.model.Order;
 import com.cg.model.OrderDetail;
-import com.cg.orderDetail.dto.OrderDetailByTableResDTO;
 import com.cg.order.OrderRepository;
 import com.cg.order.IOrderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.cg.orderDetail.dto.OrderDetailResult;
+import com.cg.utils.ValidateUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
@@ -16,22 +17,25 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class OrderDetailServiceImpl implements IOrderDetailService{
-    @Autowired
-    private OrderDetailRepository orderDetailRepository;
 
-    @Autowired
-    private OrderRepository orderRepository;
+    private final OrderDetailRepository orderDetailRepository;
 
-    @Autowired
-    private IOrderService orderService;
-    @Override
+
+    private final OrderRepository orderRepository;
+
+
+    private final IOrderService orderService;
+
+    private final ValidateUtils validateUtils;
+    private final OrderDetailMapper orderDetailMapper;
+
     public List<OrderDetail> findAll() {
         return orderDetailRepository.findAll();
     }
 
-    @Override
+
     public Optional<OrderDetail> findById(Long id) {
         return orderDetailRepository.findById(id);
     }
@@ -39,8 +43,20 @@ public class OrderDetailServiceImpl implements IOrderDetailService{
 
 
     @Override
-    public List<OrderDetailByTableResDTO> getOrderDetailByTableResDTO(Long orderId) {
-        return orderDetailRepository.getOrderDetailByTableResDTO(orderId);
+    public List<OrderDetailResult> getOrderDetailByTableResDTO(String tableIdStr) {
+        if(!validateUtils.isNumberValid(tableIdStr)){
+            throw new DataInputException("Mã số bàn không hợp lệ vui lòng xem lại");
+        }
+
+        Long tableId = Long.valueOf(tableIdStr);
+
+        Optional<Order> orderOptional = orderService.findByTableId(tableId);
+
+        if(!orderOptional.isPresent()){
+            throw new DataInputException("Mã bàn không tồn tại");
+        }
+
+        return orderDetailMapper.toDTOList(orderDetailRepository.getOrderDetailByTableResDTO(orderOptional.get().getId()));
     }
 
     @Override

@@ -1,13 +1,20 @@
 package com.cg.bill;
 
 
+import com.cg.bill.dto.BillDetailResult;
+import com.cg.bill.dto.BillResult;
+import com.cg.bill.dto.CreationBillParam;
 import com.cg.exception.DataInputException;
+<<<<<<< HEAD
 
 import com.cg.bill.dto.CreationBillParam;
 import com.cg.bill.dto.BillResult;
 import com.cg.bill.dto.BillDetailResult;
+=======
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 import com.cg.tableOrder.ITableOrderService;
 import com.cg.utils.ValidateUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,22 +27,27 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bills")
+@RequiredArgsConstructor
 public class BillAPI {
 
-    @Autowired
-    private IBillService billService;
 
-    @Autowired
-    private ValidateUtils validateUtils;
+    private final IBillService billService;
 
-    @Autowired
-    private ITableOrderService tableOrderService;
+
+    private final ValidateUtils validateUtils;
+
+
+    private final ITableOrderService tableOrderService;
 
 
     @GetMapping
     public ResponseEntity<?> showBill() {
 
+<<<<<<< HEAD
         List<BillResult> billResults = billService.findAllBillDTO();
+=======
+        List<BillResult> billDTOS = billService.findAll();
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 
         return new ResponseEntity<>(billResults, HttpStatus.OK);
     }
@@ -43,31 +55,26 @@ public class BillAPI {
     @GetMapping("/{billId}")
     public ResponseEntity<?> showBillDetail(@PathVariable("billId") String billIdStr) {
 
-        if (!validateUtils.isNumberValid(billIdStr)) {
-            throw new DataInputException("Mã lịch sử không hợp lệ");
-        }
-        Long billId = Long.parseLong(billIdStr);
 
-        billService.findById(billId).orElseThrow(() -> {
-            throw new DataInputException("Mã lịch sử không tồn tại");
-        });
 
+<<<<<<< HEAD
         List<BillDetailResult> billDetailResults = billService.findBillById(billId);
         return new ResponseEntity<>(billDetailResults, HttpStatus.OK);
+=======
+
+        return new ResponseEntity<>(billService.findBillById(billIdStr), HttpStatus.OK);
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
     }
 
     @GetMapping("/search/day")
     public ResponseEntity<?> seachBill(@RequestParam("eventDate") String eventDate) {
-        String pattern = "yyyy-MM-dd";
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        Date dateBill;
-        try {
-            dateBill = sdf.parse(eventDate);
-        } catch (ParseException e) {
-            throw new DataInputException("vui lòng nhập đúng kiểu năm/tháng/ngày");
-        }
 
+<<<<<<< HEAD
         List<BillResult> billResults = billService.findBillByCreatedAts(dateBill);
+=======
+
+        List<BillResult> billDTOS = billService.findBillByCreatedAts(eventDate);
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 
         return new ResponseEntity<>(billResults, HttpStatus.OK);
     }
@@ -75,6 +82,7 @@ public class BillAPI {
     @PostMapping("/{tableId}")
     public ResponseEntity<?> createBill(@PathVariable("tableId") String tableIdStr) {
 
+<<<<<<< HEAD
         if (!validateUtils.isNumberValid(tableIdStr)) {
             throw new DataInputException("Mã bàn không hợp lệ");
         }
@@ -84,6 +92,11 @@ public class BillAPI {
 //        tableOrderService.findById(tableId).orElseThrow(() -> {
 //            throw new DataInputException("Mã bàn không tồn tại");
 //        });
+=======
+
+
+        BillResult billResDTO = billService.createBill(tableIdStr);
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 
         Boolean isExisted = tableOrderService.existById(tableId);
         if(!isExisted) {

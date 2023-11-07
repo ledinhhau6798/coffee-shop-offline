@@ -12,6 +12,10 @@ import com.cg.user.UserMapper;
 import com.cg.user.dto.UserParam;
 import com.cg.utils.AppUtils;
 import lombok.RequiredArgsConstructor;
+<<<<<<< HEAD
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,8 +36,10 @@ import javax.validation.Valid;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthAPI {
 
+<<<<<<< HEAD
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
     private final IUserService userService;
@@ -44,16 +50,25 @@ public class AuthAPI {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody UserParam userParam, BindingResult bindingResult) {
+=======
 
-        if (bindingResult.hasErrors())
-            return appUtils.mapErrorToResponse(bindingResult);
+    private final AuthenticationManager authenticationManager;
 
+    private final JwtService jwtService;
+
+
+    private final IUserService userService;
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
+
+
+<<<<<<< HEAD
         Boolean existsByUsername = userService.existsByUsername(userParam.getUsername());
+=======
+    private final IRoleService roleService;
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 
-        if (existsByUsername) {
-            throw new EmailExistsException("Account already exists");
-        }
 
+<<<<<<< HEAD
         Role role = roleService.findById(userParam.getRoleId());
         User entity = userMapper.toEntity(userParam);
         entity.setRole(role);
@@ -65,6 +80,37 @@ public class AuthAPI {
             throw new DataInputException("Account information is not valid, please check the information again");
         }
     }
+=======
+    private final AppUtils appUtils;
+
+
+//    @PostMapping("/register")
+//    public ResponseEntity<?> register(@Valid @RequestBody UserRegisterReqDTO userRegisterReqDTO, BindingResult bindingResult) {
+//
+//        if (bindingResult.hasErrors())
+//            return appUtils.mapErrorToResponse(bindingResult);
+//
+//        Boolean existsByUsername = userService.existsByUsername(userRegisterReqDTO.getUsername());
+//
+//        if (existsByUsername) {
+//            throw new EmailExistsException("Account already exists");
+//        }
+//
+//        Optional<Role> optRole = roleService.findById(userRegisterReqDTO.getRoleId());
+//
+//        if (!optRole.isPresent()) {
+//            throw new DataInputException("Invalid account role");
+//        }
+//        try {
+//            userService.save(userRegisterReqDTO.toUser(optRole.get()));
+//
+//            return new ResponseEntity<>(HttpStatus.CREATED);
+//
+//        } catch (DataIntegrityViolationException e) {
+//            throw new DataInputException("Account information is not valid, please check the information again");
+//        }
+//    }
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {

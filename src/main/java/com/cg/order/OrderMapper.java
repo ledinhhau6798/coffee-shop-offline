@@ -1,5 +1,6 @@
 package com.cg.order;
 
+<<<<<<< HEAD
 import com.cg.model.Order;
 import com.cg.order.dto.OrderCreResDTO;
 import com.cg.order.dto.OrderDTO;
@@ -53,4 +54,11 @@ public class OrderMapper {
                 .setTableId(entity.getTableOrder().getId())
                 ;
     }
+=======
+import org.springframework.stereotype.Component;
+
+@Component
+public class OrderMapper {
+
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 }

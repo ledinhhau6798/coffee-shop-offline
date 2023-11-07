@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class OrderCreReqDTO {
+public class CreationOrderParam {
     private Long tableId;
     private Long quantity;
     private Long productId;

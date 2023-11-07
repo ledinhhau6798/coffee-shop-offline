@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class UserMapper {
 
     public UserResult toDTO(User entity) {
+<<<<<<< HEAD
         return new UserResult()
                 .setId(entity.getId())
                 .setUsername(entity.getUsername())
@@ -25,6 +26,9 @@ public class UserMapper {
                         .setName(entity.getRole().getName())
                         .setCode(entity.getRole().getCode())
                 );
+=======
+        return entity.toDTO();
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
     }
 
     public User toEntity(UserParam creationParam) {

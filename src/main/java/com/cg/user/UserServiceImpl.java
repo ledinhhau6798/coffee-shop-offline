@@ -6,10 +6,16 @@ import com.cg.model.User;
 import com.cg.user.dto.UserParam;
 import com.cg.user.dto.UserResult;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.Optional;
+import java.util.stream.Collectors;
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 
 @Service
 @RequiredArgsConstructor
@@ -55,6 +61,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+<<<<<<< HEAD
     public Boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }
@@ -62,10 +69,15 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User save(User user) {
         return userRepository.save(user);
+=======
+    public Optional<User> findByName(String username) {
+        return Optional.empty();
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
     }
 
     @Override
     public User getByUsername(String username) {
+<<<<<<< HEAD
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found"));
     }
@@ -74,5 +86,18 @@ public class UserServiceImpl implements IUserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(()-> new ResourceNotFoundException("Not found!"));
+=======
+        return null;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        return null;
+    }
+
+    @Override
+    public Boolean existsByUsername(String username) {
+        return null;
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
     }
 }

@@ -1,7 +1,14 @@
 package com.cg.order.dto;
+<<<<<<< HEAD
 import com.cg.orderDetail.dto.OrderDetailDTO;
 import com.cg.staff.dto.StaffResult;
 import com.cg.tableOrder.dto.TableOrderResult;
+=======
+
+import com.cg.orderDetail.dto.OrderDetailResult;
+import com.cg.staff.dto.StaffDTO;
+import com.cg.tableOrder.dto.TableOrderDTO;
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +29,7 @@ public class OrderReqDTO implements Validator {
     private StaffResult staff;
     private TableOrderResult tableOrder;
     private BigDecimal totalAmount;
-    private OrderDetailDTO orderDetail;
+    private OrderDetailResult orderDetail;
     private Boolean paid;
 
     @Override
@@ -36,7 +43,7 @@ public class OrderReqDTO implements Validator {
         String idTableStr = orderReqDTO.tableOrder.getId();
         String quantityStr = orderReqDTO.orderDetail.getQuantity();
         String note = orderReqDTO.orderDetail.getNote();
-        String idProductStr = orderReqDTO.orderDetail.getProduct().getId();
+        String idProductStr = orderReqDTO.orderDetail.getProduct();
 
         if(idProductStr.isEmpty()){
             errors.rejectValue("orderDetail.product.id","orderDetail.productId.null","Mã sản phẩm không được bỏ trống");

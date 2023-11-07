@@ -1,7 +1,7 @@
 package com.cg.locationRegion;
 
 import com.cg.model.LocationRegion;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -9,10 +9,11 @@ import java.util.List;
 import java.util.Optional;
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class LocationRegionServiceImpl implements ILocationRegionService{
 
-    @Autowired
-    private LocationRegionRepository locationRegionRepository;
+
+    private final LocationRegionRepository locationRegionRepository;
 
 
     @Override
@@ -35,8 +36,5 @@ public class LocationRegionServiceImpl implements ILocationRegionService{
 
     }
 
-    @Override
-    public void deleteById(Long id) {
 
-    }
 }

@@ -2,22 +2,22 @@ package com.cg.category;
 
 
 import com.cg.category.dto.*;
-import com.cg.model.Category;
-import com.cg.service.IGeneralService;
+
+
 
 import java.util.List;
-import java.util.Optional;
 
-public interface ICategoryService extends IGeneralService<Category,Long> {
+public interface ICategoryService{
+        List<CategoryResult> findAll();
 
-        CategoryCreResDTO createCategory(CategoryCreReqDTO categoryCreReqDTO);
+        CategoryResult createCategory(CreationCategoryParam creationCategoryParam);
 
-        List<CategoryDTO> findAllCategoryDTO();
 
-        CategoryDTO updateCategory(Long categoryId, CategoryUpReqDTO categoryUpReqDTO);
 
-        void deleteByIdTrue(Category category);
+        CategoryResult updateCategory(String categoryId, UpdateCategoryParam updateCategoryParam);
 
-        Optional<Category> findByIdAndDeletedFalse(Long id);
+        void deleteByIdTrue(String idStr);
 
+
+        CategoryResult getByIdAndDeletedFalse(String categoryIdStr);
 }

@@ -5,7 +5,10 @@ import com.cg.user.dto.UserResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
 import java.util.List;
 
 @RestController

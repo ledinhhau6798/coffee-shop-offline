@@ -1,7 +1,8 @@
 package com.cg.model;
 
 
-import com.cg.category.dto.CategoryDTO;
+
+import com.cg.category.dto.CategoryResult;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,14 +31,22 @@ public class Category extends BaseEntity {
     @OneToMany(mappedBy = "category")
     private List<Product> products;
 
-    public CategoryDTO toDTO(Long id, String title){
-        return new CategoryDTO()
+    public CategoryResult toDTO(Long id,String title){
+        return new CategoryResult()
                 .setId(id)
                 .setTitle(title);
     }
 
+<<<<<<< HEAD
     public CategoryDTO toCategoryDTO() {
         return new CategoryDTO()
+=======
+
+
+
+    public CategoryResult toCategoryDTO() {
+        return new CategoryResult()
+>>>>>>> 588abee6e8777b2a08792fc9f858fc14d93f3272
                 .setId(id)
                 .setTitle(title)
                 ;

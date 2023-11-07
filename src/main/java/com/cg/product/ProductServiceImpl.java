@@ -29,15 +29,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements IProductService {
 
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    private ProductAvatarRepository productAvatarRepository;
+    private final ProductAvatarRepository productAvatarRepository;
 
-    private IUploadService uploadService;
+    private final IUploadService uploadService;
 
-    private UploadUtils uploadUtils;
+    private final UploadUtils uploadUtils;
 
-    private ValidateUtils validateUtils;
+    private final ValidateUtils validateUtils;
 
     public List<Product> findAll() {
         return productRepository.findAll();
